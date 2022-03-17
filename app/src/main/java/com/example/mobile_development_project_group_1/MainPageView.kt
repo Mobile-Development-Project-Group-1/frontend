@@ -9,7 +9,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
@@ -22,24 +21,11 @@ import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.launch
 
 const val HOME_ROUTE = "home"
-const val NOTE_ROUTE = "note"
-const val SIGNUP_ROUTE = "signUp"
+const val LOGINSIGNUP_ROUTE = "logInSignUp"
 const val PROFILE_ROUTE = "profile"
 const val ADMIN_ROUTE = "ADMIN"
 const val MANAGER_ROUTE = "MANAGER"
 const val USER_ROUTE = "USER"
-
-//@Composable
-//fun MainView() {
-//    val userVM = viewModel<UserViewModel>()
-//    val fAuth = Firebase.auth
-//
-//    if (fAuth.currentUser?.uid?.isEmpty() == false) {
-//        MainScaffoldView()
-//    } else {
-//        LoginView(userVM = viewModel())
-//    }
-//}
 
 @Composable
 fun MainScaffoldView() {
@@ -70,7 +56,7 @@ fun TopBarView(navController: NavHostController, scState: ScaffoldState) {
     ) {
         Icon(
             painter = painterResource( R.drawable.ic_icon_template ),
-            contentDescription = "note",
+            contentDescription = "",
             modifier = Modifier.clickable {
                 scope.launch {
                     scState.drawerState.open()
@@ -79,8 +65,8 @@ fun TopBarView(navController: NavHostController, scState: ScaffoldState) {
         )
         Icon(
             painter = painterResource( R.drawable.ic_icon_template ),
-            contentDescription = "note",
-            modifier = Modifier.clickable { navController.navigate(SIGNUP_ROUTE) }
+            contentDescription = "",
+            modifier = Modifier.clickable { navController.navigate(LOGINSIGNUP_ROUTE) }
         )
     }
 }
@@ -89,8 +75,7 @@ fun TopBarView(navController: NavHostController, scState: ScaffoldState) {
 fun MainContentView(navController: NavHostController) {
     NavHost(navController = navController, startDestination = HOME_ROUTE ) {
         composable(route = HOME_ROUTE) { HomeView() }
-        composable(route = NOTE_ROUTE) { NoteView() }
-        composable(route = SIGNUP_ROUTE) { LoginView(UserViewModel(), navController) }
+        composable(route = LOGINSIGNUP_ROUTE) { LoginView(UserViewModel(), navController) }
         composable(route = PROFILE_ROUTE) { ProfilePageView() }
     }
 }
@@ -120,11 +105,6 @@ fun HomeView() {
 }
 
 @Composable
-fun NoteView() {
-    Text(text = "AAA")
-}
-
-@Composable
 fun BottomBarView(navController: NavHostController) {
     Row(
         modifier = Modifier
@@ -138,11 +118,6 @@ fun BottomBarView(navController: NavHostController) {
             painter = painterResource( R.drawable.ic_icon_template ),
             contentDescription = "home",
             modifier = Modifier.clickable { navController.navigate(HOME_ROUTE) }
-        )
-        Icon(
-            painter = painterResource( R.drawable.ic_icon_template ),
-            contentDescription = "note",
-            modifier = Modifier.clickable { navController.navigate(NOTE_ROUTE) }
         )
     }
 }
@@ -181,90 +156,4 @@ fun DrawerLayoutView(navController: NavHostController, scState: ScaffoldState) {
         }
     }
 
-}
-
-@Composable
-fun ProfilePageView() {
-    val fireStore = Firebase.firestore
-    val fAuth = Firebase.auth
-
-    var currentUserFirstName by remember { mutableStateOf("") }
-    var currentUserLastName by remember { mutableStateOf("") }
-    var currentUserAddress by remember { mutableStateOf("") }
-    var currentUserPhoneNumber by remember { mutableStateOf("") }
-
-    var firstName by remember { mutableStateOf("") }
-    var lastName by remember { mutableStateOf("") }
-    var address by remember { mutableStateOf("") }
-    var phoneNumber by remember { mutableStateOf("") }
-
-    fireStore
-        .collection("users")
-        .document(fAuth.currentUser?.uid.toString())
-        .get()
-        .addOnSuccessListener {
-            currentUserFirstName = it.get("first_name").toString()
-            currentUserLastName = it.get("last_name").toString()
-            currentUserAddress = it.get("address").toString()
-            currentUserPhoneNumber = it.get("phone_num").toString()
-        }
-
-    Column {
-        OutlinedTextField(
-            value = firstName,
-            onValueChange = { firstName = it },
-            placeholder = { Text(text = currentUserFirstName) }
-        )
-        OutlinedTextField(
-            value = lastName,
-            onValueChange = { lastName = it },
-            placeholder = { Text(text = currentUserLastName) }
-        )
-        OutlinedTextField(
-            value = address,
-            onValueChange = { address = it },
-            placeholder = { Text(text = currentUserAddress) }
-        )
-        OutlinedTextField(
-            value = phoneNumber,
-            onValueChange = { phoneNumber = it },
-            placeholder = { Text(text = currentUserPhoneNumber) }
-        )
-    }
-}
-
-
-@Composable
-fun LoginView(userVM: UserViewModel, navController: NavHostController) {
-    var email by remember { mutableStateOf("") }
-    var pw by remember { mutableStateOf("") }
-
-    Column(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(200.dp),
-        horizontalAlignment = Alignment.CenterHorizontally
-    ) {
-        OutlinedTextField(
-            value = email,
-            onValueChange = { email = it },
-            label = { Text(text = "Email") }
-        )
-        OutlinedTextField(
-            value = pw,
-            onValueChange = { pw = it },
-            label = { Text(text = "Password") },
-            visualTransformation = PasswordVisualTransformation()
-        )
-        OutlinedButton(
-            onClick = {
-                userVM.loginUser(email, pw)
-                navController.navigate(HOME_ROUTE)
-            },
-            modifier = Modifier
-                .padding(10.dp)
-        ) {
-            Text(text = "Login")
-        }
-    }
 }
