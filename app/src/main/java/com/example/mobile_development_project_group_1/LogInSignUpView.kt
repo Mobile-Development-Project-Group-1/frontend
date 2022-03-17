@@ -129,7 +129,7 @@ fun LoginView(userVM: UserViewModel, navController: NavHostController) {
                             horizontalArrangement = Arrangement.Center
                         ) {
                             Icon(
-                                painter = painterResource(R.drawable.ic_arrow),
+                                painter = painterResource(R.drawable.ic_arrow_right),
                                 contentDescription = "",
                                 tint = Color.White
                             )
