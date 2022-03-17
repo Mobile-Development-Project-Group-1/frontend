@@ -3,15 +3,16 @@ package com.example.mobile_development_project_group_1
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.shape.ZeroCornerSize
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -25,8 +26,16 @@ fun LoginView(userVM: UserViewModel, navController: NavHostController) {
     var lastName by remember { mutableStateOf("") }
     var phoneNumber by remember { mutableStateOf("") }
     var address by remember { mutableStateOf("") }
+    var route by remember { mutableStateOf("") }
 
-    var isLoginOpen by remember { mutableStateOf(true) }
+    var isLoginOpen by remember { mutableStateOf(false) }
+    var isUser by remember { mutableStateOf(true) }
+    var isManager by remember { mutableStateOf(false) }
+
+    route = when(isUser) {
+        true -> "USER"
+        false -> "MANAGER"
+    }
 
     Column(
         modifier = Modifier
@@ -36,8 +45,7 @@ fun LoginView(userVM: UserViewModel, navController: NavHostController) {
         Row( // 1
             modifier = Modifier
                 .fillMaxWidth()
-                .fillMaxHeight(0.2f)
-                .background(Color.Cyan),
+                .fillMaxHeight(0.2f),
             horizontalArrangement = Arrangement.Center
         ) {
             Box(
@@ -51,7 +59,6 @@ fun LoginView(userVM: UserViewModel, navController: NavHostController) {
             Row( // 2
                 modifier = Modifier
                     .fillMaxWidth()
-                    .background(Color(0xFFFDF09B))
                     .padding(0.dp, 0.dp, 0.dp, 20.dp),
                 horizontalArrangement = Arrangement.Center
             ) {
@@ -134,7 +141,6 @@ fun LoginView(userVM: UserViewModel, navController: NavHostController) {
             Row( // 2
                 modifier = Modifier
                     .fillMaxWidth()
-                    .background(Color(0xFFFDF09B))
                     .padding(0.dp, 0.dp, 0.dp, 20.dp),
                 horizontalArrangement = Arrangement.Center
             ) {
@@ -148,28 +154,25 @@ fun LoginView(userVM: UserViewModel, navController: NavHostController) {
 
             Column( // 3
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .background(Color.Magenta),
+                    .fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Row(
                     modifier = Modifier
                         .fillMaxWidth()
-                        .background(Color.Green)
+                        .padding(10.dp, 0.dp)
                 ) { // INPUTS
                     Card(
-                        shape = RoundedCornerShape(30.dp, 0.dp, 0.dp, 30.dp),
+                        shape = RoundedCornerShape(30.dp, 30.dp, 30.dp, 30.dp),
                         border = BorderStroke(0.5.dp, Color(0xffEBEBEB)),
                         elevation = 10.dp,
-                        modifier = Modifier.fillMaxWidth()
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(168.dp)
                     ) {
-                        Row(
-                            modifier = Modifier.background(Color.Red)
-                        ) {
+                        Row {
                             Column(
-                                modifier = Modifier
-                                    .fillMaxWidth(0.5f)
-                                    .background(Color.Gray)
+                                modifier = Modifier.fillMaxWidth(0.5f)
                             ) {
                                 TextField(
                                     value = firstName,
@@ -182,7 +185,9 @@ fun LoginView(userVM: UserViewModel, navController: NavHostController) {
                                             placeholderColor = Color(0xffed4956)
                                         ),
                                     singleLine = true,
-                                    modifier = Modifier.fillMaxWidth()
+                                    shape = MaterialTheme
+                                        .shapes.small.copy(ZeroCornerSize),
+                                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text)
                                 )
                                 TextField(
                                     value = email,
@@ -196,7 +201,9 @@ fun LoginView(userVM: UserViewModel, navController: NavHostController) {
                                             placeholderColor = Color(0xffed4956)
                                         ),
                                     singleLine = true,
-                                    modifier = Modifier.fillMaxWidth()
+                                    shape = MaterialTheme
+                                        .shapes.small.copy(ZeroCornerSize),
+                                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email)
                                 )
                                 TextField(
                                     value = phoneNumber,
@@ -210,8 +217,18 @@ fun LoginView(userVM: UserViewModel, navController: NavHostController) {
                                             placeholderColor = Color(0xffed4956)
                                         ),
                                     singleLine = true,
-                                    modifier = Modifier.fillMaxWidth()
+                                    shape = MaterialTheme
+                                        .shapes.small.copy(ZeroCornerSize),
+                                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone)
                                 )
+                            }
+                            Column(
+                                modifier = Modifier
+                                    .width(1.dp)
+                                    .height(168.dp)
+                                    .background(Color(0xFF8B8B8B))
+                            ) {
+
                             }
                             Column(
                                 modifier = Modifier.fillMaxWidth(1f)
@@ -228,7 +245,9 @@ fun LoginView(userVM: UserViewModel, navController: NavHostController) {
                                             placeholderColor = Color(0xffed4956)
                                         ),
                                     singleLine = true,
-                                    modifier = Modifier.fillMaxWidth()
+                                    shape = MaterialTheme
+                                        .shapes.small.copy(ZeroCornerSize),
+                                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text)
                                 )
                                 TextField(
                                     value = pw,
@@ -242,7 +261,9 @@ fun LoginView(userVM: UserViewModel, navController: NavHostController) {
                                             placeholderColor = Color(0xffed4956)
                                         ),
                                     singleLine = true,
-                                    modifier = Modifier.fillMaxWidth()
+                                    shape = MaterialTheme
+                                        .shapes.small.copy(ZeroCornerSize),
+                                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password)
                                 )
                                 TextField(
                                     value = address,
@@ -256,16 +277,47 @@ fun LoginView(userVM: UserViewModel, navController: NavHostController) {
                                             placeholderColor = Color(0xffed4956)
                                         ),
                                     singleLine = true,
-                                    modifier = Modifier.fillMaxWidth()
+                                    shape = MaterialTheme
+                                        .shapes.small.copy(ZeroCornerSize),
+                                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text)
                                 )
                             }
                         }
                     }
                 }
                 Row( // BUTTON
-                    modifier = Modifier.fillMaxWidth(),
-                    horizontalArrangement = Arrangement.Center
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(0.dp, 20.dp, 0.dp, 0.dp),
+                    horizontalArrangement = Arrangement.SpaceEvenly,
+                    verticalAlignment = Alignment.CenterVertically
                 ) {
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Checkbox(
+                            checked = isUser,
+                            onCheckedChange = {
+                                isUser = !isUser
+                                isManager = !isManager
+                                /* TODO */
+                            }
+                        )
+                        Text(text = "User")
+                    }
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Checkbox(
+                            checked = isManager,
+                            onCheckedChange = {
+                                isManager = !isManager
+                                isUser = !isUser
+                                /* TODO */
+                            }
+                        )
+                        Text(text = "Manager")
+                    }
                     Card(
                         modifier = Modifier
                             .size(52.dp)
@@ -281,7 +333,7 @@ fun LoginView(userVM: UserViewModel, navController: NavHostController) {
                             horizontalArrangement = Arrangement.Center
                         ) {
                             Icon(
-                                painter = painterResource(R.drawable.ic_arrow),
+                                painter = painterResource(R.drawable.ic_check),
                                 contentDescription = "",
                                 tint = Color.White
                             )
@@ -308,14 +360,17 @@ fun LoginView(userVM: UserViewModel, navController: NavHostController) {
             ) {
                 Row(
                     modifier = Modifier
-                        .background(if (isLoginOpen) Color(0xffed4956) else Color.White)
+                        .width(110.dp)
+                        .background(if (isLoginOpen) Color(0xffed4956) else Color.White),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Center
                 ) {
                     Text(
                         text = "Login",
-                        modifier = Modifier.padding(20.dp, 10.dp),
                         color = if (isLoginOpen) Color.White else Color(0xffed4956),
                         fontWeight = FontWeight.Bold,
-                        fontSize = 16.sp
+                        fontSize = 16.sp,
+                        modifier = Modifier.padding(0.dp, 10.dp)
                     )
                 }
             }
@@ -330,14 +385,17 @@ fun LoginView(userVM: UserViewModel, navController: NavHostController) {
             ) {
                 Row(
                     modifier = Modifier
-                        .background(if (isLoginOpen) Color.White else Color(0xffed4956))
+                        .width(110.dp)
+                        .background(if (isLoginOpen) Color.White else Color(0xffed4956)),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Center
                 ) {
                     Text(
                         text = "Register",
-                        modifier = Modifier.padding(20.dp, 10.dp),
                         color = if (isLoginOpen) Color(0xffed4956) else Color.White,
                         fontWeight = FontWeight.Bold,
-                        fontSize = 16.sp
+                        fontSize = 16.sp,
+                        modifier = Modifier.padding(0.dp, 10.dp)
                     )
                 }
             }
