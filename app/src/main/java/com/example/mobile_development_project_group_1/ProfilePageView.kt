@@ -28,10 +28,10 @@ fun ProfilePageView() {
         .document(fAuth.currentUser?.uid.toString())
         .get()
         .addOnSuccessListener {
-            currentUserFirstName = it.get("first_name").toString()
-            currentUserLastName = it.get("last_name").toString()
+            currentUserFirstName = it.get("firstName").toString()
+            currentUserLastName = it.get("lastName").toString()
             currentUserAddress = it.get("address").toString()
-            currentUserPhoneNumber = it.get("phone_num").toString()
+            currentUserPhoneNumber = it.get("phoneNumber").toString()
         }
 
     Column {

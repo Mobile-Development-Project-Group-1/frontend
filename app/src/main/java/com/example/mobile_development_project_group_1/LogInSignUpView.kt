@@ -193,7 +193,6 @@ fun LoginView(userVM: UserViewModel, navController: NavHostController) {
                                     value = email,
                                     onValueChange = { email = it },
                                     placeholder = { Text(text = "Email") },
-                                    visualTransformation = PasswordVisualTransformation(),
                                     colors = TextFieldDefaults
                                         .textFieldColors(
                                             backgroundColor = Color.White,
@@ -209,7 +208,6 @@ fun LoginView(userVM: UserViewModel, navController: NavHostController) {
                                     value = phoneNumber,
                                     onValueChange = { phoneNumber = it },
                                     placeholder = { Text(text = "Phone number") },
-                                    visualTransformation = PasswordVisualTransformation(),
                                     colors = TextFieldDefaults
                                         .textFieldColors(
                                             backgroundColor = Color.White,
@@ -237,7 +235,6 @@ fun LoginView(userVM: UserViewModel, navController: NavHostController) {
                                     value = lastName,
                                     onValueChange = { lastName = it },
                                     placeholder = { Text(text = "Last name") },
-                                    visualTransformation = PasswordVisualTransformation(),
                                     colors = TextFieldDefaults
                                         .textFieldColors(
                                             backgroundColor = Color.White,
@@ -269,7 +266,6 @@ fun LoginView(userVM: UserViewModel, navController: NavHostController) {
                                     value = address,
                                     onValueChange = { address = it },
                                     placeholder = { Text(text = "Address") },
-                                    visualTransformation = PasswordVisualTransformation(),
                                     colors = TextFieldDefaults
                                         .textFieldColors(
                                             backgroundColor = Color.White,
@@ -321,7 +317,7 @@ fun LoginView(userVM: UserViewModel, navController: NavHostController) {
                             .size(52.dp)
                             .clickable {
                                 userVM.signUpUser(email, pw, firstName, lastName, address, phoneNumber, route)
-                                //navController.navigate(HOME_ROUTE)
+                                navController.navigate(HOME_ROUTE)
                             },
                         shape = RoundedCornerShape(30.dp)
                     ) {

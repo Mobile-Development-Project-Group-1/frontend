@@ -43,7 +43,7 @@ class UserViewModel: ViewModel() {
                     successMessage.value = "Registration completed successfully"
 
                     fireStore
-                        .collection("flags")
+                        .collection("users")
                         .document(it.user!!.uid)
                         .set( User(firstName, lastName, address, phoneNumber, route) )
                         .addOnSuccessListener {
