@@ -118,7 +118,7 @@ fun LoginView(userVM: UserViewModel, navController: NavHostController) {
                         modifier = Modifier
                             .size(52.dp)
                             .clickable {
-                                userVM.loginUser(email, pw)
+                                userVM.logInUser(email, pw)
                                 navController.navigate(HOME_ROUTE)
                             },
                         shape = RoundedCornerShape(30.dp)
