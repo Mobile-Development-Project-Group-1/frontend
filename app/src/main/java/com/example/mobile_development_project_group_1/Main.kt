@@ -16,16 +16,19 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.launch
 
 const val HOME_ROUTE = "home"
 const val LOGINSIGNUP_ROUTE = "logInSignUp"
 const val PROFILE_ROUTE = "profile"
+
 const val ADMIN_ROUTE = "ADMIN"
 const val MANAGER_ROUTE = "MANAGER"
 const val USER_ROUTE = "USER"
+
+val fAuth = Firebase.auth
+val user = fAuth.currentUser
 
 @Composable
 fun MainScaffoldView() {
@@ -42,7 +45,21 @@ fun MainScaffoldView() {
 }
 
 @Composable
+fun MainContentView(navController: NavHostController) {
+    NavHost(navController = navController, startDestination = LOGINSIGNUP_ROUTE ) {
+        composable(route = HOME_ROUTE) { HomeView() }
+        composable(route = LOGINSIGNUP_ROUTE) { LoginView(UserViewModel(), navController) }
+        composable(route = PROFILE_ROUTE) { ProfilePageView() }
+    }
+}
+
+@Composable
 fun TopBarView(navController: NavHostController, scState: ScaffoldState) {
+
+    var isLoggedIn by remember { mutableStateOf(false) }
+    if (user != null) {
+        isLoggedIn = !isLoggedIn
+    }
 
     val scope = rememberCoroutineScope()
 
@@ -63,43 +80,14 @@ fun TopBarView(navController: NavHostController, scState: ScaffoldState) {
                 }
             }
         )
-        Icon(
-            painter = painterResource( R.drawable.ic_icon_template ),
-            contentDescription = "",
-            modifier = Modifier.clickable { navController.navigate(LOGINSIGNUP_ROUTE) }
-        )
-    }
-}
-
-@Composable
-fun MainContentView(navController: NavHostController) {
-    NavHost(navController = navController, startDestination = HOME_ROUTE ) {
-        composable(route = HOME_ROUTE) { HomeView() }
-        composable(route = LOGINSIGNUP_ROUTE) { LoginView(UserViewModel(), navController) }
-        composable(route = PROFILE_ROUTE) { ProfilePageView() }
-    }
-}
-
-@Composable
-fun HomeView() {
-    val fireStore = Firebase.firestore
-    val fAuth = Firebase.auth
-    var currentUserRoute by remember { mutableStateOf("") }
-
-    fireStore
-        .collection("users")
-        .document(fAuth.currentUser?.uid.toString())
-        .get()
-        .addOnSuccessListener {
-            currentUserRoute = it.get("route").toString()
-        }
-
-    Column {
-        Text(text = "Main page")
-        when (currentUserRoute) {
-            ADMIN_ROUTE -> Text(text = "You are $currentUserRoute")
-            MANAGER_ROUTE -> Text(text = "You are $currentUserRoute")
-            USER_ROUTE -> Text(text = "You are $currentUserRoute")
+        if (!isLoggedIn) {
+            Icon(
+                painter = painterResource( R.drawable.ic_icon_template ),
+                contentDescription = "",
+                modifier = Modifier.clickable { navController.navigate(LOGINSIGNUP_ROUTE) }
+            )
+        } else {
+            Box {}
         }
     }
 }
