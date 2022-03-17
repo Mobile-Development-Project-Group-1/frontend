@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "789803273164",
+    "project_id": "mdp-firebase-g1",
+    "storage_bucket": "mdp-firebase-g1.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:789803273164:android:09c38d0eee301bf91f2b69",
+        "android_client_info": {
+          "package_name": "com.example.mobile_development_project_group_1"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "789803273164-j5ok7t02lqfm4a5rp0ukjr8ig7khsod9.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCDMV_NOVc3ciiAG4GJwNdfC-1rdWNLbzQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "789803273164-j5ok7t02lqfm4a5rp0ukjr8ig7khsod9.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
