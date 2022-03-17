@@ -46,7 +46,7 @@ fun MainScaffoldView() {
 
 @Composable
 fun MainContentView(navController: NavHostController) {
-    NavHost(navController = navController, startDestination = LOGINSIGNUP_ROUTE ) {
+    NavHost(navController = navController, startDestination = HOME_ROUTE ) {
         composable(route = HOME_ROUTE) { HomeView() }
         composable(route = LOGINSIGNUP_ROUTE) { LoginView(UserViewModel(), navController) }
         composable(route = PROFILE_ROUTE) { ProfilePageView() }

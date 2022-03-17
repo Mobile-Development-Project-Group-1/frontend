@@ -28,7 +28,7 @@ fun LoginView(userVM: UserViewModel, navController: NavHostController) {
     var address by remember { mutableStateOf("") }
     var route by remember { mutableStateOf("") }
 
-    var isLoginOpen by remember { mutableStateOf(false) }
+    var isLoginOpen by remember { mutableStateOf(true) }
     var isUser by remember { mutableStateOf(true) }
     var isManager by remember { mutableStateOf(false) }
 
@@ -300,7 +300,6 @@ fun LoginView(userVM: UserViewModel, navController: NavHostController) {
                             onCheckedChange = {
                                 isUser = !isUser
                                 isManager = !isManager
-                                /* TODO */
                             }
                         )
                         Text(text = "User")
@@ -313,7 +312,6 @@ fun LoginView(userVM: UserViewModel, navController: NavHostController) {
                             onCheckedChange = {
                                 isManager = !isManager
                                 isUser = !isUser
-                                /* TODO */
                             }
                         )
                         Text(text = "Manager")
@@ -322,7 +320,7 @@ fun LoginView(userVM: UserViewModel, navController: NavHostController) {
                         modifier = Modifier
                             .size(52.dp)
                             .clickable {
-                                //userVM.loginUser(email, pw)
+                                userVM.signUpUser(email, pw, firstName, lastName, address, phoneNumber, route)
                                 //navController.navigate(HOME_ROUTE)
                             },
                         shape = RoundedCornerShape(30.dp)
