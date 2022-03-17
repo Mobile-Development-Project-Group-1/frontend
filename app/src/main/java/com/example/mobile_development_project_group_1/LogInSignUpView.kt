@@ -152,20 +152,19 @@ fun LoginView(userVM: UserViewModel, navController: NavHostController) {
                     .background(Color.Magenta),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
-                Column(
+                Row(
                     modifier = Modifier
                         .fillMaxWidth()
                         .background(Color.Green)
                 ) { // INPUTS
                     Card(
-                        shape = RoundedCornerShape(30.dp, 30.dp, 30.dp, 30.dp),
+                        shape = RoundedCornerShape(30.dp, 0.dp, 0.dp, 30.dp),
                         border = BorderStroke(0.5.dp, Color(0xffEBEBEB)),
                         elevation = 10.dp,
                         modifier = Modifier.fillMaxWidth()
                     ) {
                         Row(
-                            modifier = Modifier.background(Color.Red),
-                            horizontalArrangement = Arrangement.SpaceBetween
+                            modifier = Modifier.background(Color.Red)
                         ) {
                             Column(
                                 modifier = Modifier
@@ -215,7 +214,7 @@ fun LoginView(userVM: UserViewModel, navController: NavHostController) {
                                 )
                             }
                             Column(
-                                modifier = Modifier.fillMaxWidth(0.5f)
+                                modifier = Modifier.fillMaxWidth(1f)
                             ) {
                                 TextField(
                                     value = lastName,
