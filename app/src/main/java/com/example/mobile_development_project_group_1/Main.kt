@@ -49,7 +49,7 @@ fun MainContentView(navController: NavHostController) {
     NavHost(navController = navController, startDestination = HOME_ROUTE ) {
         composable(route = HOME_ROUTE) { HomeView() }
         composable(route = LOGINSIGNUP_ROUTE) { LoginView(UserViewModel(), navController) }
-        composable(route = PROFILE_ROUTE) { ProfilePageView(navController) }
+        composable(route = PROFILE_ROUTE) { ProfilePageView() }
     }
 }
 
@@ -116,32 +116,23 @@ fun DrawerLayoutView(navController: NavHostController, scState: ScaffoldState) {
     val userVM = viewModel<UserViewModel>()
     val scope = rememberCoroutineScope()
 
-    var isLoggedIn by remember { mutableStateOf(false) }
-    if (user != null) {
-        isLoggedIn = !isLoggedIn
-    }
-
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.SpaceBetween
     ) {
-
-        if (!isLoggedIn) {
-            OutlinedButton(
-                onClick = {
-                    navController.navigate(PROFILE_ROUTE)
-                    scope.launch {
-                        scState.drawerState.close()
-                    }
-                },
-                modifier = Modifier
-                    .padding(10.dp)
-            ) {
-                Text(text = "Profile page")
-            }
-        } else {
-            Box {}
+        OutlinedButton(
+            onClick = {
+                navController.navigate(PROFILE_ROUTE)
+                scope.launch {
+                    scState.drawerState.close()
+                }
+            },
+            modifier = Modifier
+                .padding(10.dp)
+        ) {
+            Text(text = "Profile page")
         }
+
         OutlinedButton(onClick = {
             userVM.logout()
             scope.launch {

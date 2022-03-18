@@ -10,6 +10,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
@@ -37,12 +38,12 @@ fun LoginView(userVM: UserViewModel, navController: NavHostController) {
         false -> "MANAGER"
     }
 
-    Column(
+    Column( // Main Column
         modifier = Modifier
             .fillMaxSize()
     ) {
 
-        Row( // 1
+        Row( // Logo
             modifier = Modifier
                 .fillMaxWidth()
                 .fillMaxHeight(0.2f),
@@ -56,7 +57,7 @@ fun LoginView(userVM: UserViewModel, navController: NavHostController) {
         }
         
         if (isLoginOpen) {
-            Row( // 2
+            Row( // Login Title
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(0.dp, 0.dp, 0.dp, 20.dp),
@@ -70,7 +71,7 @@ fun LoginView(userVM: UserViewModel, navController: NavHostController) {
                 )
             }
 
-            Row( // 3
+            Row( // Login Fields
                 modifier = Modifier
                     .fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically
@@ -114,31 +115,29 @@ fun LoginView(userVM: UserViewModel, navController: NavHostController) {
                     modifier = Modifier.fillMaxWidth(1f),
                     horizontalArrangement = Arrangement.Center
                 ) {
-                    Card(
-                        modifier = Modifier
-                            .size(52.dp)
-                            .clickable {
-                                userVM.logInUser(email, pw)
-                                navController.navigate(HOME_ROUTE)
-                            },
-                        shape = RoundedCornerShape(30.dp)
-                    ) {
-                        Row(
-                            modifier = Modifier.background(Color(0xffed4956)),
-                            verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.Center
-                        ) {
-                            Icon(
-                                painter = painterResource(R.drawable.ic_arrow_right),
-                                contentDescription = "",
-                                tint = Color.White
-                            )
-                        }
-                    }
+                    ConfirmButton(
+                        functionality = {
+                            userVM.logInUser(email, pw)
+                            navController.navigate(HOME_ROUTE)
+                        },
+                        resId = R.drawable.ic_arrow_right
+                    )
                 }
+            } // Login Fields
+            Row( // Register Switch Button
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(0.dp, 150.dp, 0.dp, 0.dp),
+                horizontalArrangement = Arrangement.End
+            ) {
+                SwitchButton(
+                    shape = RoundedCornerShape(30.dp, 0.dp, 0.dp, 30.dp),
+                    functionality = { isLoginOpen = false },
+                    text = "Register"
+                )
             }
         } else {
-            Row( // 2
+            Row( // Register Title
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(0.dp, 0.dp, 0.dp, 20.dp),
@@ -152,7 +151,7 @@ fun LoginView(userVM: UserViewModel, navController: NavHostController) {
                 )
             }
 
-            Column( // 3
+            Column( // Register Fields
                 modifier = Modifier
                     .fillMaxWidth(),
                 horizontalAlignment = Alignment.CenterHorizontally
@@ -281,7 +280,7 @@ fun LoginView(userVM: UserViewModel, navController: NavHostController) {
                         }
                     }
                 }
-                Row( // BUTTON
+                Row( // Buttons
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(0.dp, 20.dp, 0.dp, 0.dp),
@@ -312,116 +311,94 @@ fun LoginView(userVM: UserViewModel, navController: NavHostController) {
                         )
                         Text(text = "Manager")
                     }
-                    Card(
-                        modifier = Modifier
-                            .size(52.dp)
-                            .clickable {
-                                userVM.signUpUser(email, pw, firstName, lastName, address, phoneNumber, route)
-                                navController.navigate(HOME_ROUTE)
-                            },
-                        shape = RoundedCornerShape(30.dp)
-                    ) {
-                        Row(
-                            modifier = Modifier.background(Color(0xffed4956)),
-                            verticalAlignment = Alignment.CenterVertically,
-                            horizontalArrangement = Arrangement.Center
-                        ) {
-                            Icon(
-                                painter = painterResource(R.drawable.ic_check),
-                                contentDescription = "",
-                                tint = Color.White
+                    ConfirmButton(
+                        functionality = {
+                            userVM.signUpUser(
+                                email,
+                                pw,
+                                firstName,
+                                lastName,
+                                address,
+                                phoneNumber,
+                                route
                             )
-                        }
-                    }
-                }
-            }
-        }
-        
-        Row( // 4
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(0.dp, 30.dp, 0.dp, 0.dp),
-            horizontalArrangement = Arrangement.SpaceBetween
-        ) {
-            Card(
-                shape = RoundedCornerShape(0.dp, 30.dp, 30.dp, 0.dp),
-                border = BorderStroke(0.5.dp, Color(0xffEBEBEB)),
-                elevation = 10.dp,
-                modifier = Modifier
-                    .clickable {
-                        isLoginOpen = true
-                    }
-            ) {
-                Row(
-                    modifier = Modifier
-                        .width(110.dp)
-                        .background(if (isLoginOpen) Color(0xffed4956) else Color.White),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.Center
-                ) {
-                    Text(
-                        text = "Login",
-                        color = if (isLoginOpen) Color.White else Color(0xffed4956),
-                        fontWeight = FontWeight.Bold,
-                        fontSize = 16.sp,
-                        modifier = Modifier.padding(0.dp, 10.dp)
+                            navController.navigate(HOME_ROUTE)
+                        },
+                        resId = R.drawable.ic_check
                     )
-                }
-            }
-            Card(
-                shape = RoundedCornerShape(30.dp, 0.dp, 0.dp, 30.dp),
-                border = BorderStroke(0.5.dp, Color(0xffEBEBEB)),
-                elevation = 10.dp,
+                } // Buttons
+            } // Register Fields
+            Row( // Login Switch Button
                 modifier = Modifier
-                    .clickable {
-                        isLoginOpen = false
-                    }
+                    .fillMaxWidth()
+                    .padding(0.dp, 20.dp, 0.dp, 0.dp),
+                horizontalArrangement = Arrangement.SpaceBetween
             ) {
-                Row(
-                    modifier = Modifier
-                        .width(110.dp)
-                        .background(if (isLoginOpen) Color.White else Color(0xffed4956)),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.Center
-                ) {
-                    Text(
-                        text = "Register",
-                        color = if (isLoginOpen) Color(0xffed4956) else Color.White,
-                        fontWeight = FontWeight.Bold,
-                        fontSize = 16.sp,
-                        modifier = Modifier.padding(0.dp, 10.dp)
-                    )
-                }
+                SwitchButton(
+                    shape = RoundedCornerShape(0.dp, 30.dp, 30.dp, 0.dp),
+                    functionality = { isLoginOpen = true },
+                    text = "Login"
+                )
             }
-        }
-    }
-
-
-//    OutlinedTextField(
-//        value = email,
-//        onValueChange = { email = it },
-//        label = { Text(text = "Email") }
-//    )
-//    OutlinedTextField(
-//        value = pw,
-//        onValueChange = { pw = it },
-//        label = { Text(text = "Password") },
-//        visualTransformation = PasswordVisualTransformation()
-//    )
-//    OutlinedButton(
-//        onClick = {
-//            userVM.loginUser(email, pw)
-//            navController.navigate(HOME_ROUTE)
-//        },
-//        modifier = Modifier
-//            .padding(10.dp)
-//    ) {
-//        Text(text = "Login")
-//    }
-}
+        } // else
+    } // Main Column
+} // LoginView
 
 @Composable
 fun Logo(resId: Int) {
     Image(painter = painterResource(resId), contentDescription = "")
+}
+
+@Composable
+fun ConfirmButton(functionality: Any, resId: Int) {
+    Card(
+        modifier = Modifier
+            .size(52.dp)
+            .clickable {
+                functionality
+            },
+        shape = RoundedCornerShape(30.dp)
+    ) {
+        Row(
+            modifier = Modifier.background(Color(0xffed4956)),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Center
+        ) {
+            Icon(
+                painter = painterResource(resId),
+                contentDescription = "",
+                tint = Color.White
+            )
+        }
+    }
+}
+
+@Composable
+fun SwitchButton(shape: Shape, functionality: Any, text: String) {
+    Card(
+        shape = shape,
+        border = BorderStroke(0.5.dp, Color(0xffEBEBEB)),
+        elevation = 10.dp,
+        modifier = Modifier
+            .clickable {
+                functionality
+            }
+    ) {
+        Row(
+            modifier = Modifier
+                .width(110.dp)
+                .background(Color.White),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.Center
+        ) {
+            Text(
+                text = text,
+                color = Color(0xffed4956) ,
+                fontWeight = FontWeight.Bold,
+                fontSize = 16.sp,
+                modifier = Modifier.padding(0.dp, 10.dp)
+            )
+        }
+    }
 }
 
