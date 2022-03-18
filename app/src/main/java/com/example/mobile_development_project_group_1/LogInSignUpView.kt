@@ -15,6 +15,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
+import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
@@ -43,33 +44,10 @@ fun LoginView(userVM: UserViewModel, navController: NavHostController) {
             .fillMaxSize()
     ) {
 
-        Row( // Logo
-            modifier = Modifier
-                .fillMaxWidth()
-                .fillMaxHeight(0.2f),
-            horizontalArrangement = Arrangement.Center
-        ) {
-            Box(
-                modifier = Modifier.background(Color(0xffed4956))
-            ) {
-                Logo(R.drawable.ic_logo)
-            }
-        }
+        Logo(R.drawable.ic_logo)
         
         if (isLoginOpen) {
-            Row( // Login Title
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(0.dp, 0.dp, 0.dp, 20.dp),
-                horizontalArrangement = Arrangement.Center
-            ) {
-                Text(
-                    text = "Login",
-                    fontSize = 28.sp,
-                    fontWeight = FontWeight.Bold,
-                    color = Color(0xffed4956)
-                )
-            }
+            Title("Login")
 
             Row( // Login Fields
                 modifier = Modifier
@@ -83,30 +61,19 @@ fun LoginView(userVM: UserViewModel, navController: NavHostController) {
                         elevation = 10.dp
                     ) {
                         Column {
-                            TextField(
-                                value = email,
-                                onValueChange = { email = it },
-                                placeholder = { Text(text = "Email") },
-                                colors = TextFieldDefaults
-                                    .textFieldColors(
-                                        backgroundColor = Color.White,
-                                        textColor = Color(0xffed4956),
-                                        placeholderColor = Color(0xffed4956)
-                                    ),
-                                singleLine = true
+                            InputField(
+                                title = email,
+                                onTitleChange = { email = it },
+                                text = { Text(text = "Email") },
+                                visTrans = VisualTransformation.None,
+                                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email)
                             )
-                            TextField(
-                                value = pw,
-                                onValueChange = { pw = it },
-                                placeholder = { Text(text = "Password") },
-                                visualTransformation = PasswordVisualTransformation(),
-                                colors = TextFieldDefaults
-                                    .textFieldColors(
-                                        backgroundColor = Color.White,
-                                        textColor = Color(0xffed4956),
-                                        placeholderColor = Color(0xffed4956)
-                                    ),
-                                singleLine = true
+                            InputField(
+                                title = pw,
+                                onTitleChange = { pw = it },
+                                text = { Text(text = "Password") },
+                                visTrans = PasswordVisualTransformation(),
+                                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password)
                             )
                         }
                     }
@@ -132,24 +99,12 @@ fun LoginView(userVM: UserViewModel, navController: NavHostController) {
             ) {
                 SwitchButton(
                     shape = RoundedCornerShape(30.dp, 0.dp, 0.dp, 30.dp),
-                    functionality = { isLoginOpen = false },
+                    functionality = { isLoginOpen = !isLoginOpen },
                     text = "Register"
                 )
             }
         } else {
-            Row( // Register Title
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(0.dp, 0.dp, 0.dp, 20.dp),
-                horizontalArrangement = Arrangement.Center
-            ) {
-                Text(
-                    text = "Register",
-                    fontSize = 28.sp,
-                    fontWeight = FontWeight.Bold,
-                    color = Color(0xffed4956)
-                )
-            }
+            Title("Register")
 
             Column( // Register Fields
                 modifier = Modifier
@@ -173,49 +128,25 @@ fun LoginView(userVM: UserViewModel, navController: NavHostController) {
                             Column(
                                 modifier = Modifier.fillMaxWidth(0.5f)
                             ) {
-                                TextField(
-                                    value = firstName,
-                                    onValueChange = { firstName = it },
-                                    placeholder = { Text(text = "First name") },
-                                    colors = TextFieldDefaults
-                                        .textFieldColors(
-                                            backgroundColor = Color.White,
-                                            textColor = Color(0xffed4956),
-                                            placeholderColor = Color(0xffed4956)
-                                        ),
-                                    singleLine = true,
-                                    shape = MaterialTheme
-                                        .shapes.small.copy(ZeroCornerSize),
+                                InputField(
+                                    title = firstName,
+                                    onTitleChange = { firstName = it },
+                                    text = { Text(text = "First name") },
+                                    visTrans = VisualTransformation.None,
                                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text)
                                 )
-                                TextField(
-                                    value = email,
-                                    onValueChange = { email = it },
-                                    placeholder = { Text(text = "Email") },
-                                    colors = TextFieldDefaults
-                                        .textFieldColors(
-                                            backgroundColor = Color.White,
-                                            textColor = Color(0xffed4956),
-                                            placeholderColor = Color(0xffed4956)
-                                        ),
-                                    singleLine = true,
-                                    shape = MaterialTheme
-                                        .shapes.small.copy(ZeroCornerSize),
+                                InputField(
+                                    title = email,
+                                    onTitleChange = { email = it },
+                                    text = { Text(text = "Email") },
+                                    visTrans = VisualTransformation.None,
                                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email)
                                 )
-                                TextField(
-                                    value = phoneNumber,
-                                    onValueChange = { phoneNumber = it },
-                                    placeholder = { Text(text = "Phone number") },
-                                    colors = TextFieldDefaults
-                                        .textFieldColors(
-                                            backgroundColor = Color.White,
-                                            textColor = Color(0xffed4956),
-                                            placeholderColor = Color(0xffed4956)
-                                        ),
-                                    singleLine = true,
-                                    shape = MaterialTheme
-                                        .shapes.small.copy(ZeroCornerSize),
+                                InputField(
+                                    title = phoneNumber,
+                                    onTitleChange = { phoneNumber = it },
+                                    text = { Text(text = "Phone number") },
+                                    visTrans = VisualTransformation.None,
                                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone)
                                 )
                             }
@@ -230,50 +161,25 @@ fun LoginView(userVM: UserViewModel, navController: NavHostController) {
                             Column(
                                 modifier = Modifier.fillMaxWidth(1f)
                             ) {
-                                TextField(
-                                    value = lastName,
-                                    onValueChange = { lastName = it },
-                                    placeholder = { Text(text = "Last name") },
-                                    colors = TextFieldDefaults
-                                        .textFieldColors(
-                                            backgroundColor = Color.White,
-                                            textColor = Color(0xffed4956),
-                                            placeholderColor = Color(0xffed4956)
-                                        ),
-                                    singleLine = true,
-                                    shape = MaterialTheme
-                                        .shapes.small.copy(ZeroCornerSize),
+                                InputField(
+                                    title = lastName,
+                                    onTitleChange = { lastName = it },
+                                    text = { Text(text = "Last name") },
+                                    visTrans = VisualTransformation.None,
                                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text)
                                 )
-                                TextField(
-                                    value = pw,
-                                    onValueChange = { pw = it },
-                                    placeholder = { Text(text = "Password") },
-                                    visualTransformation = PasswordVisualTransformation(),
-                                    colors = TextFieldDefaults
-                                        .textFieldColors(
-                                            backgroundColor = Color.White,
-                                            textColor = Color(0xffed4956),
-                                            placeholderColor = Color(0xffed4956)
-                                        ),
-                                    singleLine = true,
-                                    shape = MaterialTheme
-                                        .shapes.small.copy(ZeroCornerSize),
+                                InputField(
+                                    title = pw,
+                                    onTitleChange = { pw = it },
+                                    text = { Text(text = "Password") },
+                                    visTrans = PasswordVisualTransformation(),
                                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password)
                                 )
-                                TextField(
-                                    value = address,
-                                    onValueChange = { address = it },
-                                    placeholder = { Text(text = "Address") },
-                                    colors = TextFieldDefaults
-                                        .textFieldColors(
-                                            backgroundColor = Color.White,
-                                            textColor = Color(0xffed4956),
-                                            placeholderColor = Color(0xffed4956)
-                                        ),
-                                    singleLine = true,
-                                    shape = MaterialTheme
-                                        .shapes.small.copy(ZeroCornerSize),
+                                InputField(
+                                    title = address,
+                                    onTitleChange = { address = it },
+                                    text = { Text(text = "Address") },
+                                    visTrans = VisualTransformation.None,
                                     keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text)
                                 )
                             }
@@ -336,7 +242,9 @@ fun LoginView(userVM: UserViewModel, navController: NavHostController) {
             ) {
                 SwitchButton(
                     shape = RoundedCornerShape(0.dp, 30.dp, 30.dp, 0.dp),
-                    functionality = { isLoginOpen = true },
+                    functionality = {
+                        isLoginOpen = !isLoginOpen
+                    },
                     text = "Login"
                 )
             }
@@ -346,16 +254,27 @@ fun LoginView(userVM: UserViewModel, navController: NavHostController) {
 
 @Composable
 fun Logo(resId: Int) {
-    Image(painter = painterResource(resId), contentDescription = "")
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .fillMaxHeight(0.2f),
+        horizontalArrangement = Arrangement.Center
+    ) {
+        Box(
+            modifier = Modifier.background(Color(0xffed4956))
+        ) {
+            Image(painter = painterResource(resId), contentDescription = "")
+        }
+    }
 }
 
 @Composable
-fun ConfirmButton(functionality: Any, resId: Int) {
+fun ConfirmButton(functionality: () -> Unit, resId: Int) {
     Card(
         modifier = Modifier
             .size(52.dp)
             .clickable {
-                functionality
+                functionality()
             },
         shape = RoundedCornerShape(30.dp)
     ) {
@@ -374,14 +293,14 @@ fun ConfirmButton(functionality: Any, resId: Int) {
 }
 
 @Composable
-fun SwitchButton(shape: Shape, functionality: Any, text: String) {
+fun SwitchButton(shape: Shape, functionality: () -> Unit, text: String) {
     Card(
         shape = shape,
         border = BorderStroke(0.5.dp, Color(0xffEBEBEB)),
         elevation = 10.dp,
         modifier = Modifier
             .clickable {
-                functionality
+                functionality()
             }
     ) {
         Row(
@@ -399,6 +318,49 @@ fun SwitchButton(shape: Shape, functionality: Any, text: String) {
                 modifier = Modifier.padding(0.dp, 10.dp)
             )
         }
+    }
+}
+
+@Composable
+fun InputField(
+    title: String,
+    onTitleChange: (String) -> Unit,
+    text: @Composable (() -> Unit)?,
+    visTrans: VisualTransformation,
+    keyboardOptions: KeyboardOptions
+) {
+    TextField(
+        value = title,
+        onValueChange = onTitleChange,
+        placeholder = text,
+        visualTransformation = visTrans,
+        colors = TextFieldDefaults
+            .textFieldColors(
+                backgroundColor = Color.White,
+                textColor = Color(0xffed4956),
+                placeholderColor = Color(0xffed4956)
+            ),
+        singleLine = true,
+        shape = MaterialTheme
+            .shapes.small.copy(ZeroCornerSize),
+        keyboardOptions = keyboardOptions
+    )
+}
+
+@Composable
+fun Title(title: String) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(0.dp, 0.dp, 0.dp, 20.dp),
+        horizontalArrangement = Arrangement.Center
+    ) {
+        Text(
+            text = title,
+            fontSize = 28.sp,
+            fontWeight = FontWeight.Bold,
+            color = Color(0xffed4956)
+        )
     }
 }
 
