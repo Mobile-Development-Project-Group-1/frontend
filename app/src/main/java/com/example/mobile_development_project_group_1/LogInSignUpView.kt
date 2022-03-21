@@ -419,7 +419,6 @@ fun LoginView(userVM: UserViewModel, navController: NavHostController) {
 //        Text(text = "Login")
 //    }
 }
-
 @Composable
 fun Logo(resId: Int) {
     Image(painter = painterResource(resId), contentDescription = "")
