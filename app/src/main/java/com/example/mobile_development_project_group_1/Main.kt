@@ -1,6 +1,5 @@
 package com.example.mobile_development_project_group_1
 
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -18,8 +17,6 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.launch
 
 const val HOME_ROUTE = "home"
@@ -29,8 +26,6 @@ const val PROFILE_ROUTE = "profile"
 const val ADMIN_ROUTE = "ADMIN"
 const val MANAGER_ROUTE = "MANAGER"
 const val USER_ROUTE = "USER"
-
-//val fAuth = Firebase.auth
 
 @Composable
 fun MainScaffoldView() {
@@ -59,11 +54,6 @@ fun MainContentView(navController: NavHostController) {
 @Composable
 fun TopBarView(navController: NavHostController, scState: ScaffoldState) {
 
-//    var isLoggedIn by remember { mutableStateOf(false) }
-//    if (user != null) {
-//        isLoggedIn = !isLoggedIn
-//    }
-
     val scope = rememberCoroutineScope()
     val userVM = viewModel<UserViewModel>(LocalContext.current as ComponentActivity)
 
@@ -90,11 +80,10 @@ fun TopBarView(navController: NavHostController, scState: ScaffoldState) {
                 contentDescription = "",
                 modifier = Modifier.clickable {
                     navController.navigate(LOGINSIGNUP_ROUTE)
-
                 }
             )
         } else {
-           Text(text = "1111")
+           Row {}
         }
     }
 }

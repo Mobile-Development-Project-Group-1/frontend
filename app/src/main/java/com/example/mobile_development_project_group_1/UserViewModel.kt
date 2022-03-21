@@ -15,12 +15,16 @@ class UserViewModel: ViewModel() {
     var successMessage = mutableStateOf("")
     var errorMessage = mutableStateOf("")
 
+    fun loggedIn(){
+        isAnyUser.value = !isAnyUser.value
+    }
+
     fun logInUser(email: String, pw: String) {
         if (email.isNotEmpty() || pw.isNotEmpty()) {
             fAuth
                 .signInWithEmailAndPassword(email, pw)
                 .addOnSuccessListener {
-                    changeSomething()
+                    loggedIn()
                     Log.d("********", "Logged in successfully")
                     Log.d("********", isAnyUser.value.toString())
 
@@ -67,15 +71,15 @@ class UserViewModel: ViewModel() {
 
     fun logout() {
         fAuth.signOut()
+        loggedIn()
         errorMessage.value = ""
         successMessage.value = ""
         isAnyUser.value = false
     }
-    fun changeSomething(){
-        isAnyUser.value = true
-    }
 
     fun deleteUser() {
+        loggedIn()
+
         if (fAuth.currentUser != null) {
 
             fireStore
