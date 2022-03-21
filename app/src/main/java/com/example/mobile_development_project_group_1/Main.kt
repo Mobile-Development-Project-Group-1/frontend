@@ -74,7 +74,7 @@ fun TopBarView(navController: NavHostController, scState: ScaffoldState) {
                 }
             }
         )
-        if (! userVM.isAnyUser.value) {
+        if (!userVM.isAnyUser.value) {
             Icon(
                 painter = painterResource( R.drawable.ic_icon_template ),
                 contentDescription = "",
@@ -109,15 +109,14 @@ fun BottomBarView(navController: NavHostController) {
 @Composable
 fun DrawerLayoutView(navController: NavHostController, scState: ScaffoldState) {
 
-    val userVM = viewModel<UserViewModel>()
+    val userVM = viewModel<UserViewModel>(LocalContext.current as ComponentActivity)
     val scope = rememberCoroutineScope()
 
     Column(
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.SpaceBetween
     ) {
-        if (null == null) {
-
+        if (userVM.isAnyUser.value) {
             OutlinedButton(
                 onClick = {
                     navController.navigate(PROFILE_ROUTE)
@@ -130,10 +129,9 @@ fun DrawerLayoutView(navController: NavHostController, scState: ScaffoldState) {
             ) {
                 Text(text = "Profile page")
             }
-
         }
 
-        if (null == null) {
+        if (userVM.isAnyUser.value) {
             OutlinedButton(onClick = {
                 userVM.deleteUser()
                 scope.launch {
@@ -145,7 +143,7 @@ fun DrawerLayoutView(navController: NavHostController, scState: ScaffoldState) {
             }
         }
 
-        if (null == null) {
+        if (userVM.isAnyUser.value) {
             OutlinedButton(onClick = {
                 userVM.logout()
                 scope.launch {

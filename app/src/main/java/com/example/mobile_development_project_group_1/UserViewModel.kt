@@ -15,7 +15,7 @@ class UserViewModel: ViewModel() {
     var successMessage = mutableStateOf("")
     var errorMessage = mutableStateOf("")
 
-    fun loggedIn(){
+    private fun loggedIn(){
         isAnyUser.value = !isAnyUser.value
     }
 
