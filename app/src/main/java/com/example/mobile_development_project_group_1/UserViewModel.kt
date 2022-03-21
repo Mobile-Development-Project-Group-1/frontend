@@ -20,8 +20,10 @@ class UserViewModel: ViewModel() {
             fAuth
                 .signInWithEmailAndPassword(email, pw)
                 .addOnSuccessListener {
+                    changeSomething()
                     Log.d("********", "Logged in successfully")
-                    isAnyUser.value = true
+                    Log.d("********", isAnyUser.value.toString())
+
                 }
                 .addOnFailureListener {
                     Log.d("********", "Incorrect email or password")
@@ -68,6 +70,9 @@ class UserViewModel: ViewModel() {
         errorMessage.value = ""
         successMessage.value = ""
         isAnyUser.value = false
+    }
+    fun changeSomething(){
+        isAnyUser.value = true
     }
 
     fun deleteUser() {

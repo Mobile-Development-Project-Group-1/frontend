@@ -87,7 +87,10 @@ fun TopBarView(navController: NavHostController, scState: ScaffoldState) {
             Icon(
                 painter = painterResource( R.drawable.ic_icon_template ),
                 contentDescription = "",
-                modifier = Modifier.clickable { navController.navigate(LOGINSIGNUP_ROUTE) }
+                modifier = Modifier.clickable {
+                    navController.navigate(LOGINSIGNUP_ROUTE)
+
+                }
             )
         } else {
             Box {}
