@@ -72,4 +72,29 @@ class UserViewModel: ViewModel() {
         errorMessage.value = ""
         successMessage.value = ""
     }
+
+    fun deleteUser() {
+        if (fAuth.currentUser != null) {
+
+            fireStore
+                .collection("users")
+                .document(fAuth.currentUser!!.uid)
+                .delete()
+                .addOnSuccessListener {
+                    errorMessage.value = ""
+                    successMessage.value = "User deleted from FireBase successfully"
+                }
+                .addOnFailureListener {
+                    errorMessage.value = "Something went wrong :("
+                    successMessage.value = ""
+                }
+
+
+            fAuth.currentUser!!
+                .delete()
+                .addOnCompleteListener {
+                    Log.d("********", "User deleted")
+                }
+        }
+    }
 }

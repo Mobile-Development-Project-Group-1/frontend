@@ -56,10 +56,10 @@ fun MainContentView(navController: NavHostController) {
 @Composable
 fun TopBarView(navController: NavHostController, scState: ScaffoldState) {
 
-    var isLoggedIn by remember { mutableStateOf(false) }
-    if (user != null) {
-        isLoggedIn = !isLoggedIn
-    }
+//    var isLoggedIn by remember { mutableStateOf(false) }
+//    if (user != null) {
+//        isLoggedIn = !isLoggedIn
+//    }
 
     val scope = rememberCoroutineScope()
 
@@ -80,7 +80,7 @@ fun TopBarView(navController: NavHostController, scState: ScaffoldState) {
                 }
             }
         )
-        if (!isLoggedIn) {
+        if (null == null) {
             Icon(
                 painter = painterResource( R.drawable.ic_icon_template ),
                 contentDescription = "",
@@ -120,28 +120,47 @@ fun DrawerLayoutView(navController: NavHostController, scState: ScaffoldState) {
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.SpaceBetween
     ) {
-        OutlinedButton(
-            onClick = {
-                navController.navigate(PROFILE_ROUTE)
+        if (null == null) {
+
+            OutlinedButton(
+                onClick = {
+                    navController.navigate(PROFILE_ROUTE)
+                    scope.launch {
+                        scState.drawerState.close()
+                    }
+                },
+                modifier = Modifier
+                    .padding(10.dp)
+            ) {
+                Text(text = "Profile page")
+            }
+
+        }
+
+        if (null == null) {
+            OutlinedButton(onClick = {
+                userVM.deleteUser()
                 scope.launch {
                     scState.drawerState.close()
                 }
-            },
-            modifier = Modifier
-                .padding(10.dp)
-        ) {
-            Text(text = "Profile page")
+                navController.navigate(HOME_ROUTE)
+            }) {
+                Text(text = "Delete account")
+            }
         }
 
-        OutlinedButton(onClick = {
-            userVM.logout()
-            scope.launch {
-                scState.drawerState.close()
+        if (null == null) {
+            OutlinedButton(onClick = {
+                userVM.logout()
+                scope.launch {
+                    scState.drawerState.close()
+                }
+                navController.navigate(HOME_ROUTE)
+            }) {
+                Text(text = "Log out")
             }
-            navController.navigate(HOME_ROUTE)
-        }) {
-            Text(text = "Log out")
         }
+
     }
 
 }

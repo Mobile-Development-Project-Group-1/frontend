@@ -31,6 +31,7 @@ fun LoginView(userVM: UserViewModel, navController: NavHostController) {
     var route by remember { mutableStateOf("") }
 
     var isLoginOpen by remember { mutableStateOf(true) }
+    var isHiddenPw by remember { mutableStateOf(true) }
     var isUser by remember { mutableStateOf(true) }
     var isManager by remember { mutableStateOf(false) }
 
@@ -66,14 +67,42 @@ fun LoginView(userVM: UserViewModel, navController: NavHostController) {
                                 onTitleChange = { email = it },
                                 text = { Text(text = "Email") },
                                 visTrans = VisualTransformation.None,
-                                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email)
+                                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
+                                leadingIcon = { IconHolder(R.drawable.ic_email) },
+                                //trailingIcon = null
                             )
-                            InputField(
-                                title = pw,
-                                onTitleChange = { pw = it },
-                                text = { Text(text = "Password") },
-                                visTrans = PasswordVisualTransformation(),
-                                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password)
+                            TextField(
+                                value = pw,
+                                onValueChange = { pw = it },
+                                placeholder = { Text(text = "Password") },
+                                visualTransformation = if (isHiddenPw) { PasswordVisualTransformation() } else { VisualTransformation.None },
+                                colors = TextFieldDefaults
+                                    .textFieldColors(
+                                        backgroundColor = Color.White,
+                                        textColor = Color(0xffed4956),
+                                        placeholderColor = Color(0xffed4956)
+                                    ),
+                                singleLine = true,
+                                shape = MaterialTheme
+                                    .shapes.small.copy(ZeroCornerSize),
+                                keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+                                leadingIcon = { IconHolder(R.drawable.ic_lock) },
+                                trailingIcon = {
+                                    Icon(
+                                        painter = painterResource(
+                                            if (isHiddenPw) {
+                                                R.drawable.ic_open_eye
+                                            } else {
+                                                R.drawable.ic_closed_eye
+                                            }
+                                        ),
+                                        contentDescription = "",
+                                        modifier = Modifier.clickable {
+                                            isHiddenPw = !isHiddenPw
+                                        },
+                                        tint = Color(0xffed4956)
+                                    )
+                                }
                             )
                         }
                     }
@@ -133,21 +162,27 @@ fun LoginView(userVM: UserViewModel, navController: NavHostController) {
                                     onTitleChange = { firstName = it },
                                     text = { Text(text = "First name") },
                                     visTrans = VisualTransformation.None,
-                                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text)
+                                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
+                                    leadingIcon = { IconHolder(R.drawable.ic_account) },
+                                    //trailingIcon = null
                                 )
                                 InputField(
                                     title = email,
                                     onTitleChange = { email = it },
                                     text = { Text(text = "Email") },
                                     visTrans = VisualTransformation.None,
-                                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email)
+                                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Email),
+                                    leadingIcon = { IconHolder(R.drawable.ic_email) },
+                                    //trailingIcon = null
                                 )
                                 InputField(
                                     title = phoneNumber,
                                     onTitleChange = { phoneNumber = it },
                                     text = { Text(text = "Phone number") },
                                     visTrans = VisualTransformation.None,
-                                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone)
+                                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Phone),
+                                    leadingIcon = { IconHolder(R.drawable.ic_phone) },
+                                    //trailingIcon = null
                                 )
                             }
                             Column(
@@ -166,21 +201,51 @@ fun LoginView(userVM: UserViewModel, navController: NavHostController) {
                                     onTitleChange = { lastName = it },
                                     text = { Text(text = "Last name") },
                                     visTrans = VisualTransformation.None,
-                                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text)
+                                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
+                                    leadingIcon = { IconHolder(R.drawable.ic_account) },
+                                    //trailingIcon = null
                                 )
-                                InputField(
-                                    title = pw,
-                                    onTitleChange = { pw = it },
-                                    text = { Text(text = "Password") },
-                                    visTrans = PasswordVisualTransformation(),
-                                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password)
+                                TextField(
+                                    value = pw,
+                                    onValueChange = { pw = it },
+                                    placeholder = { Text(text = "Password") },
+                                    visualTransformation = if (isHiddenPw) { PasswordVisualTransformation() } else { VisualTransformation.None },
+                                    colors = TextFieldDefaults
+                                        .textFieldColors(
+                                            backgroundColor = Color.White,
+                                            textColor = Color(0xffed4956),
+                                            placeholderColor = Color(0xffed4956)
+                                        ),
+                                    singleLine = true,
+                                    shape = MaterialTheme
+                                        .shapes.small.copy(ZeroCornerSize),
+                                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Password),
+                                    leadingIcon = { IconHolder(R.drawable.ic_lock) },
+                                    trailingIcon = {
+                                        Icon(
+                                            painter = painterResource(
+                                                if (isHiddenPw) {
+                                                    R.drawable.ic_open_eye
+                                                } else {
+                                                    R.drawable.ic_closed_eye
+                                                }
+                                            ),
+                                            contentDescription = "",
+                                            modifier = Modifier.clickable {
+                                                isHiddenPw = !isHiddenPw
+                                            },
+                                            tint = Color(0xffed4956)
+                                        )
+                                    }
                                 )
                                 InputField(
                                     title = address,
                                     onTitleChange = { address = it },
                                     text = { Text(text = "Address") },
                                     visTrans = VisualTransformation.None,
-                                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text)
+                                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
+                                    leadingIcon = { IconHolder(R.drawable.ic_address) },
+                                    //trailingIcon = null
                                 )
                             }
                         }
@@ -322,12 +387,22 @@ fun SwitchButton(shape: Shape, functionality: () -> Unit, text: String) {
 }
 
 @Composable
+fun IconHolder(resId: Int) {
+    Icon(
+        painter = painterResource(resId),
+        contentDescription = "",
+        tint = Color(0xffed4956)
+    )
+}
+
+@Composable
 fun InputField(
     title: String,
     onTitleChange: (String) -> Unit,
     text: @Composable (() -> Unit)?,
     visTrans: VisualTransformation,
-    keyboardOptions: KeyboardOptions
+    keyboardOptions: KeyboardOptions,
+    leadingIcon: @Composable (() -> Unit)?
 ) {
     TextField(
         value = title,
@@ -343,7 +418,8 @@ fun InputField(
         singleLine = true,
         shape = MaterialTheme
             .shapes.small.copy(ZeroCornerSize),
-        keyboardOptions = keyboardOptions
+        keyboardOptions = keyboardOptions,
+        leadingIcon = leadingIcon
     )
 }
 
