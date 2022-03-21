@@ -10,6 +10,7 @@ import com.google.firebase.ktx.Firebase
 class UserViewModel: ViewModel() {
     private val fAuth = Firebase.auth
     private val fireStore = Firebase.firestore
+    var isAnyUser = mutableStateOf(false)
 
     var successMessage = mutableStateOf("")
     var errorMessage = mutableStateOf("")
@@ -19,16 +20,14 @@ class UserViewModel: ViewModel() {
             fAuth
                 .signInWithEmailAndPassword(email, pw)
                 .addOnSuccessListener {
-                    errorMessage.value = ""
-                    successMessage.value = "Logged in successfully"
+                    Log.d("********", "Logged in successfully")
+                    isAnyUser.value = true
                 }
                 .addOnFailureListener {
-                    errorMessage.value = "Incorrect email or password"
-                    successMessage.value = ""
+                    Log.d("********", "Incorrect email or password")
                 }
         } else {
-            errorMessage.value = "Please, fill email and password fields"
-            successMessage.value = ""
+            Log.d("********", "Please, fill email and password fields")
         }
     }
 
@@ -39,8 +38,7 @@ class UserViewModel: ViewModel() {
             fAuth
                 .createUserWithEmailAndPassword(email, pw)
                 .addOnSuccessListener {
-                    errorMessage.value = ""
-                    successMessage.value = "Registration completed successfully"
+                    Log.d("********", "Registration completed successfully")
 
                     fireStore
                         .collection("users")
@@ -54,15 +52,13 @@ class UserViewModel: ViewModel() {
                         }
                 }
                 .addOnFailureListener {
-                    errorMessage.value = "Something went wrong :("
-                    successMessage.value = ""
+                    Log.d("********", "Something went wrong :(")
                 }
 
             logInUser(email, pw)
 
         } else {
-            errorMessage.value = "Please, fill email and password fields"
-            successMessage.value = ""
+            Log.d("********", "Please, fill email and password fields")
         }
 
     }
@@ -71,6 +67,7 @@ class UserViewModel: ViewModel() {
         fAuth.signOut()
         errorMessage.value = ""
         successMessage.value = ""
+        isAnyUser.value = false
     }
 
     fun deleteUser() {
@@ -81,12 +78,11 @@ class UserViewModel: ViewModel() {
                 .document(fAuth.currentUser!!.uid)
                 .delete()
                 .addOnSuccessListener {
-                    errorMessage.value = ""
-                    successMessage.value = "User deleted from FireBase successfully"
+                    Log.d("********", "User deleted from FireBase successfully")
+                    isAnyUser.value = false
                 }
                 .addOnFailureListener {
-                    errorMessage.value = "Something went wrong :("
-                    successMessage.value = ""
+                    Log.d("********", "Something went wrong :(")
                 }
 
 

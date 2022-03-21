@@ -1,5 +1,7 @@
 package com.example.mobile_development_project_group_1
 
+import android.util.Log
+import androidx.activity.ComponentActivity
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -8,6 +10,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -27,8 +30,7 @@ const val ADMIN_ROUTE = "ADMIN"
 const val MANAGER_ROUTE = "MANAGER"
 const val USER_ROUTE = "USER"
 
-val fAuth = Firebase.auth
-val user = fAuth.currentUser
+//val fAuth = Firebase.auth
 
 @Composable
 fun MainScaffoldView() {
@@ -62,6 +64,7 @@ fun TopBarView(navController: NavHostController, scState: ScaffoldState) {
 //    }
 
     val scope = rememberCoroutineScope()
+    val userVM = viewModel<UserViewModel>(LocalContext.current as ComponentActivity)
 
     Row(
         modifier = Modifier
@@ -80,7 +83,7 @@ fun TopBarView(navController: NavHostController, scState: ScaffoldState) {
                 }
             }
         )
-        if (null == null) {
+        if (!userVM.isAnyUser.value) {
             Icon(
                 painter = painterResource( R.drawable.ic_icon_template ),
                 contentDescription = "",

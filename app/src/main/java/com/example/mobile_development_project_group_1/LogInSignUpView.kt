@@ -16,8 +16,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
+import androidx.compose.ui.unit.*
 import androidx.navigation.NavHostController
 
 @Composable
@@ -113,22 +112,32 @@ fun LoginView(userVM: UserViewModel, navController: NavHostController) {
                 ) {
                     ConfirmButton(
                         functionality = {
-                            userVM.logInUser(email, pw)
-                            navController.navigate(HOME_ROUTE)
+                            if (email.isNotEmpty() || pw.isNotEmpty()) {
+                                userVM.logInUser(email, pw)
+                                navController.navigate(HOME_ROUTE)
+                            } else {
+                                userVM.errorMessage.value = "Please, fill email and password fields"
+                            }
                         },
                         resId = R.drawable.ic_arrow_right
                     )
                 }
             } // Login Fields
+            ErrorMessage(userVM)
             Row( // Register Switch Button
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(0.dp, 150.dp, 0.dp, 0.dp),
+                    .padding(0.dp, 116.dp, 0.dp, 0.dp),
                 horizontalArrangement = Arrangement.End
             ) {
                 SwitchButton(
                     shape = RoundedCornerShape(30.dp, 0.dp, 0.dp, 30.dp),
-                    functionality = { isLoginOpen = !isLoginOpen },
+                    functionality = {
+                        isLoginOpen = !isLoginOpen
+                        email = ""
+                        pw = ""
+                        userVM.errorMessage.value = ""
+                    },
                     text = "Register"
                 )
             }
@@ -284,16 +293,27 @@ fun LoginView(userVM: UserViewModel, navController: NavHostController) {
                     }
                     ConfirmButton(
                         functionality = {
-                            userVM.signUpUser(
-                                email,
-                                pw,
-                                firstName,
-                                lastName,
-                                address,
-                                phoneNumber,
-                                route
-                            )
-                            navController.navigate(HOME_ROUTE)
+                            if (
+                                email.isNotEmpty()
+                                || pw.isNotEmpty()
+                                || firstName.isNotEmpty()
+                                || lastName.isNotEmpty()
+                                || address.isNotEmpty()
+                                || phoneNumber.isNotEmpty()
+                            ) {
+                                userVM.signUpUser(
+                                    email,
+                                    pw,
+                                    firstName,
+                                    lastName,
+                                    address,
+                                    phoneNumber,
+                                    route
+                                )
+                                navController.navigate(HOME_ROUTE)
+                            } else {
+                                userVM.errorMessage.value = "Please, fill in all fields"
+                            }
                         },
                         resId = R.drawable.ic_check
                     )
@@ -309,13 +329,42 @@ fun LoginView(userVM: UserViewModel, navController: NavHostController) {
                     shape = RoundedCornerShape(0.dp, 30.dp, 30.dp, 0.dp),
                     functionality = {
                         isLoginOpen = !isLoginOpen
+                        email = ""
+                        pw = ""
+                        firstName = ""
+                        lastName = ""
+                        phoneNumber =""
+                        address = ""
+                        userVM.errorMessage.value = ""
                     },
                     text = "Login"
                 )
             }
+            ErrorMessage(userVM)
         } // else
     } // Main Column
 } // LoginView
+
+@Composable
+fun ErrorMessage(userVM: UserViewModel) {
+    if (userVM.errorMessage.value.isEmpty()) {
+        Row(
+            modifier = Modifier.fillMaxWidth().height(34.dp)
+        ) {}
+    } else {
+        Row(
+            modifier = Modifier.fillMaxWidth().height(34.dp),
+            horizontalArrangement = Arrangement.Center
+        ) {
+            Text(
+                text = userVM.errorMessage.value,
+                fontSize = 18.sp,
+                color = Color.Red,
+                modifier = Modifier.padding(0.dp, 10.dp, 0.dp, 0.dp)
+            )
+        }
+    }
+}
 
 @Composable
 fun Logo(resId: Int) {
