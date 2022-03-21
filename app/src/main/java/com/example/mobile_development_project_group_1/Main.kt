@@ -48,9 +48,10 @@ fun MainScaffoldView() {
 
 @Composable
 fun MainContentView(navController: NavHostController) {
+    val userVM = viewModel<UserViewModel>(LocalContext.current as ComponentActivity)
     NavHost(navController = navController, startDestination = HOME_ROUTE ) {
         composable(route = HOME_ROUTE) { HomeView() }
-        composable(route = LOGINSIGNUP_ROUTE) { LoginView(UserViewModel(), navController) }
+        composable(route = LOGINSIGNUP_ROUTE) { LoginView(userVM, navController) }
         composable(route = PROFILE_ROUTE) { ProfilePageView() }
     }
 }
@@ -83,7 +84,7 @@ fun TopBarView(navController: NavHostController, scState: ScaffoldState) {
                 }
             }
         )
-        if (!userVM.isAnyUser.value) {
+        if (! userVM.isAnyUser.value) {
             Icon(
                 painter = painterResource( R.drawable.ic_icon_template ),
                 contentDescription = "",
@@ -93,7 +94,7 @@ fun TopBarView(navController: NavHostController, scState: ScaffoldState) {
                 }
             )
         } else {
-            Box {}
+           Text(text = "1111")
         }
     }
 }

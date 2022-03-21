@@ -84,7 +84,7 @@ class UserViewModel: ViewModel() {
                 .delete()
                 .addOnSuccessListener {
                     Log.d("********", "User deleted from FireBase successfully")
-                    isAnyUser.value = false
+
                 }
                 .addOnFailureListener {
                     Log.d("********", "Something went wrong :(")
