@@ -1,6 +1,5 @@
 package com.example.mobile_development_project_group_1
 
-import android.util.Log
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -113,10 +112,7 @@ fun LoginView(userVM: UserViewModel, navController: NavHostController) {
                 ) {
                     ConfirmButton(
                         functionality = {
-                            userVM.logInUser(email, pw)
-                            if (userVM.isAnyUser.value == true) {
-                                navController.navigate(HOME_ROUTE)
-                            }
+                            userVM.logInUser(email, pw, navController)
                         },
                         resId = R.drawable.ic_arrow_right
                     )
@@ -292,27 +288,16 @@ fun LoginView(userVM: UserViewModel, navController: NavHostController) {
                     }
                     ConfirmButton(
                         functionality = {
-                            if (
-                                email.isNotEmpty()
-                                || pw.isNotEmpty()
-                                || firstName.isNotEmpty()
-                                || lastName.isNotEmpty()
-                                || address.isNotEmpty()
-                                || phoneNumber.isNotEmpty()
-                            ) {
-                                userVM.signUpUser(
-                                    email,
-                                    pw,
-                                    firstName,
-                                    lastName,
-                                    address,
-                                    phoneNumber,
-                                    route
-                                )
-                                navController.navigate(HOME_ROUTE)
-                            } else {
-                                userVM.errorMessage.value = "Please, fill in all fields"
-                            }
+                            userVM.signUpUser(
+                                email,
+                                pw,
+                                firstName,
+                                lastName,
+                                address,
+                                phoneNumber,
+                                route,
+                                navController
+                            )
                         },
                         resId = R.drawable.ic_check
                     )
