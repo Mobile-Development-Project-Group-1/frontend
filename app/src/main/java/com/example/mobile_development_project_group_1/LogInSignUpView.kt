@@ -1,5 +1,6 @@
 package com.example.mobile_development_project_group_1
 
+import android.util.Log
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -112,11 +113,9 @@ fun LoginView(userVM: UserViewModel, navController: NavHostController) {
                 ) {
                     ConfirmButton(
                         functionality = {
-                            if (email.isNotEmpty() || pw.isNotEmpty()) {
-                                userVM.logInUser(email, pw)
+                            userVM.logInUser(email, pw)
+                            if (userVM.isAnyUser.value == true) {
                                 navController.navigate(HOME_ROUTE)
-                            } else {
-                                userVM.errorMessage.value = "Please, fill email and password fields"
                             }
                         },
                         resId = R.drawable.ic_arrow_right

@@ -20,20 +20,18 @@ class UserViewModel: ViewModel() {
     }
 
     fun logInUser(email: String, pw: String) {
-        if (email.isNotEmpty() || pw.isNotEmpty()) {
+        if (email.isNotEmpty() && pw.isNotEmpty()) {
             fAuth
                 .signInWithEmailAndPassword(email, pw)
                 .addOnSuccessListener {
                     loggedIn()
                     Log.d("********", "Logged in successfully")
-                    Log.d("********", isAnyUser.value.toString())
-
                 }
                 .addOnFailureListener {
-                    Log.d("********", "Incorrect email or password")
+                    errorMessage.value = "Incorrect email or password"
                 }
         } else {
-            Log.d("********", "Please, fill email and password fields")
+            errorMessage.value = "Please, fill email and password fields"
         }
     }
 
@@ -58,12 +56,6 @@ class UserViewModel: ViewModel() {
                             Log.d("********", error.message.toString())
                         }
                 }
-                .addOnFailureListener {
-                    Log.d("********", "Something went wrong :(")
-                }
-
-
-
         } else {
             Log.d("********", "Please, fill email and password fields")
         }
