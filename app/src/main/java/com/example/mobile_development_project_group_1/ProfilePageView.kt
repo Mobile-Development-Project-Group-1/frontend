@@ -1,16 +1,21 @@
 package com.example.mobile_development_project_group_1
 
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.OutlinedTextField
+
+import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CornerSize
+import androidx.compose.foundation.shape.RoundedCornerShape
+
 import androidx.compose.material.Surface
-import androidx.compose.material.Text
+
 import androidx.compose.runtime.*
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.firestore.ktx.firestore
-import com.google.firebase.ktx.Firebase
+import androidx.compose.ui.graphics.RectangleShape
+
+import androidx.compose.ui.unit.dp
+
+
 
 @Composable
 fun ProfilePageView() {
@@ -19,11 +24,18 @@ fun ProfilePageView() {
    }
     
     if (isEdit.value){
-       Surface(modifier = Modifier.fillMaxSize(), color = Color.Green) {
+        Column(modifier = Modifier
+            .fillMaxSize()
+            .padding(10.dp), horizontalAlignment =Alignment.CenterHorizontally ) {
+         Surface(modifier = Modifier.width(295.dp).height(279.dp), shape = RoundedCornerShape(corner = CornerSize(15.dp)), color = Color.Black ) {
+
+          }
 
         }
     }else{
-        Surface(modifier = Modifier.fillMaxSize(), color = Color.Red) {
+        Surface(modifier = Modifier
+            .fillMaxSize()
+            .padding(12.dp)) {
 
         }
 
