@@ -59,7 +59,7 @@ class UserViewModel: ViewModel() {
                         }
                 }
                 .addOnFailureListener {
-                    errorMessage.value = "Incorrect form of email or password"
+                    errorMessage.value = "Check your email and password again"
                 }
         } else {
             errorMessage.value = "Please, fill email and password fields"
