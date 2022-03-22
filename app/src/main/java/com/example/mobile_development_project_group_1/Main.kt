@@ -143,7 +143,7 @@ fun DrawerLayoutView(navController: NavHostController, scState: ScaffoldState) {
             }
         }
 
-        if (userVM.isAnyUser.value) {
+        if (1 == 1) {
             OutlinedButton(onClick = {
                 userVM.logout()
                 scope.launch {
