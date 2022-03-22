@@ -1,6 +1,7 @@
 package com.example.mobile_development_project_group_1
 
 import androidx.activity.ComponentActivity
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -11,7 +12,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -35,7 +38,7 @@ fun MainScaffoldView() {
     Scaffold(
         scaffoldState = scState,
         topBar = { TopBarView(navController, scState) },
-        bottomBar = { BottomBarView(navController) },
+        bottomBar = { BottomBarView() },
         content = { MainContentView(navController) },
         drawerContent = { DrawerLayoutView(navController, scState) }
     )
@@ -57,52 +60,78 @@ fun TopBarView(navController: NavHostController, scState: ScaffoldState) {
     val scope = rememberCoroutineScope()
     val userVM = viewModel<UserViewModel>(LocalContext.current as ComponentActivity)
 
-    Row(
-        modifier = Modifier
-            .fillMaxWidth()
-            .background(Color(0xFFFF5722))
-            .padding(10.dp),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.SpaceBetween
+    Column(
+        modifier = Modifier.fillMaxWidth()
     ) {
-        Icon(
-            painter = painterResource( R.drawable.ic_icon_template ),
-            contentDescription = "",
-            modifier = Modifier.clickable {
-                scope.launch {
-                    scState.drawerState.open()
-                }
-            }
-        )
-        if (!userVM.isAnyUser.value) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(60.dp)
+                .padding(10.dp, 0.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceBetween
+        ) {
             Icon(
-                painter = painterResource( R.drawable.ic_icon_template ),
+                painter = painterResource( R.drawable.ic_menu ),
+                tint = Color(0xffed4956),
                 contentDescription = "",
                 modifier = Modifier.clickable {
-                    navController.navigate(LOGINSIGNUP_ROUTE)
+                    scope.launch {
+                        scState.drawerState.open()
+                    }
                 }
             )
-        } else {
-           Row {}
+            if (!userVM.isAnyUser.value) {
+                OutlinedButton(
+                    onClick = {
+                        navController.navigate(LOGINSIGNUP_ROUTE)
+                    },
+                    colors = ButtonDefaults
+                        .buttonColors(backgroundColor = Color(0xffed4956), contentColor = Color.White)
+                ) {
+                    Text(
+                        text = "LogIn/SignUp",
+                        fontSize = 14.sp,
+                        fontWeight = FontWeight.Bold
+                    )
+                }
+            } else {
+                Box(
+                    modifier = Modifier
+                        .background(Color(0xffed4956))
+                        .clickable { navController.navigate(HOME_ROUTE) }
+                ) {
+                    Image(
+                        painter = painterResource(R.drawable.ic_logo),
+                        contentDescription = "",
+                        modifier = Modifier.size(60.dp)
+                    )
+                }
+            }
         }
+        Divider( color = Color(0xffed4956), thickness = 2.dp )
     }
 }
 
 @Composable
-fun BottomBarView(navController: NavHostController) {
-    Row(
+fun BottomBarView() {
+    Column(
         modifier = Modifier
             .fillMaxWidth()
-            .background(Color(0xFFFF5722))
-            .padding(10.dp),
-        verticalAlignment = Alignment.CenterVertically,
-        horizontalArrangement = Arrangement.SpaceEvenly
     ) {
-        Icon(
-            painter = painterResource( R.drawable.ic_icon_template ),
-            contentDescription = "home",
-            modifier = Modifier.clickable { navController.navigate(HOME_ROUTE) }
-        )
+        Divider( color = Color(0xffed4956), thickness = 2.dp )
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(60.dp)
+                .padding(10.dp, 0.dp),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceEvenly
+        ) {
+            Box {
+                Text(text = "ADVERTISEMENT")
+            }
+        }
     }
 }
 
@@ -113,48 +142,76 @@ fun DrawerLayoutView(navController: NavHostController, scState: ScaffoldState) {
     val scope = rememberCoroutineScope()
 
     Column(
-        modifier = Modifier.fillMaxSize(),
-        verticalArrangement = Arrangement.SpaceBetween
+        modifier = Modifier.fillMaxSize()
     ) {
-        if (userVM.isAnyUser.value) {
-            OutlinedButton(
-                onClick = {
-                    navController.navigate(PROFILE_ROUTE)
-                    scope.launch {
-                        scState.drawerState.close()
-                    }
-                },
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .fillMaxHeight(0.35f),
+            horizontalArrangement = Arrangement.Center
+        ) {
+            Box(
                 modifier = Modifier
-                    .padding(10.dp)
+                    .background(Color(0xffed4956))
+                    .clickable { navController.navigate(HOME_ROUTE) }
             ) {
-                Text(text = "Profile page")
+                Image(
+                    painter = painterResource(R.drawable.ic_logo),
+                    contentDescription = ""
+                )
             }
         }
-
-        if (userVM.isAnyUser.value) {
-            OutlinedButton(onClick = {
-                userVM.deleteUser()
-                scope.launch {
-                    scState.drawerState.close()
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .fillMaxHeight(0.85f)
+                .padding(20.dp),
+        ) {
+            if (userVM.isAnyUser.value) {
+                OutlinedButton(
+                    onClick = {
+                        navController.navigate(PROFILE_ROUTE)
+                        scope.launch {
+                            scState.drawerState.close()
+                        }
+                    },
+                    colors = ButtonDefaults
+                        .buttonColors(backgroundColor = Color(0xffed4956), contentColor = Color.White)
+                ) {
+                    Text(
+                        text = "Profile page",
+                        fontSize = 14.sp,
+                        fontWeight = FontWeight.Bold
+                    )
                 }
-                navController.navigate(HOME_ROUTE)
-            }) {
-                Text(text = "Delete account")
             }
         }
-
-        if (userVM.isAnyUser.value) {
-            OutlinedButton(onClick = {
-                userVM.logout()
-                scope.launch {
-                    scState.drawerState.close()
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .fillMaxHeight()
+                .padding(20.dp, 0.dp),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            if (userVM.isAnyUser.value) {
+                OutlinedButton(
+                    onClick = {
+                        userVM.logout()
+                        scope.launch {
+                            scState.drawerState.close()
+                        }
+                        navController.navigate(HOME_ROUTE)
+                    },
+                    colors = ButtonDefaults
+                        .buttonColors(backgroundColor = Color(0xffed4956), contentColor = Color.White)
+                ) {
+                    Text(
+                        text = "Log out",
+                        fontSize = 14.sp,
+                        fontWeight = FontWeight.Bold
+                    )
                 }
-                navController.navigate(HOME_ROUTE)
-            }) {
-                Text(text = "Log out")
             }
         }
-
     }
-
 }

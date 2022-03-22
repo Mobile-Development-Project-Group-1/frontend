@@ -3,6 +3,7 @@ package com.example.mobile_development_project_group_1
 import android.util.Log
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
+import androidx.navigation.NavHostController
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -15,43 +16,42 @@ class UserViewModel: ViewModel() {
     var successMessage = mutableStateOf("")
     var errorMessage = mutableStateOf("")
 
-    private fun loggedIn(){
-        isAnyUser.value = !isAnyUser.value
-    }
 
-    fun logInUser(email: String, pw: String) {
-        if (email.isNotEmpty() || pw.isNotEmpty()) {
+
+    fun logInUser(email: String, pw: String, navController: NavHostController) {
+        if (email.isNotEmpty() && pw.isNotEmpty()) {
+
             fAuth
                 .signInWithEmailAndPassword(email, pw)
                 .addOnSuccessListener {
-                    loggedIn()
                     Log.d("********", "Logged in successfully")
-                    Log.d("********", isAnyUser.value.toString())
+                    navController.navigate(HOME_ROUTE)
+                    isAnyUser.value = true
+                    errorMessage.value = ""
 
                 }
                 .addOnFailureListener {
-                    Log.d("********", "Incorrect email or password")
+                    errorMessage.value = "Incorrect email or password"
                 }
         } else {
-            Log.d("********", "Please, fill email and password fields")
+            errorMessage.value = "Please, fill email and password fields"
         }
     }
 
-    fun signUpUser(email: String, pw: String, firstName: String, lastName: String, address: String, phoneNumber: String, route: String) {
+    fun signUpUser(email: String, pw: String, firstName: String, lastName: String, address: String, phoneNumber: String, route: String, navController: NavHostController) {
 
-        if (email.isNotEmpty() || pw.isNotEmpty()) {
+        if (email.isNotEmpty() && pw.isNotEmpty()) {
 
             fAuth
                 .createUserWithEmailAndPassword(email, pw)
                 .addOnSuccessListener {
-                    Log.d("********", "Registration completed successfully")
-
+                    isAnyUser.value = true
+                    logInUser(email, pw, navController)
                     fireStore
                         .collection("users")
                         .document(it.user!!.uid)
                         .set( User(firstName, lastName, address, phoneNumber, route) )
                         .addOnSuccessListener {
-                            logInUser(email, pw)
                             Log.d("********", "User's information added successfully!")
                         }
                         .addOnFailureListener { error ->
@@ -59,27 +59,23 @@ class UserViewModel: ViewModel() {
                         }
                 }
                 .addOnFailureListener {
-                    Log.d("********", "Something went wrong :(")
+                    errorMessage.value = "Check your email and password again"
                 }
-
-
-
         } else {
-            Log.d("********", "Please, fill email and password fields")
+            errorMessage.value = "Please, fill email and password fields"
         }
 
     }
 
     fun logout() {
         fAuth.signOut()
-        loggedIn()
+        isAnyUser.value = false
         errorMessage.value = ""
         successMessage.value = ""
-        isAnyUser.value = false
     }
 
     fun deleteUser() {
-        loggedIn()
+        isAnyUser.value = false
 
         if (fAuth.currentUser != null) {
 
