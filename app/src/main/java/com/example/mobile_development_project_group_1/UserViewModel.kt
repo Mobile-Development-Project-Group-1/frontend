@@ -51,6 +51,7 @@ class UserViewModel: ViewModel() {
                         .document(it.user!!.uid)
                         .set( User(firstName, lastName, address, phoneNumber, route) )
                         .addOnSuccessListener {
+                            logInUser(email, pw)
                             Log.d("********", "User's information added successfully!")
                         }
                         .addOnFailureListener { error ->
@@ -61,7 +62,7 @@ class UserViewModel: ViewModel() {
                     Log.d("********", "Something went wrong :(")
                 }
 
-            logInUser(email, pw)
+
 
         } else {
             Log.d("********", "Please, fill email and password fields")
