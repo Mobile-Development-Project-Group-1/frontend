@@ -26,7 +26,6 @@ import kotlinx.coroutines.launch
 const val HOME_ROUTE = "home"
 const val LOGIN_SIGNUP_ROUTE = "logInSignUp"
 const val PROFILE_ROUTE = "profile"
-const val ADD_NEW_PUB_PLACE_ROUTE = "profile"
 
 const val ADMIN_ROOT = "ADMIN"
 const val MANAGER_ROOT = "MANAGER"
@@ -62,10 +61,6 @@ fun MainContentView(navController: NavHostController) {
 
         composable (route = PROFILE_ROUTE) {
             ProfilePageView()
-        }
-
-        composable (route = ADD_NEW_PUB_PLACE_ROUTE) {
-            AddNewPubPlaceView(navController)
         }
     }
 }

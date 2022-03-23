@@ -42,7 +42,7 @@ fun HomeView(navController: NavHostController) {
             .fillMaxHeight(0.914f),
         contentPadding = PaddingValues(16.dp, 0.dp)
     ) {
-        items(5) {
+        items(15) {
             Card(
                 shape = RoundedCornerShape(40.dp),
                 modifier = Modifier
@@ -62,38 +62,71 @@ fun HomeView(navController: NavHostController) {
             }
         }
     }
-    if (currentUserRoute == "MANAGER" || currentUserRoute == "ADMIN") {
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(20.dp, 80.dp),
+        verticalArrangement = Arrangement.Bottom,
+        horizontalAlignment = Alignment.End
+    ) {
         Column(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(20.dp, 80.dp),
-            verticalArrangement = Arrangement.Bottom,
-            horizontalAlignment = Alignment.End
+            verticalArrangement = Arrangement.SpaceBetween
         ) {
-            Card(
-                modifier = Modifier
-                    .size(50.dp)
-                    .clickable {
-                        navController.navigate(ADD_NEW_PUB_PLACE_ROUTE)
-                    },
-                shape = RoundedCornerShape(50.dp)
+            if (
+                currentUserRoute == "USER"
+                || currentUserRoute == "MANAGER"
+                || currentUserRoute == "ADMIN"
             ) {
-                Column(
+                Card(
                     modifier = Modifier
-                        .fillMaxSize()
-                        .background(Color(0xffed4956)),
-                    horizontalAlignment = Alignment.CenterHorizontally,
-                    verticalArrangement = Arrangement.Center
+                        .size(50.dp)
+                        .clickable {
+                            //navController.navigate(HOME_ROUTE)
+                        },
+                    shape = RoundedCornerShape(50.dp)
                 ) {
-                    Icon(
-                        painter = painterResource(id = R.drawable.ic_create_new),
-                        contentDescription = "",
-                        tint = Color.White
-                    )
+                    Column(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .background(Color(0xffed4956)),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Center
+                    ) {
+                        Icon(
+                            painter = painterResource(id = R.drawable.ic_chat),
+                            contentDescription = "",
+                            tint = Color.White
+                        )
+                    }
                 }
-            } // "Add new" button
-        } // Column for "Add new" button
-    } // if
+            }
+            Divider(modifier = Modifier.width(0.1.dp).height(10.dp).background(Color.Transparent))
+            if (currentUserRoute == "MANAGER" || currentUserRoute == "ADMIN") {
+                Card(
+                    modifier = Modifier
+                        .size(50.dp)
+                        .clickable {
+                            //navController.navigate(HOME_ROUTE)
+                        },
+                    shape = RoundedCornerShape(50.dp)
+                ) {
+                    Column(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .background(Color(0xffed4956)),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Center
+                    ) {
+                        Icon(
+                            painter = painterResource(id = R.drawable.ic_create_new),
+                            contentDescription = "",
+                            tint = Color.White
+                        )
+                    }
+                } // "Add new" button
+            } // IF
+        } // Buttons
+    } // Column for "Add new" button
 } // HomeView()
 
 //        Text(text = "Main page")
