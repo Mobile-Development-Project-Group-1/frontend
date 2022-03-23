@@ -103,13 +103,12 @@ fun BottomBarView(navController: NavHostController) {
         horizontalArrangement = Arrangement.SpaceEvenly
     ) {
         Icon(
-            painter = painterResource( R.drawable.ic_icon_template ),
+            painter = painterResource(R.drawable.ic_icon_template),
             contentDescription = "home",
             modifier = Modifier.clickable { navController.navigate(HOME_ROUTE) }
         )
     }
 }
-
 @Composable
 fun DrawerLayoutView(navController: NavHostController, scState: ScaffoldState) {
 
