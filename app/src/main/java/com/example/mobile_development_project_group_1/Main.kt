@@ -1,6 +1,7 @@
 package com.example.mobile_development_project_group_1
 
 import androidx.activity.ComponentActivity
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -23,13 +24,15 @@ import androidx.navigation.compose.rememberNavController
 import kotlinx.coroutines.launch
 
 const val HOME_ROUTE = "home"
-const val LOGINSIGNUP_ROUTE = "logInSignUp"
+const val LOGIN_SIGNUP_ROUTE = "logInSignUp"
 const val PROFILE_ROUTE = "profile"
+const val ADD_NEW_PUB_PLACE_ROUTE = "profile"
 
-const val ADMIN_ROUTE = "ADMIN"
-const val MANAGER_ROUTE = "MANAGER"
-const val USER_ROUTE = "USER"
+const val ADMIN_ROOT = "ADMIN"
+const val MANAGER_ROOT = "MANAGER"
+const val USER_ROOT = "USER"
 
+@ExperimentalFoundationApi
 @Composable
 fun MainScaffoldView() {
     val navController = rememberNavController()
@@ -44,13 +47,26 @@ fun MainScaffoldView() {
     )
 }
 
+@ExperimentalFoundationApi
 @Composable
 fun MainContentView(navController: NavHostController) {
     val userVM = viewModel<UserViewModel>(LocalContext.current as ComponentActivity)
     NavHost(navController = navController, startDestination = HOME_ROUTE ) {
-        composable(route = HOME_ROUTE) { HomeView() }
-        composable(route = LOGINSIGNUP_ROUTE) { LoginView(userVM, navController) }
-        composable(route = PROFILE_ROUTE) { ProfilePageView() }
+        composable (route = HOME_ROUTE) {
+            HomeView(navController)
+        }
+
+        composable (route = LOGIN_SIGNUP_ROUTE) {
+            LoginView(userVM, navController)
+        }
+
+        composable (route = PROFILE_ROUTE) {
+            ProfilePageView()
+        }
+
+        composable (route = ADD_NEW_PUB_PLACE_ROUTE) {
+            AddNewPubPlaceView(navController)
+        }
     }
 }
 
@@ -84,7 +100,7 @@ fun TopBarView(navController: NavHostController, scState: ScaffoldState) {
             if (!userVM.isAnyUser.value) {
                 OutlinedButton(
                     onClick = {
-                        navController.navigate(LOGINSIGNUP_ROUTE)
+                        navController.navigate(LOGIN_SIGNUP_ROUTE)
                     },
                     colors = ButtonDefaults
                         .buttonColors(backgroundColor = Color(0xffed4956), contentColor = Color.White)
@@ -118,6 +134,7 @@ fun BottomBarView() {
     Column(
         modifier = Modifier
             .fillMaxWidth()
+            .background(Color.White)
     ) {
         Divider( color = Color(0xffed4956), thickness = 2.dp )
         Row(
