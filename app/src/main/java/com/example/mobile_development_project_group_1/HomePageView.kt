@@ -42,7 +42,7 @@ fun HomeView(navController: NavHostController) {
             .fillMaxHeight(0.914f),
         contentPadding = PaddingValues(16.dp, 0.dp)
     ) {
-        items(15) {
+        items(7) {
             Card(
                 shape = RoundedCornerShape(40.dp),
                 modifier = Modifier

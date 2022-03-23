@@ -21,6 +21,9 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.launch
 
 const val HOME_ROUTE = "home"
@@ -153,6 +156,18 @@ fun DrawerLayoutView(navController: NavHostController, scState: ScaffoldState) {
     val userVM = viewModel<UserViewModel>(LocalContext.current as ComponentActivity)
     val scope = rememberCoroutineScope()
 
+    val fireStore = Firebase.firestore
+    val fAuth = Firebase.auth
+    var currentUserName by remember { mutableStateOf("") }
+
+    fireStore
+        .collection("users")
+        .document(fAuth.currentUser?.uid.toString())
+        .get()
+        .addOnSuccessListener {
+            currentUserName = it.get("firstName").toString()
+        }
+
     Column(
         modifier = Modifier.fillMaxSize()
     ) {
@@ -173,10 +188,30 @@ fun DrawerLayoutView(navController: NavHostController, scState: ScaffoldState) {
                 )
             }
         }
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .fillMaxHeight(0.2f)
+                .padding(20.dp),
+        ) {
+            if (userVM.isAnyUser.value) {
+                Text(
+                    text = "Welcome back,",
+                    color = Color(0xffed4956),
+                    fontSize = 24.sp,
+                    fontWeight = FontWeight.Bold
+                )
+                Text(
+                    text = currentUserName,
+                    color = Color(0xffed4956),
+                    fontSize = 18.sp
+                )
+            }
+        }
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .fillMaxHeight(0.85f)
+                .fillMaxHeight(0.8f)
                 .padding(20.dp),
         ) {
             if (userVM.isAnyUser.value) {
