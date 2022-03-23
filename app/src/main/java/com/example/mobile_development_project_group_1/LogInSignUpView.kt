@@ -44,8 +44,8 @@ fun LoginView(userVM: UserViewModel, navController: NavHostController) {
             .fillMaxSize()
     ) {
 
-        Logo(R.drawable.ic_logo)
-        
+        Logo(R.drawable.ic_logo, navController)
+
         if (isLoginOpen) {
             Title("Login")
 
@@ -112,12 +112,7 @@ fun LoginView(userVM: UserViewModel, navController: NavHostController) {
                 ) {
                     ConfirmButton(
                         functionality = {
-                            if (email.isNotEmpty() || pw.isNotEmpty()) {
-                                userVM.logInUser(email, pw)
-                                navController.navigate(HOME_ROUTE)
-                            } else {
-                                userVM.errorMessage.value = "Please, fill email and password fields"
-                            }
+                            userVM.logInUser(email, pw, navController)
                         },
                         resId = R.drawable.ic_arrow_right
                     )
@@ -293,27 +288,16 @@ fun LoginView(userVM: UserViewModel, navController: NavHostController) {
                     }
                     ConfirmButton(
                         functionality = {
-                            if (
-                                email.isNotEmpty()
-                                || pw.isNotEmpty()
-                                || firstName.isNotEmpty()
-                                || lastName.isNotEmpty()
-                                || address.isNotEmpty()
-                                || phoneNumber.isNotEmpty()
-                            ) {
-                                userVM.signUpUser(
-                                    email,
-                                    pw,
-                                    firstName,
-                                    lastName,
-                                    address,
-                                    phoneNumber,
-                                    route
-                                )
-                                navController.navigate(HOME_ROUTE)
-                            } else {
-                                userVM.errorMessage.value = "Please, fill in all fields"
-                            }
+                            userVM.signUpUser(
+                                email,
+                                pw,
+                                firstName,
+                                lastName,
+                                address,
+                                phoneNumber,
+                                route,
+                                navController
+                            )
                         },
                         resId = R.drawable.ic_check
                     )
@@ -349,11 +333,15 @@ fun LoginView(userVM: UserViewModel, navController: NavHostController) {
 fun ErrorMessage(userVM: UserViewModel) {
     if (userVM.errorMessage.value.isEmpty()) {
         Row(
-            modifier = Modifier.fillMaxWidth().height(34.dp)
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(34.dp)
         ) {}
     } else {
         Row(
-            modifier = Modifier.fillMaxWidth().height(34.dp),
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(34.dp),
             horizontalArrangement = Arrangement.Center
         ) {
             Text(
@@ -367,17 +355,46 @@ fun ErrorMessage(userVM: UserViewModel) {
 }
 
 @Composable
-fun Logo(resId: Int) {
+fun Logo(resId: Int, navController: NavHostController) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .fillMaxHeight(0.2f),
-        horizontalArrangement = Arrangement.Center
+            .fillMaxHeight(0.2f)
     ) {
-        Box(
-            modifier = Modifier.background(Color(0xffed4956))
+        Column(
+            modifier = Modifier
+                .fillMaxWidth(0.32f)
+                .padding(20.dp),
         ) {
-            Image(painter = painterResource(resId), contentDescription = "")
+            Card(
+                modifier = Modifier
+                    .size(42.dp)
+                    .clickable {
+                        navController.navigate(HOME_ROUTE)
+                    },
+                shape = RoundedCornerShape(30.dp)
+            ) {
+                Row(
+                    modifier = Modifier.background(Color(0xffed4956)),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Center
+                ) {
+                    Icon(
+                        painter = painterResource(R.drawable.ic_arrow_left),
+                        contentDescription = "",
+                        tint = Color.White
+                    )
+                }
+            }
+        }
+        Row(
+            modifier = Modifier.fillMaxWidth(1f)
+        ) {
+            Box(
+                modifier = Modifier.background(Color(0xffed4956))
+            ) {
+                Image(painter = painterResource(resId), contentDescription = "")
+            }
         }
     }
 }
@@ -488,4 +505,3 @@ fun Title(title: String) {
         )
     }
 }
-
