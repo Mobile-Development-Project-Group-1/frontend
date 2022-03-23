@@ -17,11 +17,17 @@ import androidx.navigation.NavHostController
 
 @Composable
 fun AddNewPubPlaceView(navController: NavHostController) {
-    Column {
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .fillMaxHeight(0.9f)
+            .background(Color.LightGray)
+            .padding(10.dp)
+    ) {
         Column(
             modifier = Modifier
-                .fillMaxWidth(0.32f)
-                .padding(20.dp),
+                .fillMaxWidth()
+                .padding(10.dp),
         ) {
             Card(
                 modifier = Modifier
@@ -43,7 +49,9 @@ fun AddNewPubPlaceView(navController: NavHostController) {
                     )
                 }
             }
-        }
-        Text(text = "CAC")
-    }
-}
+        } // Back to HomePage button
+        Column() {
+
+        } // Inputs
+    } // Main Column
+} // AddNewPubPlaceView()
