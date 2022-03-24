@@ -1,12 +1,15 @@
 package com.example.mobile_development_project_group_1
 
+import android.util.Log
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.GridCells
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyVerticalGrid
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.*
@@ -27,6 +30,8 @@ fun HomeView(navController: NavHostController) {
     val fAuth = Firebase.auth
     var currentUserRoute by remember { mutableStateOf("") }
 
+//    var pubPlaceList by remember { mutableStateOf(mutableListOf<String>()) }
+
     fireStore
         .collection("users")
         .document(fAuth.currentUser?.uid.toString())
@@ -35,6 +40,20 @@ fun HomeView(navController: NavHostController) {
             currentUserRoute = it.get("root").toString()
         }
 
+//    fireStore
+//        .collection("public_places")
+//        .get()
+//        .addOnSuccessListener {
+//
+//            val titles = mutableListOf<String>()
+//            for (document in it) {
+//
+//                titles.add( document.get("title").toString() )
+//                pubPlaceList = titles
+//
+//            }
+//        }
+
     LazyVerticalGrid(
         cells = GridCells.Fixed(2),
         modifier = Modifier
@@ -42,7 +61,7 @@ fun HomeView(navController: NavHostController) {
             .fillMaxHeight(0.914f),
         contentPadding = PaddingValues(16.dp, 0.dp)
     ) {
-        items(7) {
+        items(/*pubPlaceList*/5) {
             Card(
                 shape = RoundedCornerShape(40.dp),
                 modifier = Modifier
@@ -57,7 +76,7 @@ fun HomeView(navController: NavHostController) {
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center
                 ) {
-                    Text(text = "BAR")
+                    Text(text = /*it*/"BAR")
                 }
             }
         }
@@ -100,7 +119,10 @@ fun HomeView(navController: NavHostController) {
                     }
                 }
             }
-            Divider(modifier = Modifier.width(0.1.dp).height(10.dp).background(Color.Transparent))
+            Divider(modifier = Modifier
+                .width(0.1.dp)
+                .height(10.dp)
+                .background(Color.Transparent))
             if (currentUserRoute == "MANAGER" || currentUserRoute == "ADMIN") {
                 Card(
                     modifier = Modifier
