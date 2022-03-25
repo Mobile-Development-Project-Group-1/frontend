@@ -3,9 +3,11 @@ package com.example.mobile_development_project_group_1
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Divider
 import androidx.compose.material.MaterialTheme
 
@@ -53,7 +55,31 @@ fun ProfilePageView() {
                     }
                 }
                 Divider(thickness = 1.dp, color = Color(0xffED4956))
-                Column(modifier = Modifier.fillMaxWidth().height(300.dp)) {
+                Column(modifier = Modifier
+                    .fillMaxWidth()
+                    .height(300.dp)
+                    .verticalScroll(rememberScrollState()),
+
+
+
+                )
+
+                {
+                  Row(modifier = Modifier
+                      .fillMaxWidth()
+                      .height(150.dp)
+                      .padding(10.dp)) {
+                      Column() 
+                      {
+                        Row() {
+                            
+                        }  
+                          
+                      }
+
+                  }
+                   
+
 
 
                 }
