@@ -37,6 +37,7 @@ fun ProfilePageView() {
    }
     val userVM = viewModel<UserViewModel>(LocalContext.current as ViewModelStoreOwner)
     userVM.getUserData()
+
     if (isEdit.value){
         Column(modifier = Modifier
             .fillMaxSize()
