@@ -15,7 +15,7 @@ class UserViewModel: ViewModel() {
 
     var successMessage = mutableStateOf("")
     var errorMessage = mutableStateOf("")
-
+    var userdata = mutableStateOf(mapOf<String,Any>())
 
 
     fun logInUser(email: String, pw: String, navController: NavHostController) {
@@ -107,7 +107,12 @@ class UserViewModel: ViewModel() {
             .get()
             .addOnSuccessListener {
                 val result = it.data
-                Log.d("...............",result.toString())
+                var  temp  = mutableMapOf<String,Any>()
+                if (result != null){
+                    temp = result
+                }
+                userdata.value = temp
+
 
             }
 
