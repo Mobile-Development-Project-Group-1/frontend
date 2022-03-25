@@ -53,6 +53,10 @@ fun ProfilePageView() {
                     }
                 }
                 Divider(thickness = 1.dp, color = Color(0xffED4956))
+                Column(modifier = Modifier.fillMaxWidth().height(300.dp)) {
+
+
+                }
 
 
 
