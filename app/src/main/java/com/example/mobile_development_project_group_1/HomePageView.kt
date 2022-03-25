@@ -1,15 +1,12 @@
 package com.example.mobile_development_project_group_1
 
-import android.util.Log
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.GridCells
-import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyVerticalGrid
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.*
@@ -100,7 +97,7 @@ fun HomeView(navController: NavHostController) {
                     modifier = Modifier
                         .size(50.dp)
                         .clickable {
-                            //navController.navigate(HOME_ROUTE)
+                            navController.navigate(CHAT_ROUTE)
                         },
                     shape = RoundedCornerShape(50.dp)
                 ) {
@@ -128,7 +125,7 @@ fun HomeView(navController: NavHostController) {
                     modifier = Modifier
                         .size(50.dp)
                         .clickable {
-                            //navController.navigate(HOME_ROUTE)
+                            navController.navigate(PUB_PLACE_CREATION_ROUTE)
                         },
                     shape = RoundedCornerShape(50.dp)
                 ) {
