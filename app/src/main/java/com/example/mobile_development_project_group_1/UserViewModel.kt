@@ -101,6 +101,15 @@ class UserViewModel: ViewModel() {
     }
 
     fun getUserData(){
+        fireStore
+            .collection("users")
+            .document(fAuth.currentUser?.uid.toString())
+            .get()
+            .addOnSuccessListener {
+                val result = it.data
+                Log.d("...............",result.toString())
+
+            }
 
     }
 }
