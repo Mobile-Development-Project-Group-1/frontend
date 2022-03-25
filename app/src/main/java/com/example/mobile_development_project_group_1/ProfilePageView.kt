@@ -69,7 +69,11 @@ fun ProfilePageView() {
                     )
 
                 {
-
+                    makeTextInfo("First name", userVM.userdata.value["firstName"].toString())
+                    makeTextInfo("Last name", userVM.userdata.value["lastName"].toString())
+                    makeTextInfo("Email", Firebase.auth.currentUser?.email.toString())
+                    makeTextInfo("Phone number", userVM.userdata.value["phoneNumber"].toString())
+                    makeTextInfo("Address", userVM.userdata.value["address"].toString())
 
                 }
 
