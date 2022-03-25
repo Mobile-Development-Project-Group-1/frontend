@@ -1,7 +1,7 @@
 package com.example.mobile_development_project_group_1
 
 
-import android.icu.text.CaseMap
+
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -10,7 +10,7 @@ import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Divider
-import androidx.compose.material.MaterialTheme
+
 
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
@@ -28,25 +28,24 @@ import androidx.compose.ui.unit.sp
 
 import androidx.lifecycle.ViewModelStoreOwner
 import androidx.lifecycle.viewmodel.compose.viewModel
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 
 
 @Composable
 fun ProfilePageView() {
-   var isEdit :MutableState<Boolean> = remember {
-       mutableStateOf(true)
-   }
+
     val userVM = viewModel<UserViewModel>(LocalContext.current as ViewModelStoreOwner)
     userVM.getUserData()
 
-    if (isEdit.value){
-        Column(modifier = Modifier
-            .fillMaxSize()
-            .padding(10.dp), horizontalAlignment =Alignment.CenterHorizontally ) {
-            Surface(modifier = Modifier
-                .width(295.dp)
-                .height(400.dp)
-                .padding(0.dp, 10.dp), shape = RoundedCornerShape(corner = CornerSize(15.dp)),  border = BorderStroke(2.dp, Color(0xffED4956))
-         ) {
+    Column(modifier = Modifier
+        .fillMaxSize()
+        .padding(10.dp), horizontalAlignment =Alignment.CenterHorizontally ) {
+        Surface(modifier = Modifier
+            .width(295.dp)
+            .height(400.dp)
+            .padding(0.dp, 10.dp), shape = RoundedCornerShape(corner = CornerSize(15.dp)),  border = BorderStroke(2.dp, Color(0xffED4956))
+        ) {
             Column(modifier = Modifier.fillMaxSize()) {
                 Row(modifier = Modifier
                     .fillMaxWidth()
@@ -70,7 +69,6 @@ fun ProfilePageView() {
                     )
 
                 {
-                    makeTextInfo("First name","Chen Pi")
 
 
                 }
@@ -78,14 +76,6 @@ fun ProfilePageView() {
 
 
             }
-          }
-
-        }
-    }else{
-        Surface(modifier = Modifier
-            .fillMaxSize()
-            .padding(12.dp)) {
-
         }
 
     }
