@@ -99,4 +99,8 @@ class UserViewModel: ViewModel() {
                 }
         }
     }
+
+    fun getUserData(){
+
+    }
 }
