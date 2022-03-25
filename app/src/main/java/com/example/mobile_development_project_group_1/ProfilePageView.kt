@@ -3,6 +3,7 @@ package com.example.mobile_development_project_group_1
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.MaterialTheme
@@ -31,12 +32,22 @@ fun ProfilePageView() {
         Column(modifier = Modifier
             .fillMaxSize()
             .padding(10.dp), horizontalAlignment =Alignment.CenterHorizontally ) {
-            Text(text = "Your Profile", style = MaterialTheme.typography.h5, fontWeight = FontWeight.Bold)
-         Surface(modifier = Modifier
-             .width(295.dp)
-             .height(400.dp).padding(0.dp,10.dp), shape = RoundedCornerShape(corner = CornerSize(15.dp)),  border = BorderStroke(2.dp, Color.LightGray)
+            Surface(modifier = Modifier
+                .width(295.dp)
+                .height(400.dp)
+                .padding(0.dp, 10.dp), shape = RoundedCornerShape(corner = CornerSize(15.dp)),  border = BorderStroke(2.dp, Color.LightGray)
          ) {
+            Column() {
+                Surface(
+                    modifier = Modifier.size(60.dp), shape = CircleShape,
+                    border = BorderStroke(width = 0.5.dp,Color.LightGray),
+                    elevation = 4.dp,
+                ) {
 
+                }
+
+
+            }
           }
 
         }
