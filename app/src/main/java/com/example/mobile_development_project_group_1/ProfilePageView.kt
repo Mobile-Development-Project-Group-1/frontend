@@ -1,6 +1,7 @@
 package com.example.mobile_development_project_group_1
 
 
+import android.icu.text.CaseMap
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -22,7 +23,7 @@ import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.text.font.FontWeight
 
 import androidx.compose.ui.unit.dp
-
+import androidx.compose.ui.unit.sp
 
 
 @Composable
@@ -60,26 +61,10 @@ fun ProfilePageView() {
                     .height(300.dp)
                     .verticalScroll(rememberScrollState()),
 
-
-
-                )
+                    )
 
                 {
-                  Row(modifier = Modifier
-                      .fillMaxWidth()
-                      .height(150.dp)
-                      .padding(10.dp)) {
-                      Column() 
-                      {
-                        Row() {
-                            
-                        }  
-                          
-                      }
-
-                  }
-                   
-
+                    makeTextInfo("First name","Chen Pi")
 
 
                 }
@@ -98,4 +83,26 @@ fun ProfilePageView() {
         }
 
     }
+}
+
+@Composable
+private fun makeTextInfo(title:String , data:String) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(10.dp)
+    ) {
+        Column()
+        {
+            Text(
+                text = title,
+                fontSize = 16.sp,
+                fontWeight = FontWeight.Bold,
+                color = Color(0xffED4956)
+            )
+            Text(text = data, fontSize = 12.sp)
+        }
+
+    }
+    Divider(thickness = 1.dp)
 }
