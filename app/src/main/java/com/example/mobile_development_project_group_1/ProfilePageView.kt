@@ -19,6 +19,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 
 import androidx.compose.ui.text.font.FontWeight
@@ -28,6 +29,7 @@ import androidx.compose.ui.unit.sp
 
 import androidx.lifecycle.ViewModelStoreOwner
 import androidx.lifecycle.viewmodel.compose.viewModel
+import coil.compose.AsyncImage
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
@@ -57,7 +59,11 @@ fun ProfilePageView() {
                         border = BorderStroke(width = 0.5.dp, Color(0xffED4956)),
                         elevation = 4.dp,
                     ) {
-
+                        AsyncImage(model = "${userVM.userdata.value["pictureUrl"].toString()}",
+                            contentDescription ="image",
+                            modifier = Modifier.size(80.dp),
+                            contentScale = ContentScale.Crop
+                        )
                     }
                 }
                 Divider(thickness = 1.dp, color = Color(0xffED4956))
@@ -86,7 +92,7 @@ fun ProfilePageView() {
 }
 
 @Composable
-private fun makeTextInfo(title:String , data:String) {
+fun makeTextInfo(title:String , data:String) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
