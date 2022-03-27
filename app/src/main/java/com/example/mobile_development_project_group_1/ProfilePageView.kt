@@ -58,7 +58,9 @@ fun ProfilePageView() {
                 ) {
                    Column(modifier = Modifier
                        .fillMaxSize()
-                       .padding(5.dp)) {
+                       .padding(5.dp),
+                       verticalArrangement =Arrangement.SpaceBetween,
+                       horizontalAlignment =Alignment.CenterHorizontally) {
                        Surface(
                            modifier = Modifier.size(80.dp), shape = CircleShape,
                            border = BorderStroke(width = 0.5.dp, Color(0xffED4956)),
@@ -70,7 +72,7 @@ fun ProfilePageView() {
                                contentScale = ContentScale.Crop
                            )
                        }
-                       Icon(painter = painterResource(id = R.drawable.ic_create), contentDescription ="Create Image" ,)
+
                    }
                 }
                 Divider(thickness = 1.dp, color = Color(0xffED4956))
