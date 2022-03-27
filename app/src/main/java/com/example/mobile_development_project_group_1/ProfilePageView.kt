@@ -9,12 +9,8 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
-import androidx.compose.material.Divider
-import androidx.compose.material.Icon
+import androidx.compose.material.*
 
-
-import androidx.compose.material.Surface
-import androidx.compose.material.Text
 
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -34,6 +30,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.launch
 
 
 @Composable
@@ -70,6 +67,17 @@ fun ProfilePageView() {
                                contentDescription ="image",
                                modifier = Modifier.size(80.dp),
                                contentScale = ContentScale.Crop
+                           )
+                       }
+                       OutlinedButton(
+                           onClick = {},
+                           colors = ButtonDefaults
+                               .buttonColors(backgroundColor = Color(0xffed4956), contentColor = Color.White)
+                       ) {
+                           Text(
+                               text = "Change profile photo",
+                               fontSize = 14.sp,
+                               fontWeight = FontWeight.Bold
                            )
                        }
 
