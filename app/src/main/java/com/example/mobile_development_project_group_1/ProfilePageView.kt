@@ -69,10 +69,8 @@ fun ProfilePageView() {
                                modifier = Modifier.size(80.dp),
                                contentScale = ContentScale.Crop
                            )
-
-                           Icon(painter = painterResource(id = R.drawable.ic_create), contentDescription ="Create Image" ,)
-
                        }
+                       Icon(painter = painterResource(id = R.drawable.ic_create), contentDescription ="Create Image" ,)
                    }
                 }
                 Divider(thickness = 1.dp, color = Color(0xffED4956))
