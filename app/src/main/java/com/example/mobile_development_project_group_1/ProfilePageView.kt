@@ -50,14 +50,14 @@ fun ProfilePageView() {
             Column(modifier = Modifier.fillMaxSize()) {
                 Row(modifier = Modifier
                     .fillMaxWidth()
-                    .height(100.dp), verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.Center
+                    .height(100.dp),
                 ) {
-                   Column(modifier = Modifier
+                   Row(modifier = Modifier
                        .fillMaxSize()
                        .padding(5.dp),
-                       verticalArrangement =Arrangement.SpaceBetween,
-                       horizontalAlignment =Alignment.CenterHorizontally) {
+                       verticalAlignment = Alignment.CenterVertically,
+                       horizontalArrangement = Arrangement.Center
+                       ) {
                        Surface(
                            modifier = Modifier.size(80.dp), shape = CircleShape,
                            border = BorderStroke(width = 0.5.dp, Color(0xffED4956)),
@@ -68,18 +68,12 @@ fun ProfilePageView() {
                                modifier = Modifier.size(80.dp),
                                contentScale = ContentScale.Crop
                            )
+                       
                        }
-                       OutlinedButton(
-                           onClick = {},
-                           colors = ButtonDefaults
-                               .buttonColors(backgroundColor = Color(0xffed4956), contentColor = Color.White)
-                       ) {
-                           Text(
-                               text = "Change ",
-                               fontSize = 5.sp,
-                               fontWeight = FontWeight.Bold
+                       Icon(painter = painterResource(id = R.drawable.ic_create), contentDescription ="Create Image" ,
+
+
                            )
-                       }
 
                    }
                 }
