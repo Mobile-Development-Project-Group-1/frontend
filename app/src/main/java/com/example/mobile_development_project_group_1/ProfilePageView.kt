@@ -56,24 +56,24 @@ fun ProfilePageView() {
                     .height(100.dp), verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.Center
                 ) {
-                    Surface(
-                        modifier = Modifier.size(80.dp), shape = CircleShape,
-                        border = BorderStroke(width = 0.5.dp, Color(0xffED4956)),
-                        elevation = 4.dp,
-                    ) {
-                      Column() {
-                          AsyncImage(model = "${userVM.userdata.value["pictureUrl"].toString()}",
-                              contentDescription ="image",
-                              modifier = Modifier.size(80.dp),
-                              contentScale = ContentScale.Crop
-                          )
-                          Icon(painter = painterResource(id = R.drawable.ic_create),
-                              contentDescription ="Create Image" )
+                   Column(modifier = Modifier
+                       .fillMaxSize()
+                       .padding(5.dp)) {
+                       Surface(
+                           modifier = Modifier.size(80.dp), shape = CircleShape,
+                           border = BorderStroke(width = 0.5.dp, Color(0xffED4956)),
+                           elevation = 4.dp,
+                       ) {
+                           AsyncImage(model = "${userVM.userdata.value["pictureUrl"].toString()}",
+                               contentDescription ="image",
+                               modifier = Modifier.size(80.dp),
+                               contentScale = ContentScale.Crop
+                           )
 
-                      }
+                           Icon(painter = painterResource(id = R.drawable.ic_create), contentDescription ="Create Image" ,)
 
-
-                    }
+                       }
+                   }
                 }
                 Divider(thickness = 1.dp, color = Color(0xffED4956))
                 Column(modifier = Modifier
