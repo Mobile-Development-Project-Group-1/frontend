@@ -75,8 +75,8 @@ fun ProfilePageView() {
                                .buttonColors(backgroundColor = Color(0xffed4956), contentColor = Color.White)
                        ) {
                            Text(
-                               text = "Change profile photo",
-                               fontSize = 14.sp,
+                               text = "Change ",
+                               fontSize = 5.sp,
                                fontWeight = FontWeight.Bold
                            )
                        }
