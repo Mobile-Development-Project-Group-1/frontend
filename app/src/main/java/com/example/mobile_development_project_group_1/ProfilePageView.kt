@@ -10,6 +10,7 @@ import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Divider
+import androidx.compose.material.Icon
 
 
 import androidx.compose.material.Surface
@@ -21,6 +22,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 
 import androidx.compose.ui.text.font.FontWeight
 
@@ -59,11 +61,18 @@ fun ProfilePageView() {
                         border = BorderStroke(width = 0.5.dp, Color(0xffED4956)),
                         elevation = 4.dp,
                     ) {
-                        AsyncImage(model = "${userVM.userdata.value["pictureUrl"].toString()}",
-                            contentDescription ="image",
-                            modifier = Modifier.size(80.dp),
-                            contentScale = ContentScale.Crop
-                        )
+                      Column() {
+                          AsyncImage(model = "${userVM.userdata.value["pictureUrl"].toString()}",
+                              contentDescription ="image",
+                              modifier = Modifier.size(80.dp),
+                              contentScale = ContentScale.Crop
+                          )
+                          Icon(painter = painterResource(id = R.drawable.ic_create),
+                              contentDescription ="Create Image" )
+
+                      }
+
+
                     }
                 }
                 Divider(thickness = 1.dp, color = Color(0xffED4956))
