@@ -2,6 +2,7 @@ package com.example.mobile_development_project_group_1
 
 
 
+import android.net.Uri
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
@@ -37,6 +38,10 @@ import com.google.firebase.ktx.Firebase
 fun ProfilePageView() {
 
     val userVM = viewModel<UserViewModel>(LocalContext.current as ViewModelStoreOwner)
+    var imgUrl by remember {
+        mutableStateOf<Uri?>(null)
+    }
+
     userVM.getUserData()
 
     Column(modifier = Modifier
