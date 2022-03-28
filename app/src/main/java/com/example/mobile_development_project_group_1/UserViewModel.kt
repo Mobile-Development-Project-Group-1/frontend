@@ -1,5 +1,6 @@
 package com.example.mobile_development_project_group_1
 
+import android.media.Image
 import android.net.Uri
 import android.util.Log
 import androidx.compose.runtime.mutableStateOf
@@ -129,6 +130,20 @@ class UserViewModel: ViewModel() {
                 val result = it.metadata!!.reference!!.downloadUrl;
                 result.addOnSuccessListener { doc ->
                     var temp = doc.toString()
+                    val ImageValue = hashMapOf(
+                        "pictureUrl" to temp
+                    )
+                    fireStore
+                        .collection("users")
+                        .document(fAuth.currentUser!!.uid)
+                        .set(ImageValue)
+                        .addOnSuccessListener {
+                            Log.d("********", "User name updated")
+                            getUserData()
+                        }
+                        .addOnFailureListener { error ->
+                            Log.d("********", error.message.toString())
+                        }
 
 
                 }

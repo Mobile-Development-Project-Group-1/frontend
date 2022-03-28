@@ -104,6 +104,9 @@ fun ProfilePageView() {
         }
 
     }
+    imgUrl?.let {
+        userVM.setProfileImage(imgUrl!!)
+    }
 }
 
 @Composable
