@@ -76,7 +76,7 @@ fun ProfilePageView() {
                            border = BorderStroke(width = 0.5.dp, Color(0xffED4956)),
                            elevation = 4.dp,
                        ) {
-                           AsyncImage(model = "${userVM.userdata.value["pictureUrl"].toString()}",
+                           AsyncImage(model = userVM.userdata.value["pictureUrl"].toString(),
                                contentDescription ="image",
                                modifier = Modifier.size(90.dp),
                                contentScale = ContentScale.Crop
