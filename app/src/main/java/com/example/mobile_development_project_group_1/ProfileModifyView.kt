@@ -87,7 +87,7 @@ fun ProfileMOView(nav: NavHostController) {
 
           OutlinedButton(
               onClick = {
-                  nav.navigate(PROFILE_ROUTE )
+                  nav.navigate(HOME_ROUTE)
 
               },
               colors = ButtonDefaults
