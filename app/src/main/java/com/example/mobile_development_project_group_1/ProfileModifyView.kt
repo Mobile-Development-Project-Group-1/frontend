@@ -38,13 +38,11 @@ fun ProfileMOView(nav: NavHostController) {
                     .fillMaxWidth()
                     .height(100.dp),
                 ) {
-                    Row(modifier = Modifier
-                        .fillMaxSize()
-                        .padding(5.dp),
-                        horizontalArrangement = Arrangement.Center
-                    ) {
-
-                    }
+                    Text(
+                        text = "Your Profile",
+                        fontSize = 14.sp,
+                        fontWeight = FontWeight.Bold
+                    )
                 }
                 Divider(thickness = 1.dp, color = Color(0xffED4956))
                 Column(modifier = Modifier
