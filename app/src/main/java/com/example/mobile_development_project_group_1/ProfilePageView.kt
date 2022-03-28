@@ -3,6 +3,7 @@ package com.example.mobile_development_project_group_1
 
 
 import android.net.Uri
+import android.widget.Toast
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.BorderStroke
@@ -49,10 +50,18 @@ fun ProfilePageView(nav:NavHostController) {
 
         imgUrl = it
     }
+    val context = LocalContext.current
     imgUrl?.let {
         userVM.setProfileImage(imgUrl!!)
+        Toast.makeText(
+            context,
+            "Button is clicked..........",
+            Toast.LENGTH_SHORT
+
+        ).show()
     }
     userVM.getUserData()
+
 
     Column(modifier = Modifier
         .fillMaxSize()
@@ -87,6 +96,7 @@ fun ProfilePageView(nav:NavHostController) {
                        Icon(painter = painterResource(id = R.drawable.ic_create), contentDescription ="Create Image" ,
                             modifier = Modifier.padding(0.dp,70.dp,0.dp,0.dp,).clickable {
                                 launcher.launch("image/*")
+
                             }
 
                            )
