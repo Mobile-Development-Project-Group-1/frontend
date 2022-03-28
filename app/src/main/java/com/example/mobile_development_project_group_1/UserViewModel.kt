@@ -22,7 +22,7 @@ class UserViewModel: ViewModel() {
     var successMessage = mutableStateOf("")
     var errorMessage = mutableStateOf("")
     var userdata = mutableStateOf(mapOf<String,Any>())
-    var updateImageMessage = mutableStateOf("")
+
 
     fun logInUser(email: String, pw: String, navController: NavHostController) {
         if (email.isNotEmpty() && pw.isNotEmpty()) {
@@ -59,7 +59,6 @@ class UserViewModel: ViewModel() {
                         .set( User(firstName, lastName, address, phoneNumber, route) )
                         .addOnSuccessListener {
                             Log.d("********", "User's information added successfully!")
-
                         }
                         .addOnFailureListener { error ->
                             Log.d("********", error.message.toString())
@@ -139,8 +138,7 @@ class UserViewModel: ViewModel() {
                         .document(fAuth.currentUser!!.uid)
                         .set(tempUserdata)
                         .addOnSuccessListener {
-                            Log.d("********", "Profile photos have been updated")
-                            updateImageMessage.value = "Profile photos have been updated"
+                            Log.d("********", "Profile photos are being updated")
                             getUserData()
                         }
                         .addOnFailureListener { error ->

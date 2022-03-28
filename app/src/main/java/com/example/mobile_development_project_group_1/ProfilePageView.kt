@@ -51,28 +51,18 @@ fun ProfilePageView(nav:NavHostController) {
         imgUrl = it
     }
     val context = LocalContext.current
+
     imgUrl?.let {
         userVM.setProfileImage(imgUrl!!)
-        if(userVM.updateImageMessage.value.isEmpty()){
-            Toast.makeText(
-                context,
-                "Profile photos are being updated",
-                Toast.LENGTH_SHORT
+        Toast.makeText(
+            context,
+            "Profile photos are being updated",
+            Toast.LENGTH_LONG
 
             ).show()
-        }
-
     }
 
-   if (userVM.updateImageMessage.value.isNotEmpty()){
-       Toast.makeText(
-           context,
-           userVM.updateImageMessage.value,
-           Toast.LENGTH_LONG
 
-       ).show()
-
-   }
     userVM.getUserData()
 
     Column(modifier = Modifier
@@ -106,10 +96,12 @@ fun ProfilePageView(nav:NavHostController) {
                        
                        }
                        Icon(painter = painterResource(id = R.drawable.ic_create), contentDescription ="Create Image" ,
-                            modifier = Modifier.padding(0.dp,70.dp,0.dp,0.dp,).clickable {
-                                launcher.launch("image/*")
+                            modifier = Modifier
+                                .padding(0.dp, 70.dp, 0.dp, 0.dp,)
+                                .clickable {
+                                    launcher.launch("image/*")
 
-                            }
+                                }
 
                            )
 
