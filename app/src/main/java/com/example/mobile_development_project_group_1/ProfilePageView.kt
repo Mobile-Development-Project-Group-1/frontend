@@ -45,21 +45,24 @@ fun ProfilePageView(nav:NavHostController) {
     val userVM = viewModel<UserViewModel>(LocalContext.current as ViewModelStoreOwner)
     var imgUrl by remember {
         mutableStateOf<Uri?>(null)
+
     }
+    val context = LocalContext.current
     var launcher = rememberLauncherForActivityResult(contract = ActivityResultContracts.GetContent() ){
 
         imgUrl = it
-    }
-    val context = LocalContext.current
-
-    imgUrl?.let {
-        userVM.setProfileImage(imgUrl!!)
         Toast.makeText(
             context,
             "Profile photos are being updated",
-            Toast.LENGTH_LONG
+            Toast.LENGTH_SHORT
 
-            ).show()
+        ).show()
+    }
+
+
+    imgUrl?.let {
+        userVM.setProfileImage(imgUrl!!)
+
     }
 
 
@@ -130,6 +133,12 @@ fun ProfilePageView(nav:NavHostController) {
         }
         OutlinedButton(
             onClick = {
+                Toast.makeText(
+                    context,
+                    "Modify your profile",
+                    Toast.LENGTH_SHORT
+                ).show()
+
                 nav.navigate(PROFILE_MODIFY)
 
             },
