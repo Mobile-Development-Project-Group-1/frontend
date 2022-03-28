@@ -6,5 +6,5 @@ import androidx.navigation.NavHostController
 
 @Composable
 fun ProfileMOView(nav: NavHostController) {
-    Text(text = "mmmmmmmmmmmmmmmmm")
+
 }
