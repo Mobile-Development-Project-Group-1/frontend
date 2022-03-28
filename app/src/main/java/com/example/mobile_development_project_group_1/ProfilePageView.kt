@@ -3,7 +3,10 @@ package com.example.mobile_development_project_group_1
 
 
 import android.net.Uri
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.CircleShape
@@ -41,7 +44,13 @@ fun ProfilePageView() {
     var imgUrl by remember {
         mutableStateOf<Uri?>(null)
     }
+    var launcher = rememberLauncherForActivityResult(contract = ActivityResultContracts.GetContent() ){
 
+        imgUrl = it
+    }
+    imgUrl?.let {
+        userVM.setProfileImage(imgUrl!!)
+    }
     userVM.getUserData()
 
     Column(modifier = Modifier
@@ -75,7 +84,9 @@ fun ProfilePageView() {
                        
                        }
                        Icon(painter = painterResource(id = R.drawable.ic_create), contentDescription ="Create Image" ,
-                            modifier = Modifier.padding(0.dp,70.dp,0.dp,0.dp,)
+                            modifier = Modifier.padding(0.dp,70.dp,0.dp,0.dp,).clickable {
+                                launcher.launch("image/*")
+                            }
 
                            )
 
@@ -104,9 +115,7 @@ fun ProfilePageView() {
         }
 
     }
-    imgUrl?.let {
-        userVM.setProfileImage(imgUrl!!)
-    }
+
 }
 
 @Composable
