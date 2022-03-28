@@ -31,6 +31,7 @@ import androidx.compose.ui.unit.sp
 
 import androidx.lifecycle.ViewModelStoreOwner
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -38,7 +39,7 @@ import com.google.firebase.ktx.Firebase
 
 
 @Composable
-fun ProfilePageView() {
+fun ProfilePageView(nav:NavHostController) {
 
     val userVM = viewModel<UserViewModel>(LocalContext.current as ViewModelStoreOwner)
     var imgUrl by remember {

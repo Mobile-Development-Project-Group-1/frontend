@@ -25,6 +25,7 @@ import kotlinx.coroutines.launch
 const val HOME_ROUTE = "home"
 const val LOGINSIGNUP_ROUTE = "logInSignUp"
 const val PROFILE_ROUTE = "profile"
+const val  PROFILE_MODIFY ="profile_modify"
 
 const val ADMIN_ROUTE = "ADMIN"
 const val MANAGER_ROUTE = "MANAGER"
@@ -50,7 +51,8 @@ fun MainContentView(navController: NavHostController) {
     NavHost(navController = navController, startDestination = HOME_ROUTE ) {
         composable(route = HOME_ROUTE) { HomeView() }
         composable(route = LOGINSIGNUP_ROUTE) { LoginView(userVM, navController) }
-        composable(route = PROFILE_ROUTE) { ProfilePageView() }
+        composable(route = PROFILE_ROUTE) { ProfilePageView(navController) }
+        composable(route =  PROFILE_MODIFY) { ProfileMOView() }
     }
 }
 
