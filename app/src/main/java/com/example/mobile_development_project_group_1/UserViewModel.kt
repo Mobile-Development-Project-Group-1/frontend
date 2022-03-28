@@ -3,6 +3,7 @@ package com.example.mobile_development_project_group_1
 import android.net.Uri
 import android.util.Log
 import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavHostController
 import com.google.firebase.auth.ktx.auth
@@ -14,7 +15,7 @@ class UserViewModel: ViewModel() {
     private val fAuth = Firebase.auth
     private val fireStore = Firebase.firestore
     private val storage    = Firebase.storage
-            val  ref     =  storage.reference
+    private val  ref     =  storage.reference
     var isAnyUser = mutableStateOf(false)
 
     var successMessage = mutableStateOf("")
@@ -125,7 +126,12 @@ class UserViewModel: ViewModel() {
         var path = "userUrl"
         ref.child(path).putFile(u)
             .addOnSuccessListener {
-                val result = it
+                val result = it.metadata!!.reference!!.downloadUrl;
+                result.addOnSuccessListener { doc ->
+                    var temp = doc.toString()
+
+
+                }
             }
 
     }
