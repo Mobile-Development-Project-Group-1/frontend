@@ -87,6 +87,7 @@ fun ProfileMOView(nav: NavHostController) {
 
           OutlinedButton(
               onClick = {
+                  userVM.deleteUser()
                   nav.navigate(HOME_ROUTE)
 
               },
