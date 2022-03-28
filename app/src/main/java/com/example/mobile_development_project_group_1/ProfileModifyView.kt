@@ -25,61 +25,59 @@ import com.google.firebase.ktx.Firebase
 
 @Composable
 fun ProfileMOView(nav: NavHostController) {
-   Column(modifier = Modifier
-      .fillMaxSize()
-      .padding(10.dp), horizontalAlignment = Alignment.CenterHorizontally ) {
-      Surface(modifier = Modifier
-         .width(295.dp)
-         .height(400.dp)
-         .padding(0.dp, 10.dp), shape = RoundedCornerShape(corner = CornerSize(15.dp)),  border = BorderStroke(2.dp, Color(0xffED4956))
-      ) {
-         Column(modifier = Modifier.fillMaxSize()) {
-            Row(modifier = Modifier
-               .fillMaxWidth()
-               .height(100.dp),
-            ) {
-               Row(modifier = Modifier
-                  .fillMaxSize()
-                  .padding(5.dp),
-                  horizontalArrangement = Arrangement.Center
-               )
-               {
-                  Text(
-                     text = "Edit your profile",
-                     fontSize = 14.sp,
-                     fontWeight = FontWeight.Bold
-                  )
+    Column(modifier = Modifier
+        .fillMaxSize()
+        .padding(10.dp), horizontalAlignment =Alignment.CenterHorizontally ) {
+        Surface(modifier = Modifier
+            .width(295.dp)
+            .height(400.dp)
+            .padding(0.dp, 10.dp), shape = RoundedCornerShape(corner = CornerSize(15.dp)),  border = BorderStroke(2.dp, Color(0xffED4956))
+        ) {
+            Column(modifier = Modifier.fillMaxSize()) {
+                Row(modifier = Modifier
+                    .fillMaxWidth()
+                    .height(100.dp),
+                ) {
+                    Row(modifier = Modifier
+                        .fillMaxSize()
+                        .padding(5.dp),
+                        horizontalArrangement = Arrangement.Center
+                    ) {
+
+                    }
+                }
+                Divider(thickness = 1.dp, color = Color(0xffED4956))
+                Column(modifier = Modifier
+                    .fillMaxWidth()
+                    .height(300.dp)
+                    .verticalScroll(rememberScrollState()),
+
+                    )
+
+                {
+
+
+                }
+
+
+
             }
-            Divider(thickness = 1.dp, color = Color(0xffED4956))
-            Column(modifier = Modifier
-               .fillMaxWidth()
-               .height(300.dp)
-               .verticalScroll(rememberScrollState()),
+        }
+        OutlinedButton(
+            onClick = {
+                nav.navigate(PROFILE_ROUTE )
 
-               )
+            },
+            colors = ButtonDefaults
+                .buttonColors(backgroundColor = Color(0xffed4956), contentColor = Color.White)
+        ) {
+            Text(
+                text = "Modify",
+                fontSize = 14.sp,
+                fontWeight = FontWeight.Bold
+            )
+        }
 
-            {
-
-            }
-
-
-
-         }
-      }
-      OutlinedButton(
-         onClick = {
-            nav.navigate()
-
-         },
-         colors = ButtonDefaults
-            .buttonColors(backgroundColor = Color(0xffed4956), contentColor = Color.White)
-      ) {
-         Text(
-            text = "Edit your profile",
-            fontSize = 14.sp,
-            fontWeight = FontWeight.Bold
-         )
-      }
-
-   }
+    }
 }
+
