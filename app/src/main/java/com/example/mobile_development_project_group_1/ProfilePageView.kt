@@ -30,7 +30,7 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-import kotlinx.coroutines.launch
+
 
 
 @Composable
@@ -106,7 +106,7 @@ fun makeTextInfo(title:String , data:String) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(10.dp)
+            .padding(8.dp)
     ) {
         Column()
         {
