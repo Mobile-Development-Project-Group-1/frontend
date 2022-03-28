@@ -14,10 +14,13 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.ViewModelStoreOwner
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import com.google.firebase.auth.ktx.auth
@@ -25,6 +28,7 @@ import com.google.firebase.ktx.Firebase
 
 @Composable
 fun ProfileMOView(nav: NavHostController) {
+    val userVM = viewModel<UserViewModel>(LocalContext.current as ViewModelStoreOwner)
     Column(modifier = Modifier
         .fillMaxSize()
         .padding(10.dp), horizontalAlignment =Alignment.CenterHorizontally ) {
@@ -37,11 +41,15 @@ fun ProfileMOView(nav: NavHostController) {
                 Row(modifier = Modifier
                     .fillMaxWidth()
                     .height(100.dp),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Center
                 ) {
                     Text(
                         text = "Your Profile",
-                        fontSize = 14.sp,
-                        fontWeight = FontWeight.Bold
+                        color = Color(0xffed4956),
+                        fontWeight = FontWeight.Bold,
+                        style =  MaterialTheme.typography.h5
+
                     )
                 }
                 Divider(thickness = 1.dp, color = Color(0xffED4956))
@@ -61,20 +69,37 @@ fun ProfileMOView(nav: NavHostController) {
 
             }
         }
-        OutlinedButton(
-            onClick = {
-                nav.navigate(PROFILE_ROUTE )
+      Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically , horizontalArrangement = Arrangement.SpaceEvenly) {
+          OutlinedButton(
+              onClick = {
+                  nav.navigate(PROFILE_ROUTE )
 
-            },
-            colors = ButtonDefaults
-                .buttonColors(backgroundColor = Color(0xffed4956), contentColor = Color.White)
-        ) {
-            Text(
-                text = "Modify",
-                fontSize = 14.sp,
-                fontWeight = FontWeight.Bold
-            )
-        }
+              },
+              colors = ButtonDefaults
+                  .buttonColors(backgroundColor = Color(0xffed4956), contentColor = Color.White)
+          ) {
+              Text(
+                  text = "Modify",
+                  fontSize = 14.sp,
+                  fontWeight = FontWeight.Bold
+              )
+          }
+
+          OutlinedButton(
+              onClick = {
+                  nav.navigate(PROFILE_ROUTE )
+
+              },
+              colors = ButtonDefaults
+                  .buttonColors(backgroundColor = Color(0xffed4956), contentColor = Color.White)
+          ) {
+              Text(
+                  text = "Delete account",
+                  fontSize = 14.sp,
+                  fontWeight = FontWeight.Bold
+              )
+          }
+      }
 
     }
 }
