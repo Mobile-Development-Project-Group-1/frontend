@@ -53,15 +53,27 @@ fun ProfilePageView(nav:NavHostController) {
     val context = LocalContext.current
     imgUrl?.let {
         userVM.setProfileImage(imgUrl!!)
-        Toast.makeText(
-            context,
-            "Button is clicked..........",
-            Toast.LENGTH_SHORT
+        if(userVM.updateImageMessage.value.isEmpty()){
+            Toast.makeText(
+                context,
+                "Profile photos are being updated",
+                Toast.LENGTH_SHORT
 
-        ).show()
+            ).show()
+        }
+
     }
-    userVM.getUserData()
 
+   if (userVM.updateImageMessage.value.isNotEmpty()){
+       Toast.makeText(
+           context,
+           userVM.updateImageMessage.value,
+           Toast.LENGTH_LONG
+
+       ).show()
+
+   }
+    userVM.getUserData()
 
     Column(modifier = Modifier
         .fillMaxSize()
