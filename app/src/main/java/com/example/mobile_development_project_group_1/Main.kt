@@ -52,7 +52,7 @@ fun MainContentView(navController: NavHostController) {
         composable(route = HOME_ROUTE) { HomeView() }
         composable(route = LOGINSIGNUP_ROUTE) { LoginView(userVM, navController) }
         composable(route = PROFILE_ROUTE) { ProfilePageView(navController) }
-        composable(route =  PROFILE_MODIFY) { ProfileMOView() }
+        composable(route =  PROFILE_MODIFY) { ProfileMOView(navController) }
     }
 }
 

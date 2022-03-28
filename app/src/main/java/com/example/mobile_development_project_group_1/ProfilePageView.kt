@@ -35,7 +35,7 @@ import androidx.navigation.NavHostController
 import coil.compose.AsyncImage
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
-
+import kotlinx.coroutines.launch
 
 
 @Composable
@@ -113,6 +113,20 @@ fun ProfilePageView(nav:NavHostController) {
 
 
             }
+        }
+        OutlinedButton(
+            onClick = {
+                nav.navigate(PROFILE_MODIFY)
+
+            },
+            colors = ButtonDefaults
+                .buttonColors(backgroundColor = Color(0xffed4956), contentColor = Color.White)
+        ) {
+            Text(
+                text = "Edit your profile",
+                fontSize = 14.sp,
+                fontWeight = FontWeight.Bold
+            )
         }
 
     }
