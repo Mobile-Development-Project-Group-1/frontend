@@ -124,19 +124,19 @@ class UserViewModel: ViewModel() {
 
     }
     fun setProfileImage(u:Uri){
-        var path = "userUrl"
+        var path = fAuth.currentUser?.uid.toString()
         ref.child(path).putFile(u)
             .addOnSuccessListener {
                 val result = it.metadata!!.reference!!.downloadUrl;
                 result.addOnSuccessListener { doc ->
                     var temp = doc.toString()
-                    val ImageValue = hashMapOf(
-                        "pictureUrl" to temp
-                    )
+                    var tempUserdata = userdata.value.toMutableMap()
+                     tempUserdata["pictureUrl"] = temp
+
                     fireStore
                         .collection("users")
                         .document(fAuth.currentUser!!.uid)
-                        .set(ImageValue)
+                        .set(tempUserdata)
                         .addOnSuccessListener {
                             Log.d("********", "User name updated")
                             getUserData()
