@@ -134,12 +134,23 @@ fun ProfileMOView(nav: NavHostController) {
       Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically , horizontalArrangement = Arrangement.SpaceEvenly) {
           OutlinedButton(
               onClick = {
+              if(fname.value.isEmpty() && lname.value.isEmpty() && email.value.isEmpty() && newPw.value.isEmpty()
+                  && pNumber.value.isEmpty() && address.value.isEmpty()){
+
+                  Toast.makeText(
+                      context,
+                      "You must fill in the fields that need to be modified.",
+                      Toast.LENGTH_SHORT
+                  ).show()
+
+              }else{
                   nav.navigate(PROFILE_ROUTE )
                   Toast.makeText(
                       context,
                       "Your profile has been updated",
                       Toast.LENGTH_SHORT
                   ).show()
+              }
 
               },
               colors = ButtonDefaults
