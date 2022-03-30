@@ -54,6 +54,11 @@ fun ProfileMOView(nav: NavHostController) {
                                 .size(36.dp)
                                 .clickable {
                                     nav.navigate(PROFILE_ROUTE)
+                                    Toast.makeText(
+                                        context,
+                                        "Your profile ",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
                                 },
                             shape = RoundedCornerShape(30.dp)
                         ) {

@@ -1,5 +1,6 @@
 package com.example.mobile_development_project_group_1
 
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -142,7 +143,7 @@ fun DrawerLayoutView(navController: NavHostController, scState: ScaffoldState) {
 
     val userVM = viewModel<UserViewModel>(LocalContext.current as ComponentActivity)
     val scope = rememberCoroutineScope()
-
+    val context = LocalContext.current
     Column(
         modifier = Modifier.fillMaxSize()
     ) {
@@ -176,6 +177,12 @@ fun DrawerLayoutView(navController: NavHostController, scState: ScaffoldState) {
                         scope.launch {
                             scState.drawerState.close()
                         }
+                        Toast.makeText(
+                            context,
+                            " Your profile",
+                            Toast.LENGTH_SHORT
+                        ).show()
+
                     },
                     colors = ButtonDefaults
                         .buttonColors(backgroundColor = Color(0xffed4956), contentColor = Color.White)
