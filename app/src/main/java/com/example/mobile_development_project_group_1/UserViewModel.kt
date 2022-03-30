@@ -158,6 +158,15 @@ class UserViewModel: ViewModel() {
         if (lname.isNotEmpty()){
             modifyUserInfo(lname)
         }
+        if (email.isNotEmpty()){
+            fAuth
+                .currentUser
+                ?.updateEmail(email)
+
+        }
+        if (newPw.isNotEmpty()){
+
+        }
 
 
     }
