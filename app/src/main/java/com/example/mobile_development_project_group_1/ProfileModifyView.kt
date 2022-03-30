@@ -111,7 +111,7 @@ fun ProfileMOView(nav: NavHostController) {
 
                 {
 
-
+                    makeOutlineButton()
                 }
 
 
@@ -161,30 +161,32 @@ fun ProfileMOView(nav: NavHostController) {
       }
 
     }
-    @Composable
-    fun makeOutlineButton(sValue:MutableState<String>,title:String,userData:String, keyboard: KeyboardType,img:Int) {
-        Row(modifier = Modifier
-            .fillMaxWidth()
-            .padding(8.dp)) {
-            OutlinedTextField(value = sValue.value, onValueChange ={sValue.value =it} ,
-                label = { Text(text = title) },
-                placeholder = { Text(text = userData )},
-                colors = TextFieldDefaults
-                    .outlinedTextFieldColors(
-                        backgroundColor = Color.White,
-                        textColor = Color.Black,
-                        placeholderColor = Color.Gray,
-                        trailingIconColor = Color(0xffed4956) ,
-                        focusedLabelColor =  Color(0xffed4956),
-                        focusedBorderColor = Color(0xffed4956),
-                    ),
-                keyboardOptions = KeyboardOptions(keyboardType =keyboard ) ,
-                trailingIcon = {
-                    Icon(painter = painterResource(id = img) , contentDescription ="" )
-                },
-            )
+
+}
+@Composable
+fun makeOutlineButton(sValue:MutableState<String>,title:String,userData:String, keyboard: KeyboardType,img:Int) {
+    Row(modifier = Modifier
+        .fillMaxWidth()
+        .padding(8.dp)) {
+        OutlinedTextField(value = sValue.value, onValueChange ={sValue.value =it} ,
+            label = { Text(text = title) },
+            placeholder = { Text(text = userData )},
+            colors = TextFieldDefaults
+                .outlinedTextFieldColors(
+                    backgroundColor = Color.White,
+                    textColor = Color.Black,
+                    placeholderColor = Color.Gray,
+                    trailingIconColor = Color(0xffed4956) ,
+                    focusedLabelColor =  Color(0xffed4956),
+                    focusedBorderColor = Color(0xffed4956),
+                ),
+            keyboardOptions = KeyboardOptions(keyboardType =keyboard ) ,
+            trailingIcon = {
+                Icon(painter = painterResource(id = img) , contentDescription ="" )
+            },
+        )
 
     }
 }
-}
+
 
