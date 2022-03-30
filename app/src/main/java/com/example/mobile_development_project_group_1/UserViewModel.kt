@@ -12,11 +12,15 @@ class UserViewModel: ViewModel() {
     private val fAuth = Firebase.auth
     private val fireStore = Firebase.firestore
     var isAnyUser = mutableStateOf(false)
-
+    var username= mutableStateOf("")
     var successMessage = mutableStateOf("")
     var errorMessage = mutableStateOf("")
+    var isMapOpen = mutableStateOf(false)
 
 
+    fun disableDrawer() {
+        isMapOpen.value = !isMapOpen.value
+    }
 
     fun logInUser(email: String, pw: String, navController: NavHostController) {
         if (email.isNotEmpty() && pw.isNotEmpty()) {
@@ -28,6 +32,7 @@ class UserViewModel: ViewModel() {
                     navController.navigate(HOME_ROUTE)
                     isAnyUser.value = true
                     errorMessage.value = ""
+                    username.value=email
 
                 }
                 .addOnFailureListener {
@@ -60,6 +65,9 @@ class UserViewModel: ViewModel() {
                 }
                 .addOnFailureListener {
                     errorMessage.value = "Check your email and password again"
+                }
+                .addOnFailureListener {
+                    errorMessage.value = "Incorrect form of email or password"
                 }
         } else {
             errorMessage.value = "Please, fill email and password fields"
