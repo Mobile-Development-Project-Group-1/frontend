@@ -119,11 +119,11 @@ fun ProfilePageView(nav:NavHostController) {
                     )
 
                 {
-                    makeTextInfo("First name", userVM.userdata.value["firstName"].toString())
-                    makeTextInfo("Last name", userVM.userdata.value["lastName"].toString())
-                    makeTextInfo("Email", Firebase.auth.currentUser?.email.toString())
-                    makeTextInfo("Phone number", userVM.userdata.value["phoneNumber"].toString())
-                    makeTextInfo("Address", userVM.userdata.value["address"].toString())
+                    MakeTextInfo("First name", userVM.userdata.value["firstName"].toString())
+                    MakeTextInfo("Last name", userVM.userdata.value["lastName"].toString())
+                    MakeTextInfo("Email", Firebase.auth.currentUser?.email.toString())
+                    MakeTextInfo("Phone number", userVM.userdata.value["phoneNumber"].toString())
+                    MakeTextInfo("Address", userVM.userdata.value["address"].toString())
 
                 }
 
@@ -157,7 +157,7 @@ fun ProfilePageView(nav:NavHostController) {
 }
 
 @Composable
-fun makeTextInfo(title:String , data:String) {
+fun MakeTextInfo(title:String , data:String) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
