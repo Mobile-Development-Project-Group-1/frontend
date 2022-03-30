@@ -165,7 +165,9 @@ class UserViewModel: ViewModel() {
 
         }
         if (newPw.isNotEmpty()){
-
+            fAuth
+                .currentUser
+                ?.updatePassword(newPw)
         }
 
 
