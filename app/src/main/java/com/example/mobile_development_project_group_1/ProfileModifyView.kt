@@ -31,12 +31,12 @@ fun ProfileMOView(nav: NavHostController) {
     val userVM = viewModel<UserViewModel>(LocalContext.current as ViewModelStoreOwner)
     val context = LocalContext.current
 
-    var fname by remember { mutableStateOf("") }
-    var lname by remember { mutableStateOf("") }
-    var email by remember { mutableStateOf("") }
-    var newPw by remember { mutableStateOf("") }
-    var pNumber by remember { mutableStateOf("") }
-    var address by remember { mutableStateOf("") }
+    var fname = remember { mutableStateOf("") }
+    var lname = remember { mutableStateOf("") }
+    var email = remember { mutableStateOf("") }
+    var newPw = remember { mutableStateOf("") }
+    var pNumber = remember { mutableStateOf("") }
+    var address = remember { mutableStateOf("") }
 
     Column(modifier = Modifier
         .fillMaxSize()
@@ -110,29 +110,7 @@ fun ProfileMOView(nav: NavHostController) {
                     )
 
                 {
-                   Row(modifier = Modifier
-                       .fillMaxWidth()
-                       .padding(8.dp)) {
-                       OutlinedTextField(value = fname, onValueChange ={fname =it} ,
-                           label = { Text(text = "First name") },
-                           placeholder = { Text(text = userVM.userdata.value["firstName"].toString())},
-                           colors = TextFieldDefaults
-                               .outlinedTextFieldColors(
-                                   backgroundColor = Color.White,
-                                   textColor = Color.Black,
-                                   placeholderColor = Color.Gray,
-                                   trailingIconColor = Color(0xffed4956) ,
-                                   focusedLabelColor =  Color(0xffed4956),
-                                   focusedBorderColor = Color(0xffed4956),
-                                   ),
-                           keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text) ,
-                           trailingIcon = {
-                               Icon(painter = painterResource(id = R.drawable.ic_person) , contentDescription ="" )
-                           },
-                       )
 
-
-                   }
 
                 }
 
@@ -183,5 +161,30 @@ fun ProfileMOView(nav: NavHostController) {
       }
 
     }
+    @Composable
+    fun makeOutlineButton(sValue:MutableState<String>,title:String,userData:String, keyboard: KeyboardType,img:Int) {
+        Row(modifier = Modifier
+            .fillMaxWidth()
+            .padding(8.dp)) {
+            OutlinedTextField(value = sValue.value, onValueChange ={sValue.value =it} ,
+                label = { Text(text = title) },
+                placeholder = { Text(text = userData )},
+                colors = TextFieldDefaults
+                    .outlinedTextFieldColors(
+                        backgroundColor = Color.White,
+                        textColor = Color.Black,
+                        placeholderColor = Color.Gray,
+                        trailingIconColor = Color(0xffed4956) ,
+                        focusedLabelColor =  Color(0xffed4956),
+                        focusedBorderColor = Color(0xffed4956),
+                    ),
+                keyboardOptions = KeyboardOptions(keyboardType =keyboard ) ,
+                trailingIcon = {
+                    Icon(painter = painterResource(id = img) , contentDescription ="" )
+                },
+            )
+
+    }
+}
 }
 
