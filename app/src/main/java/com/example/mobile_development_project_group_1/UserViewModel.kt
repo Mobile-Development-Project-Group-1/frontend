@@ -12,7 +12,7 @@ class UserViewModel: ViewModel() {
     private val fAuth = Firebase.auth
     private val fireStore = Firebase.firestore
     var isAnyUser = mutableStateOf(false)
-
+    var username= mutableStateOf("")
     var successMessage = mutableStateOf("")
     var errorMessage = mutableStateOf("")
 
@@ -28,7 +28,7 @@ class UserViewModel: ViewModel() {
                     navController.navigate(HOME_ROUTE)
                     isAnyUser.value = true
                     errorMessage.value = ""
-
+                    username.value=email
                 }
                 .addOnFailureListener {
                     errorMessage.value = "Incorrect email or password"
@@ -60,6 +60,9 @@ class UserViewModel: ViewModel() {
                 }
                 .addOnFailureListener {
                     errorMessage.value = "Check your email and password again"
+                }
+                .addOnFailureListener {
+                    errorMessage.value = "Incorrect form of email or password"
                 }
         } else {
             errorMessage.value = "Please, fill email and password fields"

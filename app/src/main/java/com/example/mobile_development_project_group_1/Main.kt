@@ -75,8 +75,13 @@ fun MainContentView(navController: NavHostController) {
         composable (route = CHAT_ROUTE) {
             ChatView(navController)
         }
+        
+        composable (route = CHAT_ROUTE) {
+            ConversationView(userVM)
+        }
     }
 }
+
 
 @Composable
 fun TopBarView(navController: NavHostController, scState: ScaffoldState) {
@@ -103,6 +108,13 @@ fun TopBarView(navController: NavHostController, scState: ScaffoldState) {
                     scope.launch {
                         scState.drawerState.open()
                     }
+                }
+            )
+            Icon(
+                painter = painterResource(R.drawable.ic_icon_template),
+                contentDescription = "",
+                modifier = Modifier.clickable {
+                    navController.navigate(CHAT_ROUTE)
                 }
             )
             if (!userVM.isAnyUser.value) {
