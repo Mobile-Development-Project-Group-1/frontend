@@ -1,5 +1,6 @@
 package com.example.mobile_development_project_group_1
 
+import android.widget.Toast
 import androidx.compose.foundation.*
 
 import androidx.compose.foundation.layout.*
@@ -26,6 +27,7 @@ import androidx.navigation.NavHostController
 @Composable
 fun ProfileMOView(nav: NavHostController) {
     val userVM = viewModel<UserViewModel>(LocalContext.current as ViewModelStoreOwner)
+    val context = LocalContext.current
     Column(modifier = Modifier
         .fillMaxSize()
         .padding(10.dp), horizontalAlignment =Alignment.CenterHorizontally ) {
@@ -103,6 +105,11 @@ fun ProfileMOView(nav: NavHostController) {
           OutlinedButton(
               onClick = {
                   nav.navigate(PROFILE_ROUTE )
+                  Toast.makeText(
+                      context,
+                      "Your profile has been updated",
+                      Toast.LENGTH_SHORT
+                  ).show()
 
               },
               colors = ButtonDefaults
@@ -119,7 +126,11 @@ fun ProfileMOView(nav: NavHostController) {
               onClick = {
                   userVM.deleteUser()
                   nav.navigate(HOME_ROUTE)
-
+                  Toast.makeText(
+                      context,
+                      "You have deleted your account",
+                      Toast.LENGTH_SHORT
+                  ).show()
               },
               colors = ButtonDefaults
                   .buttonColors(backgroundColor = Color(0xffed4956), contentColor = Color.White)
