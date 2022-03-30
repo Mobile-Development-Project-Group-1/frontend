@@ -116,17 +116,17 @@ fun ProfileMOView(nav: NavHostController) {
 
                 {
 
-                    makeOutlineButton(fname,"First name",userVM.userdata.value["firstName"].toString(),
+                    MakeOutlineButton(fname,"First name",userVM.userdata.value["firstName"].toString(),
                          KeyboardType.Text,R.drawable.ic_person)
-                    makeOutlineButton(lname,"Last name",userVM.userdata.value["lastName"].toString(),
+                    MakeOutlineButton(lname,"Last name",userVM.userdata.value["lastName"].toString(),
                         KeyboardType.Text,R.drawable.ic_person)
-                    makeOutlineButton(email,"Email", Firebase.auth.currentUser?.email.toString(),
+                    MakeOutlineButton(email,"Email", Firebase.auth.currentUser?.email.toString(),
                         KeyboardType.Email,R.drawable.ic_email)
-                    makeOutlineButton(newPw," New Password", "*************",
+                    MakeOutlineButton(newPw," New Password", "*************",
                         KeyboardType.Password,R.drawable.ic_lock)
-                    makeOutlineButton(pNumber," Phone number", userVM.userdata.value["phoneNumber"].toString(),
+                    MakeOutlineButton(pNumber," Phone number", userVM.userdata.value["phoneNumber"].toString(),
                         KeyboardType.Phone,R.drawable.ic_phone)
-                    makeOutlineButton(address," Address", userVM.userdata.value["address"].toString(),
+                    MakeOutlineButton(address," Address", userVM.userdata.value["address"].toString(),
                         KeyboardType.Text,R.drawable.ic_address)
                 }
 
@@ -214,7 +214,7 @@ fun ProfileMOView(nav: NavHostController) {
 
 }
 @Composable
-fun makeOutlineButton(sValue:MutableState<String>,title:String,userData:String, keyboard: KeyboardType,img:Int) {
+fun MakeOutlineButton(sValue:MutableState<String>,title:String,userData:String, keyboard: KeyboardType,img:Int) {
     Row(modifier = Modifier
         .fillMaxWidth()
         .padding(8.dp)) {
