@@ -1,6 +1,7 @@
 package com.example.mobile_development_project_group_1
 
 import androidx.activity.ComponentActivity
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -20,17 +21,22 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.launch
 
 const val HOME_ROUTE = "home"
-const val LOGINSIGNUP_ROUTE = "logInSignUp"
+const val LOGIN_SIGNUP_ROUTE = "logInSignUp"
 const val PROFILE_ROUTE = "profile"
+const val PUB_PLACE_CREATION_ROUTE = "pub_place_creation"
 const val CHAT_ROUTE = "chat"
 
-const val ADMIN_ROUTE = "ADMIN"
-const val MANAGER_ROUTE = "MANAGER"
-const val USER_ROUTE = "USER"
+const val ADMIN_ROOT = "ADMIN"
+const val MANAGER_ROOT = "MANAGER"
+const val USER_ROOT = "USER"
 
+@ExperimentalFoundationApi
 @Composable
 fun MainScaffoldView() {
     val navController = rememberNavController()
@@ -45,14 +51,34 @@ fun MainScaffoldView() {
     )
 }
 
+@ExperimentalFoundationApi
 @Composable
 fun MainContentView(navController: NavHostController) {
     val userVM = viewModel<UserViewModel>(LocalContext.current as ComponentActivity)
     NavHost(navController = navController, startDestination = HOME_ROUTE ) {
-        composable(route = HOME_ROUTE) { HomeView()}
-        composable(route = LOGINSIGNUP_ROUTE) { LoginView(userVM, navController) }
-        composable(route = PROFILE_ROUTE) { ProfilePageView() }
-        composable(route = CHAT_ROUTE) { ConversationView(userVM) }
+        composable (route = HOME_ROUTE) {
+            HomeView(navController)
+        }
+
+        composable (route = LOGIN_SIGNUP_ROUTE) {
+            LoginView(userVM, navController)
+        }
+
+        composable (route = PROFILE_ROUTE) {
+            ProfilePageView()
+        }
+
+        composable (route = PUB_PLACE_CREATION_ROUTE) {
+            AddNewPubPlaceView(navController)
+        }
+
+        composable (route = CHAT_ROUTE) {
+            ChatView(navController)
+        }
+        
+        composable (route = CHAT_ROUTE) {
+            ConversationView(userVM)
+        }
     }
 }
 
@@ -94,7 +120,7 @@ fun TopBarView(navController: NavHostController, scState: ScaffoldState) {
             if (!userVM.isAnyUser.value) {
                 OutlinedButton(
                     onClick = {
-                        navController.navigate(LOGINSIGNUP_ROUTE)
+                        navController.navigate(LOGIN_SIGNUP_ROUTE)
                     },
                     colors = ButtonDefaults
                         .buttonColors(backgroundColor = Color(0xffed4956), contentColor = Color.White)
@@ -128,7 +154,7 @@ fun BottomBarView() {
     Column(
         modifier = Modifier
             .fillMaxWidth()
-            //.background(Color.White)
+            .background(Color.White)
     ) {
         Divider( color = Color(0xffed4956), thickness = 2.dp )
         Row(
@@ -152,6 +178,18 @@ fun DrawerLayoutView(navController: NavHostController, scState: ScaffoldState) {
     val userVM = viewModel<UserViewModel>(LocalContext.current as ComponentActivity)
     val scope = rememberCoroutineScope()
 
+    val fireStore = Firebase.firestore
+    val fAuth = Firebase.auth
+    var currentUserName by remember { mutableStateOf("") }
+
+    fireStore
+        .collection("users")
+        .document(fAuth.currentUser?.uid.toString())
+        .get()
+        .addOnSuccessListener {
+            currentUserName = it.get("firstName").toString()
+        }
+
     Column(
         modifier = Modifier.fillMaxSize()
     ) {
@@ -172,10 +210,30 @@ fun DrawerLayoutView(navController: NavHostController, scState: ScaffoldState) {
                 )
             }
         }
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .fillMaxHeight(0.2f)
+                .padding(20.dp),
+        ) {
+            if (userVM.isAnyUser.value) {
+                Text(
+                    text = "Welcome back,",
+                    color = Color(0xffed4956),
+                    fontSize = 24.sp,
+                    fontWeight = FontWeight.Bold
+                )
+                Text(
+                    text = currentUserName,
+                    color = Color(0xffed4956),
+                    fontSize = 18.sp
+                )
+            }
+        }
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .fillMaxHeight(0.85f)
+                .fillMaxHeight(0.8f)
                 .padding(20.dp),
         ) {
             if (userVM.isAnyUser.value) {
