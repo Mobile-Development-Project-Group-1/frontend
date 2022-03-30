@@ -15,8 +15,12 @@ class UserViewModel: ViewModel() {
     var username= mutableStateOf("")
     var successMessage = mutableStateOf("")
     var errorMessage = mutableStateOf("")
+    var isMapOpen = mutableStateOf(false)
 
 
+    fun disableDrawer() {
+        isMapOpen.value = !isMapOpen.value
+    }
 
     fun logInUser(email: String, pw: String, navController: NavHostController) {
         if (email.isNotEmpty() && pw.isNotEmpty()) {
@@ -29,6 +33,7 @@ class UserViewModel: ViewModel() {
                     isAnyUser.value = true
                     errorMessage.value = ""
                     username.value=email
+
                 }
                 .addOnFailureListener {
                     errorMessage.value = "Incorrect email or password"

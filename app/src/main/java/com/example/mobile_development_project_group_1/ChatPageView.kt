@@ -8,10 +8,12 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavHostController
 import com.example.mobile_development_project_group_1.ui.theme.MessageViewModel
 
 @Composable
@@ -54,13 +56,34 @@ fun ConversationViewWindow() {
 }
 
 @Composable
-fun ConversationView(userVM:UserViewModel) {
+fun ConversationView(userVM:UserViewModel, navController: NavHostController) {
 
     Column(
         modifier = Modifier
             .fillMaxWidth()
             .fillMaxHeight(0.9f)
     ) {
+        Card(
+            modifier = Modifier
+                .padding(10.dp)
+                .size(36.dp)
+                .clickable {
+                    navController.navigate(HOME_ROUTE)
+                },
+            shape = RoundedCornerShape(30.dp)
+        ) {
+            Row(
+                modifier = Modifier.background(Color(0xffed4956)),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Center
+            ) {
+                Icon(
+                    painter = painterResource(R.drawable.ic_arrow_left),
+                    contentDescription = "",
+                    tint = Color.White
+                )
+            }
+        }
         ConversationViewWindow()
         Divider(thickness = 2.dp, color = Color(0xffed4956))
         MessageAdding(userVM)

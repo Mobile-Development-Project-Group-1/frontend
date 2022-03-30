@@ -17,15 +17,8 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             MobileDevelopmentProjectGroup1Theme {
-                // A surface container using the 'background' color from the theme
                 Surface {
-                   Column(
-                       modifier = Modifier.fillMaxSize(),
-                       horizontalAlignment = Alignment.CenterHorizontally,
-                       verticalArrangement = Arrangement.Center
-                   ) {
-                       MyMap()
-                   }
+                    MainScaffoldView()
                 }
             }
         }

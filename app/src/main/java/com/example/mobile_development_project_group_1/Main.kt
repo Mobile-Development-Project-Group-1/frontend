@@ -6,6 +6,7 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -31,6 +32,7 @@ const val LOGIN_SIGNUP_ROUTE = "logInSignUp"
 const val PROFILE_ROUTE = "profile"
 const val PUB_PLACE_CREATION_ROUTE = "pub_place_creation"
 const val CHAT_ROUTE = "chat"
+const val MAP_ROUTE = "map"
 
 const val ADMIN_ROOT = "ADMIN"
 const val MANAGER_ROOT = "MANAGER"
@@ -40,14 +42,18 @@ const val USER_ROOT = "USER"
 @Composable
 fun MainScaffoldView() {
     val navController = rememberNavController()
-    val scState = rememberScaffoldState( rememberDrawerState(DrawerValue.Closed) )
+    val userVM = viewModel<UserViewModel>(LocalContext.current as ComponentActivity)
+    val scState = rememberScaffoldState(rememberDrawerState(initialValue = DrawerValue.Closed))
+    val pubPlaceVM = viewModel<PubPlaceViewModel>(LocalContext.current as ComponentActivity)
+    pubPlaceVM.getPubPlaceLocation()
 
     Scaffold(
         scaffoldState = scState,
         topBar = { TopBarView(navController, scState) },
         bottomBar = { BottomBarView() },
         content = { MainContentView(navController) },
-        drawerContent = { DrawerLayoutView(navController, scState) }
+        drawerContent = { DrawerLayoutView(navController, scState) },
+        drawerGesturesEnabled = !userVM.isMapOpen.value
     )
 }
 
@@ -73,11 +79,11 @@ fun MainContentView(navController: NavHostController) {
         }
 
         composable (route = CHAT_ROUTE) {
-            ChatView(navController)
+            ConversationView(userVM, navController)
         }
-        
-        composable (route = CHAT_ROUTE) {
-            ConversationView(userVM)
+
+        composable (route = MAP_ROUTE) {
+            MyMap()
         }
     }
 }
@@ -100,23 +106,55 @@ fun TopBarView(navController: NavHostController, scState: ScaffoldState) {
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
         ) {
-            Icon(
-                painter = painterResource( R.drawable.ic_menu ),
-                tint = Color(0xffed4956),
-                contentDescription = "",
-                modifier = Modifier.clickable {
-                    scope.launch {
-                        scState.drawerState.open()
+            if (userVM.isMapOpen.value) {
+                Card(
+                    modifier = Modifier
+                        .padding(10.dp)
+                        .size(36.dp)
+                        .clickable {
+                            navController.navigate(HOME_ROUTE)
+                            userVM.disableDrawer()
+                        },
+                    shape = RoundedCornerShape(30.dp)
+                ) {
+                    Row(
+                        modifier = Modifier.background(Color(0xffed4956)),
+                        verticalAlignment = Alignment.CenterVertically,
+                        horizontalArrangement = Arrangement.Center
+                    ) {
+                        Icon(
+                            painter = painterResource(R.drawable.ic_arrow_left),
+                            contentDescription = "",
+                            tint = Color.White
+                        )
                     }
                 }
-            )
-            Icon(
-                painter = painterResource(R.drawable.ic_icon_template),
-                contentDescription = "",
-                modifier = Modifier.clickable {
-                    navController.navigate(CHAT_ROUTE)
-                }
-            )
+            } else {
+                Icon(
+                    painter = painterResource( R.drawable.ic_menu ),
+                    tint = Color(0xffed4956),
+                    contentDescription = "",
+                    modifier = Modifier.clickable {
+                        scope.launch {
+                            scState.drawerState.open()
+                        }
+                    }
+                )
+
+            }
+
+            if (!userVM.isMapOpen.value) {
+                Icon(
+                    painter = painterResource( R.drawable.ic_map ),
+                    tint = Color(0xffed4956),
+                    contentDescription = "",
+                    modifier = Modifier.clickable {
+                        navController.navigate(MAP_ROUTE)
+                        userVM.disableDrawer()
+                    }
+                )
+            }
+
             if (!userVM.isAnyUser.value) {
                 OutlinedButton(
                     onClick = {
@@ -213,7 +251,7 @@ fun DrawerLayoutView(navController: NavHostController, scState: ScaffoldState) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .fillMaxHeight(0.2f)
+                .fillMaxHeight(0.25f)
                 .padding(20.dp),
         ) {
             if (userVM.isAnyUser.value) {

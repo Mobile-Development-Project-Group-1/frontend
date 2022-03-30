@@ -16,45 +16,22 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
-import android.graphics.drawable.shapes.Shape
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.material.Button
 import androidx.compose.material.Text
-import androidx.compose.runtime.*
-import androidx.compose.ui.Alignment
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
-import com.example.mobile_development_project_group_1.ui.theme.MessageViewModel
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 
 
 @ExperimentalFoundationApi
-
-import androidx.compose.foundation.*
-import androidx.compose.foundation.layout.*
-import androidx.compose.foundation.shape.RoundedCornerShape
-
-import androidx.compose.material.*
-
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.sp
-import java.util.*
-
 @Composable
 fun HomeView(navController: NavHostController) {
     val fireStore = Firebase.firestore
     val fAuth = Firebase.auth
     var currentUserRoute by remember { mutableStateOf("") }
 
-//    var pubPlaceList by remember { mutableStateOf(mutableListOf<String>()) }
+    var pubPlaceList by remember { mutableStateOf(mutableListOf<String>()) }
 
     fireStore
         .collection("users")
@@ -64,19 +41,18 @@ fun HomeView(navController: NavHostController) {
             currentUserRoute = it.get("root").toString()
         }
 
-//    fireStore
-//        .collection("public_places")
-//        .get()
-//        .addOnSuccessListener {
-//
-//            val titles = mutableListOf<String>()
-//            for (document in it) {
-//
-//                titles.add( document.get("title").toString() )
-//                pubPlaceList = titles
-//
-//            }
-//        }
+    fireStore
+        .collection("public_places")
+        .get()
+        .addOnSuccessListener {
+
+            val titles = mutableListOf<String>()
+            for (document in it) {
+                titles.add( document.get("title").toString() )
+                pubPlaceList = titles
+
+            }
+        }
 
     LazyVerticalGrid(
         cells = GridCells.Fixed(2),
@@ -85,7 +61,7 @@ fun HomeView(navController: NavHostController) {
             .fillMaxHeight(0.914f),
         contentPadding = PaddingValues(16.dp, 0.dp)
     ) {
-        items(/*pubPlaceList*/5) {
+        items(pubPlaceList.size) {
             Card(
                 shape = RoundedCornerShape(40.dp),
                 modifier = Modifier
@@ -100,7 +76,7 @@ fun HomeView(navController: NavHostController) {
                     horizontalAlignment = Alignment.CenterHorizontally,
                     verticalArrangement = Arrangement.Center
                 ) {
-                    Text(text = /*it*/"BAR")
+                    Text(text = pubPlaceList[it])
                 }
             }
         }
@@ -175,11 +151,4 @@ fun HomeView(navController: NavHostController) {
     } // Column for "Add new" button
 } // HomeView()
 
-//        Text(text = "Main page")
-//        when (currentUserRoute) {
-//            ADMIN_ROOT -> Text(text = "You are $currentUserRoute")
-//            MANAGER_ROOT -> Text(text = "You are $currentUserRoute")
-//            USER_ROOT -> Text(text = "You are $currentUserRoute")
-//        }
-}
 
