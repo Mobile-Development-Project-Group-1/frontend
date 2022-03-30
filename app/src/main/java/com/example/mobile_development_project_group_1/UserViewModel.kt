@@ -150,9 +150,32 @@ class UserViewModel: ViewModel() {
             }
 
     }
-    fun modifyUser(){
-         Log.d("...............","click")
+    fun modifyUser(fname:String,lname:String,email: String, newPw:String, pNumber:String,address: String){
+        if (fname.isNotEmpty()){
+          modifyUserInfo(fname)
 
+        }
+        if (lname.isNotEmpty()){
+            modifyUserInfo(lname)
+        }
+
+
+    }
+    fun modifyUserInfo(value:String){
+        var temp = value
+        var tempUserdata = userdata.value.toMutableMap()
+        tempUserdata["firstName"] = temp
+        fireStore
+            .collection("users")
+            .document(fAuth.currentUser!!.uid)
+            .set(tempUserdata)
+            .addOnSuccessListener {
+                Log.d("********", "Profile are being updated")
+
+            }
+            .addOnFailureListener { error ->
+                Log.d("********", error.message.toString())
+            }
     }
 
 }

@@ -148,6 +148,7 @@ fun ProfileMOView(nav: NavHostController) {
 
               }else{
                   nav.navigate(PROFILE_ROUTE )
+                  userVM.modifyUser(fname.value,lname.value,email.value,newPw.value,pNumber.value,address.value)
                   Toast.makeText(
                       context,
                       "Your profile has been updated",
@@ -237,6 +238,7 @@ fun MakeOutlineButton(sValue:MutableState<String>,title:String,userData:String, 
         )
 
     }
+    Divider(thickness = 1.dp)
 }
 
 
