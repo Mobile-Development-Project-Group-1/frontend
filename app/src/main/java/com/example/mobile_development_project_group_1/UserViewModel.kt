@@ -152,11 +152,11 @@ class UserViewModel: ViewModel() {
     }
     fun modifyUser(fname:String,lname:String,email: String, newPw:String, pNumber:String,address: String){
         if (fname.isNotEmpty()){
-          modifyUserInfo(fname)
+          modifyUserInfo(fname,"firstName")
 
         }
         if (lname.isNotEmpty()){
-            modifyUserInfo(lname)
+            modifyUserInfo(lname,"lastName")
         }
         if (email.isNotEmpty()){
             fAuth
@@ -172,10 +172,10 @@ class UserViewModel: ViewModel() {
 
 
     }
-    fun modifyUserInfo(value:String){
+    fun modifyUserInfo(value:String,field:String){
         var temp = value
         var tempUserdata = userdata.value.toMutableMap()
-        tempUserdata["firstName"] = temp
+        tempUserdata[field] = temp
         fireStore
             .collection("users")
             .document(fAuth.currentUser!!.uid)
