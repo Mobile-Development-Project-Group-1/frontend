@@ -7,8 +7,9 @@ import androidx.compose.foundation.layout.*
 
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -17,6 +18,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.ViewModelStoreOwner
@@ -28,6 +30,14 @@ import androidx.navigation.NavHostController
 fun ProfileMOView(nav: NavHostController) {
     val userVM = viewModel<UserViewModel>(LocalContext.current as ViewModelStoreOwner)
     val context = LocalContext.current
+
+    var fname by remember { mutableStateOf("") }
+    var lname by remember { mutableStateOf("") }
+    var email by remember { mutableStateOf("") }
+    var newPw by remember { mutableStateOf("") }
+    var pNumber by remember { mutableStateOf("") }
+    var address by remember { mutableStateOf("") }
+
     Column(modifier = Modifier
         .fillMaxSize()
         .padding(10.dp), horizontalAlignment =Alignment.CenterHorizontally ) {
@@ -54,11 +64,13 @@ fun ProfileMOView(nav: NavHostController) {
                                 .size(36.dp)
                                 .clickable {
                                     nav.navigate(PROFILE_ROUTE)
-                                    Toast.makeText(
-                                        context,
-                                        "Your profile ",
-                                        Toast.LENGTH_SHORT
-                                    ).show()
+                                    Toast
+                                        .makeText(
+                                            context,
+                                            "Your profile ",
+                                            Toast.LENGTH_SHORT
+                                        )
+                                        .show()
                                 },
                             shape = RoundedCornerShape(30.dp)
                         ) {
@@ -98,7 +110,29 @@ fun ProfileMOView(nav: NavHostController) {
                     )
 
                 {
+                   Row(modifier = Modifier
+                       .fillMaxWidth()
+                       .padding(8.dp)) {
+                       OutlinedTextField(value = fname, onValueChange ={fname =it} ,
+                           label = { Text(text = "First name") },
+                           placeholder = { Text(text = userVM.userdata.value["firstName"].toString())},
+                           colors = TextFieldDefaults
+                               .outlinedTextFieldColors(
+                                   backgroundColor = Color.White,
+                                   textColor = Color.Black,
+                                   placeholderColor = Color.Gray,
+                                   trailingIconColor = Color(0xffed4956) ,
+                                   focusedLabelColor =  Color(0xffed4956),
+                                   focusedBorderColor = Color(0xffed4956),
+                                   ),
+                           keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text) ,
+                           trailingIcon = {
+                               Icon(painter = painterResource(id = R.drawable.ic_person) , contentDescription ="" )
+                           },
+                       )
 
+
+                   }
 
                 }
 
