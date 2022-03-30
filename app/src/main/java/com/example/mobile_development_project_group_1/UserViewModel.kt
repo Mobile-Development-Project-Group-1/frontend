@@ -170,7 +170,10 @@ class UserViewModel: ViewModel() {
                 ?.updatePassword(newPw)
         }
         if(pNumber.isNotEmpty()){
-            modifyUserInfo(lname,"")
+            modifyUserInfo(lname,"phoneNumber")
+        }
+        if(address.isNotEmpty()){
+            modifyUserInfo(address,"address")
         }
 
 
