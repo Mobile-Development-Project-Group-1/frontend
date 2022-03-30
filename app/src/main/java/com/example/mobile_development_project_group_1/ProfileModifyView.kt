@@ -39,6 +39,9 @@ fun ProfileMOView(nav: NavHostController) {
     var newPw = remember { mutableStateOf("") }
     var pNumber = remember { mutableStateOf("") }
     var address = remember { mutableStateOf("") }
+    var isClick by remember {
+        mutableStateOf(false)
+    }
 
     Column(modifier = Modifier
         .fillMaxSize()
@@ -150,6 +153,7 @@ fun ProfileMOView(nav: NavHostController) {
                       "Your profile has been updated",
                       Toast.LENGTH_SHORT
                   ).show()
+
               }
 
               },
@@ -163,24 +167,46 @@ fun ProfileMOView(nav: NavHostController) {
               )
           }
 
-          OutlinedButton(
-              onClick = {
-                  userVM.deleteUser()
-                  nav.navigate(HOME_ROUTE)
-                  Toast.makeText(
-                      context,
-                      "You have deleted your account",
-                      Toast.LENGTH_SHORT
-                  ).show()
-              },
-              colors = ButtonDefaults
-                  .buttonColors(backgroundColor = Color(0xffed4956), contentColor = Color.White)
-          ) {
-              Text(
-                  text = "Delete account",
-                  fontSize = 14.sp,
-                  fontWeight = FontWeight.Bold
-              )
+          if (isClick){
+              OutlinedButton(
+                  onClick = {
+                      userVM.deleteUser()
+                      nav.navigate(HOME_ROUTE)
+                      Toast.makeText(
+                          context,
+                          "You have deleted your account",
+                          Toast.LENGTH_SHORT
+                      ).show()
+                  },
+                  colors = ButtonDefaults
+                      .buttonColors(backgroundColor = Color(0xffed4956), contentColor = Color.White)
+              ) {
+                  Text(
+                      text = "Delete account",
+                      fontSize = 14.sp,
+                      fontWeight = FontWeight.Bold
+                  )
+              }
+
+          }else{
+              OutlinedButton(
+                  onClick = {
+                      Toast.makeText(
+                          context,
+                          "You can now delete your account",
+                          Toast.LENGTH_SHORT
+                      ).show()
+                      isClick = !isClick
+                  },
+                  colors = ButtonDefaults
+                      .buttonColors(backgroundColor = Color(0xffed4956), contentColor = Color.White)
+              ) {
+                  Text(
+                      text = "Delete account?",
+                      fontSize = 14.sp,
+                      fontWeight = FontWeight.Bold
+                  )
+              }
           }
       }
 
