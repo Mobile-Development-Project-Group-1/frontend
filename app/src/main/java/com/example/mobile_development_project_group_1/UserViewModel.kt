@@ -169,6 +169,9 @@ class UserViewModel: ViewModel() {
                 .currentUser
                 ?.updatePassword(newPw)
         }
+        if(pNumber.isNotEmpty()){
+            modifyUserInfo(lname,"")
+        }
 
 
     }
