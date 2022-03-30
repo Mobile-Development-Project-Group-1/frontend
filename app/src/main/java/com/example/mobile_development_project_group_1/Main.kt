@@ -25,6 +25,7 @@ import kotlinx.coroutines.launch
 const val HOME_ROUTE = "home"
 const val LOGINSIGNUP_ROUTE = "logInSignUp"
 const val PROFILE_ROUTE = "profile"
+const val CHAT_ROUTE = "chat"
 
 const val ADMIN_ROUTE = "ADMIN"
 const val MANAGER_ROUTE = "MANAGER"
@@ -48,11 +49,13 @@ fun MainScaffoldView() {
 fun MainContentView(navController: NavHostController) {
     val userVM = viewModel<UserViewModel>(LocalContext.current as ComponentActivity)
     NavHost(navController = navController, startDestination = HOME_ROUTE ) {
-        composable(route = HOME_ROUTE) { HomeView() }
+        composable(route = HOME_ROUTE) { HomeView()}
         composable(route = LOGINSIGNUP_ROUTE) { LoginView(userVM, navController) }
         composable(route = PROFILE_ROUTE) { ProfilePageView() }
+        composable(route = CHAT_ROUTE) { ConversationView(userVM) }
     }
 }
+
 
 @Composable
 fun TopBarView(navController: NavHostController, scState: ScaffoldState) {
@@ -79,6 +82,13 @@ fun TopBarView(navController: NavHostController, scState: ScaffoldState) {
                     scope.launch {
                         scState.drawerState.open()
                     }
+                }
+            )
+            Icon(
+                painter = painterResource(R.drawable.ic_icon_template),
+                contentDescription = "",
+                modifier = Modifier.clickable {
+                    navController.navigate(CHAT_ROUTE)
                 }
             )
             if (!userVM.isAnyUser.value) {
@@ -118,6 +128,7 @@ fun BottomBarView() {
     Column(
         modifier = Modifier
             .fillMaxWidth()
+            //.background(Color.White)
     ) {
         Divider( color = Color(0xffed4956), thickness = 2.dp )
         Row(
