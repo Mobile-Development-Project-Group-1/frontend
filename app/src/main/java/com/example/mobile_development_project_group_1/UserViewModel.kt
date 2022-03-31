@@ -165,6 +165,17 @@ class UserViewModel: ViewModel() {
             if (address.isNotEmpty() ){
                 tempUserdata["address"] = address
             }
+            if (email.isNotEmpty()){
+                fAuth
+                    .currentUser
+                    ?.updateEmail(email)
+
+            }
+            if (newPw.isNotEmpty()){
+                fAuth
+                    .currentUser
+                    ?.updatePassword(newPw)
+            }
             fireStore
                 .collection("users")
                 .document(fAuth.currentUser!!.uid)
@@ -179,17 +190,7 @@ class UserViewModel: ViewModel() {
 
         }
 
-        if (email.isNotEmpty()){
-            fAuth
-                .currentUser
-                ?.updateEmail(email)
 
-        }
-        if (newPw.isNotEmpty()){
-            fAuth
-                .currentUser
-                ?.updatePassword(newPw)
-        }
 
 
     }
