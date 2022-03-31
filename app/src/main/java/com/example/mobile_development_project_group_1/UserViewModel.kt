@@ -151,15 +151,28 @@ class UserViewModel: ViewModel() {
 
     }
     fun modifyUser(fname:String,lname:String,email: String, newPw:String, pNumber:String,address: String){
-        if (fname.isNotEmpty()){
-            Log.d("...................",fname)
-          modifyUserInfo(fname,"firstName")
+        if (fname.isNotEmpty() || lname.isNotEmpty() || pNumber.isNotEmpty() ||pNumber.isNotEmpty() || address.isNotEmpty()){
+            var tempUserdata = userdata.value.toMutableMap()
+            if (fname.isNotEmpty()){
+                tempUserdata["firstName"] = fname
+            }
+            if (lname.isNotEmpty() ){
+                tempUserdata["lastName"] = lname
+            }
+            fireStore
+                .collection("users")
+                .document(fAuth.currentUser!!.uid)
+                .set(tempUserdata)
+                .addOnSuccessListener {
+                    Log.d("********", "Profile photos are being updated")
+
+                }
+                .addOnFailureListener { error ->
+                    Log.d("********", error.message.toString())
+                }
 
         }
-        if (lname.isNotEmpty()){
-            Log.d("...................",lname)
-            modifyUserInfo(lname,"lastName")
-        }
+
         if (email.isNotEmpty()){
             fAuth
                 .currentUser
@@ -171,31 +184,9 @@ class UserViewModel: ViewModel() {
                 .currentUser
                 ?.updatePassword(newPw)
         }
-        if (pNumber.isNotEmpty()){
-            modifyUserInfo(pNumber,"phoneNumber")
-        }
-        if (address.isNotEmpty()){
-            modifyUserInfo(address,"address")
-        }
+
 
     }
-    fun modifyUserInfo(value:String,field:String){
 
-        var temp = value
-        var tempUserdata = userdata.value.toMutableMap()
-        tempUserdata[field] = temp
-        fireStore
-            .collection("users")
-            .document(fAuth.currentUser!!.uid)
-            .set(tempUserdata)
-            .addOnSuccessListener {
-
-                Log.d("********", "Profile are being updated")
-
-            }
-            .addOnFailureListener { error ->
-                Log.d("********", error.message.toString())
-            }
-    }
 
 }
