@@ -56,7 +56,7 @@ fun MyMap (){
 
             modifier = Modifier
                 .fillMaxWidth()
-                .fillMaxHeight()
+                .fillMaxHeight(0.914f)
         )
 
 }

@@ -27,9 +27,6 @@ class PubPlaceViewModel: ViewModel() {
 
 
             }
-        pubPlaceLocations.forEach {
-            Log.d("***************", it.value.title)
-            Log.d("***************", it.value.coor.longitude.toString())
-        }
+
     }
 }
