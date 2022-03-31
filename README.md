@@ -1,3 +1,5 @@
-# frontend
+# KechUp Mobile Application
 
-Testing
+Group members: Diana Syvorotka, Phuong Pham, Andreas Avetisian, Yingyu Mattila 
+
+ 
