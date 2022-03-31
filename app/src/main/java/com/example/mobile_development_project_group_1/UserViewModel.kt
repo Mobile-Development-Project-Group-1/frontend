@@ -151,13 +151,19 @@ class UserViewModel: ViewModel() {
 
     }
     fun modifyUser(fname:String,lname:String,email: String, newPw:String, pNumber:String,address: String){
-        if (fname.isNotEmpty() || lname.isNotEmpty() || pNumber.isNotEmpty() ||pNumber.isNotEmpty() || address.isNotEmpty()){
+        if (fname.isNotEmpty() || lname.isNotEmpty() || pNumber.isNotEmpty()  || address.isNotEmpty()){
             var tempUserdata = userdata.value.toMutableMap()
             if (fname.isNotEmpty()){
                 tempUserdata["firstName"] = fname
             }
             if (lname.isNotEmpty() ){
                 tempUserdata["lastName"] = lname
+            }
+            if (pNumber.isNotEmpty() ){
+                tempUserdata["phoneNumber"] = pNumber
+            }
+            if (address.isNotEmpty() ){
+                tempUserdata["address"] = address
             }
             fireStore
                 .collection("users")
