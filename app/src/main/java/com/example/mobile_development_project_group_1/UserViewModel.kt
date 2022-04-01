@@ -18,11 +18,15 @@ class UserViewModel: ViewModel() {
     private val storage    = Firebase.storage
     private val  ref     =  storage.reference
     var isAnyUser = mutableStateOf(false)
-
+    var username= mutableStateOf("")
     var successMessage = mutableStateOf("")
     var errorMessage = mutableStateOf("")
     var userdata = mutableStateOf(mapOf<String,Any>())
+    var isMapOpen = mutableStateOf(false)
 
+    fun disableDrawer() {
+        isMapOpen.value = !isMapOpen.value
+    }
 
     fun logInUser(email: String, pw: String, navController: NavHostController) {
         if (email.isNotEmpty() && pw.isNotEmpty()) {
@@ -34,6 +38,7 @@ class UserViewModel: ViewModel() {
                     navController.navigate(HOME_ROUTE)
                     isAnyUser.value = true
                     errorMessage.value = ""
+                    username.value=email
 
                 }
                 .addOnFailureListener {
@@ -44,7 +49,7 @@ class UserViewModel: ViewModel() {
         }
     }
 
-    fun signUpUser(email: String, pw: String, firstName: String, lastName: String, address: String, phoneNumber: String, route: String, navController: NavHostController) {
+    fun signUpUser(email: String, pw: String, firstName: String, lastName: String, address: String, phoneNumber: String, root: String, navController: NavHostController) {
 
         if (email.isNotEmpty() && pw.isNotEmpty()) {
 
@@ -56,7 +61,7 @@ class UserViewModel: ViewModel() {
                     fireStore
                         .collection("users")
                         .document(it.user!!.uid)
-                        .set( User(firstName, lastName, address, phoneNumber, route) )
+                        .set( User(firstName, lastName, address, phoneNumber, root) )
                         .addOnSuccessListener {
                             Log.d("********", "User's information added successfully!")
                         }
@@ -66,6 +71,9 @@ class UserViewModel: ViewModel() {
                 }
                 .addOnFailureListener {
                     errorMessage.value = "Check your email and password again"
+                }
+                .addOnFailureListener {
+                    errorMessage.value = "Incorrect form of email or password"
                 }
         } else {
             errorMessage.value = "Please, fill email and password fields"

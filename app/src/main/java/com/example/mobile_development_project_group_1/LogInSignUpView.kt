@@ -27,14 +27,14 @@ fun LoginView(userVM: UserViewModel, navController: NavHostController) {
     var lastName by remember { mutableStateOf("") }
     var phoneNumber by remember { mutableStateOf("") }
     var address by remember { mutableStateOf("") }
-    var route by remember { mutableStateOf("") }
+    var root by remember { mutableStateOf("") }
 
     var isLoginOpen by remember { mutableStateOf(true) }
     var isHiddenPw by remember { mutableStateOf(true) }
     var isUser by remember { mutableStateOf(true) }
     var isManager by remember { mutableStateOf(false) }
 
-    route = when(isUser) {
+    root = when(isUser) {
         true -> "USER"
         false -> "MANAGER"
     }
@@ -295,7 +295,7 @@ fun LoginView(userVM: UserViewModel, navController: NavHostController) {
                                 lastName,
                                 address,
                                 phoneNumber,
-                                route,
+                                root,
                                 navController
                             )
                         },
@@ -505,3 +505,4 @@ fun Title(title: String) {
         )
     }
 }
+
