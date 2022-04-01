@@ -148,7 +148,10 @@ fun ProfileMOView(nav: NavHostController) {
 
               }else{
                   nav.navigate(PROFILE_ROUTE )
-                  userVM.modifyUser(fname.value,lname.value,email.value,newPw.value,pNumber.value,address.value)
+                  userVM.modifyUser(fname.value,lname.value,pNumber.value,address.value)
+                  userVM.modifyEmail(email.value)
+                  userVM.modifyPassword(newPw.value)
+
                   Toast.makeText(
                       context,
                       "Your profile has been updated",

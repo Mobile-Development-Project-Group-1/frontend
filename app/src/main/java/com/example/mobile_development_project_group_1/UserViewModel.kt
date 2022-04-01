@@ -150,7 +150,7 @@ class UserViewModel: ViewModel() {
             }
 
     }
-    fun modifyUser(fname:String,lname:String,email: String, newPw:String, pNumber:String,address: String){
+    fun modifyUser(fname:String,lname:String, pNumber:String,address: String){
         if (fname.isNotEmpty() || lname.isNotEmpty() || pNumber.isNotEmpty()  || address.isNotEmpty()){
             var tempUserdata = userdata.value.toMutableMap()
             if (fname.isNotEmpty()){
@@ -164,17 +164,6 @@ class UserViewModel: ViewModel() {
             }
             if (address.isNotEmpty() ){
                 tempUserdata["address"] = address
-            }
-            if (email.isNotEmpty()){
-                fAuth
-                    .currentUser
-                    ?.updateEmail(email)
-
-            }
-            if (newPw.isNotEmpty()){
-                fAuth
-                    .currentUser
-                    ?.updatePassword(newPw)
             }
             fireStore
                 .collection("users")
@@ -193,6 +182,20 @@ class UserViewModel: ViewModel() {
 
 
 
+    }
+    fun modifyPassword(pw:String){
+       if (pw.isNotEmpty()){
+           fAuth
+               .currentUser
+               ?.updatePassword(pw)
+       }
+    }
+    fun modifyEmail(em:String){
+        if (em.isNotEmpty()){
+            fAuth
+                .currentUser
+                ?.updateEmail(em)
+        }
     }
 
 
