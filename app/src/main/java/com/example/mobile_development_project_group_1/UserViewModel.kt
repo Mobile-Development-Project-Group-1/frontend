@@ -178,10 +178,6 @@ class UserViewModel: ViewModel() {
                 }
 
         }
-
-
-
-
     }
     fun modifyPassword(pw:String){
        if (pw.isNotEmpty()){
