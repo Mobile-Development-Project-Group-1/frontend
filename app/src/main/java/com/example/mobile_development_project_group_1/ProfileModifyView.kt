@@ -35,7 +35,6 @@ fun ProfileMOView(nav: NavHostController) {
 
     var fname = remember { mutableStateOf("") }
     var lname = remember { mutableStateOf("") }
-    var email = remember { mutableStateOf("") }
     var newPw = remember { mutableStateOf("") }
     var pNumber = remember { mutableStateOf("") }
     var address = remember { mutableStateOf("") }
@@ -120,14 +119,12 @@ fun ProfileMOView(nav: NavHostController) {
                          KeyboardType.Text,R.drawable.ic_person)
                     MakeOutlineButton(lname,"Last name",userVM.userdata.value["lastName"].toString(),
                         KeyboardType.Text,R.drawable.ic_person)
-                    MakeOutlineButton(email,"Email", Firebase.auth.currentUser?.email.toString(),
-                        KeyboardType.Email,R.drawable.ic_email)
-                    MakeOutlineButton(newPw," New Password", "*************",
-                        KeyboardType.Password,R.drawable.ic_lock)
                     MakeOutlineButton(pNumber," Phone number", userVM.userdata.value["phoneNumber"].toString(),
                         KeyboardType.Phone,R.drawable.ic_phone)
                     MakeOutlineButton(address," Address", userVM.userdata.value["address"].toString(),
                         KeyboardType.Text,R.drawable.ic_address)
+                    MakeOutlineButton(newPw," New Password", "*************",
+                        KeyboardType.Password,R.drawable.ic_lock)
                 }
 
 
@@ -137,7 +134,7 @@ fun ProfileMOView(nav: NavHostController) {
       Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically , horizontalArrangement = Arrangement.SpaceEvenly) {
           OutlinedButton(
               onClick = {
-              if(fname.value.isEmpty() && lname.value.isEmpty() && email.value.isEmpty() && newPw.value.isEmpty()
+              if(fname.value.isEmpty() && lname.value.isEmpty() && newPw.value.isEmpty()
                   && pNumber.value.isEmpty() && address.value.isEmpty()){
 
                   Toast.makeText(
@@ -146,11 +143,14 @@ fun ProfileMOView(nav: NavHostController) {
                       Toast.LENGTH_SHORT
                   ).show()
 
-              }else{
-                  nav.navigate(PROFILE_ROUTE )
-                  userVM.modifyUser(fname.value,lname.value,pNumber.value,address.value)
-                  userVM.modifyEmail(email.value)
-                  userVM.modifyPassword(newPw.value)
+              }
+                  if(fname.value.isNotEmpty() || lname.value.isNotEmpty() || address.value.isNotEmpty() || pNumber.value.isNotEmpty()){
+                      userVM.modifyUser(fname.value,lname.value,pNumber.value,address.value)
+                  }
+
+                  if (newPw.value.isNotEmpty()){
+                      userVM.modifyPassword(newPw.value)
+                  }
 
                   Toast.makeText(
                       context,
@@ -158,7 +158,7 @@ fun ProfileMOView(nav: NavHostController) {
                       Toast.LENGTH_SHORT
                   ).show()
 
-              }
+                  nav.navigate(PROFILE_ROUTE )
 
               },
               colors = ButtonDefaults

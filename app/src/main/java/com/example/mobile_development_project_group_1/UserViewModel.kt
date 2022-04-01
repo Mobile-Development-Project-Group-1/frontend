@@ -190,13 +190,7 @@ class UserViewModel: ViewModel() {
                ?.updatePassword(pw)
        }
     }
-    fun modifyEmail(em:String){
-        if (em.isNotEmpty()){
-            fAuth
-                .currentUser
-                ?.updateEmail(em)
-        }
-    }
+
 
 
 }
