@@ -49,10 +49,9 @@ class UserViewModel: ViewModel() {
         }
     }
 
-    fun signUpUser(email: String, pw: String, firstName: String, lastName: String, address: String, phoneNumber: String, root: String, navController: NavHostController) {
+    fun signUpUser(firstName: String, lastName: String, address: String, phoneNumber: String, email: String, pw: String, pictureUrl: String, root: String, navController: NavHostController) {
 
         if (email.isNotEmpty() && pw.isNotEmpty()) {
-
             fAuth
                 .createUserWithEmailAndPassword(email, pw)
                 .addOnSuccessListener {
@@ -61,7 +60,7 @@ class UserViewModel: ViewModel() {
                     fireStore
                         .collection("users")
                         .document(it.user!!.uid)
-                        .set( User(firstName, lastName, address, phoneNumber, root) )
+                        .set( User(firstName, lastName, address, phoneNumber, pictureUrl, root) )
                         .addOnSuccessListener {
                             Log.d("********", "User's information added successfully!")
                         }

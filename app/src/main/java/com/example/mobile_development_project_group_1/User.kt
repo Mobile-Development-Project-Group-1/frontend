@@ -5,6 +5,6 @@ data class User(
     val lastName: String,
     val address: String,
     val phoneNumber: String,
-    val pictureUrl: String = "https://firebasestorage.googleapis.com/v0/b/mdp-firebase-g1.appspot.com/o/img.png?alt=media&token=7a17860b-7342-4c81-b1db-b26bb15892a8"
+    val pictureUrl: String ,
     val root: String
 )
