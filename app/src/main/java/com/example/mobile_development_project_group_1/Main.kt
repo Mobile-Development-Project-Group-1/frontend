@@ -1,5 +1,6 @@
 package com.example.mobile_development_project_group_1
 
+import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
@@ -30,6 +31,7 @@ import kotlinx.coroutines.launch
 const val HOME_ROUTE = "home"
 const val LOGIN_SIGNUP_ROUTE = "logInSignUp"
 const val PROFILE_ROUTE = "profile"
+const val PROFILE_MODIFY ="profile_modify"
 const val PUB_PLACE_CREATION_ROUTE = "pub_place_creation"
 const val CHAT_ROUTE = "chat"
 const val MAP_ROUTE = "map"
@@ -71,7 +73,11 @@ fun MainContentView(navController: NavHostController) {
         }
 
         composable (route = PROFILE_ROUTE) {
-            ProfilePageView()
+            ProfilePageView(navController)
+        }
+        
+        composable (route = PROFILE_MODIFY) {
+            ProfileMOView(navController)
         }
 
         composable (route = PUB_PLACE_CREATION_ROUTE) {
@@ -85,6 +91,7 @@ fun MainContentView(navController: NavHostController) {
         composable (route = MAP_ROUTE) {
             MyMap()
         }
+
     }
 }
 
@@ -216,6 +223,7 @@ fun DrawerLayoutView(navController: NavHostController, scState: ScaffoldState) {
     val userVM = viewModel<UserViewModel>(LocalContext.current as ComponentActivity)
     val scope = rememberCoroutineScope()
 
+    val context = LocalContext.current
     val fireStore = Firebase.firestore
     val fAuth = Firebase.auth
     var currentUserName by remember { mutableStateOf("") }
@@ -227,7 +235,7 @@ fun DrawerLayoutView(navController: NavHostController, scState: ScaffoldState) {
         .addOnSuccessListener {
             currentUserName = it.get("firstName").toString()
         }
-
+        
     Column(
         modifier = Modifier.fillMaxSize()
     ) {
@@ -281,6 +289,12 @@ fun DrawerLayoutView(navController: NavHostController, scState: ScaffoldState) {
                         scope.launch {
                             scState.drawerState.close()
                         }
+                        Toast.makeText(
+                            context,
+                            " Your profile",
+                            Toast.LENGTH_SHORT
+                        ).show()
+
                     },
                     colors = ButtonDefaults
                         .buttonColors(backgroundColor = Color(0xffed4956), contentColor = Color.White)
