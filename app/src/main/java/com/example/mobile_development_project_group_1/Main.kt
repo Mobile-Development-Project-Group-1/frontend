@@ -35,6 +35,7 @@ const val PROFILE_MODIFY ="profile_modify"
 const val PUB_PLACE_CREATION_ROUTE = "pub_place_creation"
 const val CHAT_ROUTE = "chat"
 const val MAP_ROUTE = "map"
+const val PUB_PLACE_INFO_ROUTE = "pub_Info"
 
 const val ADMIN_ROOT = "ADMIN"
 const val MANAGER_ROOT = "MANAGER"

@@ -132,10 +132,10 @@ fun AddNewPubPlaceView(navController: NavHostController) {
                         {
                             OutlinedButton(
                                 onClick = {
-                                    navController.navigate(PROFILE_ROUTE)
+                                    navController.navigate(PUB_PLACE_INFO_ROUTE)
                                     Toast.makeText(
                                         context,
-                                        " Your profile",
+                                        "Image has been uploaded",
                                         Toast.LENGTH_SHORT
                                     ).show()
 
@@ -144,7 +144,7 @@ fun AddNewPubPlaceView(navController: NavHostController) {
                                     .buttonColors(backgroundColor = Color(0xffed4956), contentColor = Color.White)
                             ) {
                                 Text(
-                                    text = "Profile page",
+                                    text = "Upload",
                                     fontSize = 14.sp,
                                     fontWeight = FontWeight.Bold
                                 )
