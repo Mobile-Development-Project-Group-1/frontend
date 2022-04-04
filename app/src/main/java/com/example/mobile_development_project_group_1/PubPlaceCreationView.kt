@@ -33,6 +33,9 @@ import androidx.navigation.NavHostController
 fun AddNewPubPlaceView(navController: NavHostController) {
     val context = LocalContext.current
     val userVM = viewModel<UserViewModel>(LocalContext.current as ViewModelStoreOwner)
+    var  isClicked by remember {
+        mutableStateOf(true)
+    }
     var imgUrl by remember {
         mutableStateOf<Uri?>(null)
     }
@@ -41,8 +44,14 @@ fun AddNewPubPlaceView(navController: NavHostController) {
         imgUrl = it
     }
     imgUrl?.let {
+
         userVM.addThePublicPlaceImage(imgUrl!!)
-        navController.navigate(PUB_PLACE_INFO_ROUTE)
+        Toast.makeText(
+            context,
+            "Image has been uploaded",
+            Toast.LENGTH_SHORT
+        ).show()
+
     }
 
     Column(
@@ -118,7 +127,10 @@ fun AddNewPubPlaceView(navController: NavHostController) {
 
                     {
 
-                        Row(Modifier.fillMaxWidth().fillMaxHeight(0.2f), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.Center) {
+                        Row(
+                            Modifier
+                                .fillMaxWidth()
+                                .fillMaxHeight(0.2f), verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.Center) {
                             Text(
                                 text = "Upload a place image",
                                 color = Color(0xffed4956),
@@ -128,7 +140,10 @@ fun AddNewPubPlaceView(navController: NavHostController) {
                             )
 
                         }
-                        Row(Modifier.fillMaxWidth().fillMaxHeight(0.8f),verticalAlignment = Alignment.Top,
+                        Row(
+                            Modifier
+                                .fillMaxWidth()
+                                .fillMaxHeight(0.8f),verticalAlignment = Alignment.Top,
                             horizontalArrangement = Arrangement.Center) {
                             Surface(
                                 modifier = Modifier
@@ -146,26 +161,42 @@ fun AddNewPubPlaceView(navController: NavHostController) {
                                 )
                             }
                         }
-                        Row(Modifier.fillMaxWidth().fillMaxHeight(1f),
+                        Row(
+                            Modifier
+                                .fillMaxWidth()
+                                .fillMaxHeight(1f),
                             verticalAlignment = Alignment.Top, horizontalArrangement = Arrangement.Center)
                         {
-                            OutlinedButton(
-                                onClick = {
-                                    launcher.launch("image/*")
-                                    Toast.makeText(
-                                        context,
-                                        "Image has been uploaded",
-                                        Toast.LENGTH_SHORT
-                                    ).show()
-                                          },
-                                colors = ButtonDefaults
-                                    .buttonColors(backgroundColor = Color(0xffed4956), contentColor = Color.White)
-                            ) {
-                                Text(
-                                    text = "Upload",
-                                    fontSize = 14.sp,
-                                    fontWeight = FontWeight.Bold
-                                )
+                            if (isClicked){
+                                OutlinedButton(
+                                    onClick = {
+                                        launcher.launch("image/*")
+                                              },
+                                    colors = ButtonDefaults
+                                        .buttonColors(backgroundColor = Color(0xffed4956), contentColor = Color.White)
+                                ) {
+                                    Text(
+                                        text = "Upload",
+                                        fontSize = 14.sp,
+                                        fontWeight = FontWeight.Bold
+                                    )
+                                }
+                            }else{
+                                OutlinedButton(
+                                    onClick = {
+                                        launcher.launch("image/*")
+                                        navController.navigate(PUB_PLACE_INFO_ROUTE)
+                                    },
+                                    colors = ButtonDefaults
+                                        .buttonColors(backgroundColor = Color(0xffed4956), contentColor = Color.White)
+                                ) {
+                                    Text(
+                                        text = "Next",
+                                        fontSize = 14.sp,
+                                        fontWeight = FontWeight.Bold
+                                    )
+                                }
+
                             }
 
                         }

@@ -201,17 +201,17 @@ class UserViewModel: ViewModel() {
             .addOnSuccessListener {
            val result = it.metadata!!.reference!!.downloadUrl;
            result.addOnSuccessListener { doc ->
-
+               Log.d("................",doc.toString())
                var temp = doc.toString()
                publicPlaceData["pub_img_url"] = temp
                publicPlaceData["m_id"] = fAuth.currentUser!!.uid
 
            }.addOnFailureListener {
-
+               Log.d("................",errorMessage.toString())
            }
 
         }
-
+        Log.d("................",publicPlaceData.toString())
 
 
     }
