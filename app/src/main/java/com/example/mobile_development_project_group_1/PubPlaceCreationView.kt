@@ -26,7 +26,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.ViewModelStoreOwner
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
-
+import coil.compose.AsyncImage
 
 
 @Composable
@@ -153,12 +153,17 @@ fun AddNewPubPlaceView(navController: NavHostController) {
                                 elevation = 4.dp,
                             )
                             {
-                                Image(
+                                if(isClicked)Image(
                                     painter = painterResource(id = R.drawable.p_img),
                                     contentDescription = "",
                                     modifier = Modifier.size(150.dp),
                                     contentScale = ContentScale.Crop
-                                )
+                                )else{
+                                    AsyncImage(model = userVM.p_Url.value, contentDescription ="" ,
+                                        modifier = Modifier.size(150.dp),
+                                        contentScale = ContentScale.Crop
+                                    )
+                                }
                             }
                         }
                         Row(
@@ -171,6 +176,7 @@ fun AddNewPubPlaceView(navController: NavHostController) {
                                 OutlinedButton(
                                     onClick = {
                                         launcher.launch("image/*")
+                                        isClicked = ! isClicked
                                               },
                                     colors = ButtonDefaults
                                         .buttonColors(backgroundColor = Color(0xffed4956), contentColor = Color.White)
@@ -184,7 +190,7 @@ fun AddNewPubPlaceView(navController: NavHostController) {
                             }else{
                                 OutlinedButton(
                                     onClick = {
-                                        launcher.launch("image/*")
+
                                         navController.navigate(PUB_PLACE_INFO_ROUTE)
                                     },
                                     colors = ButtonDefaults

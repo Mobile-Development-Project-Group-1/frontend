@@ -24,6 +24,7 @@ class UserViewModel: ViewModel() {
     var userdata = mutableStateOf(mapOf<String,Any>())
     var isMapOpen = mutableStateOf(false)
     var publicPlaceData = mutableMapOf<String,Any>()
+    var p_Url = mutableStateOf("")
 
     fun disableDrawer() {
         isMapOpen.value = !isMapOpen.value
@@ -205,6 +206,7 @@ class UserViewModel: ViewModel() {
                var temp = doc.toString()
                publicPlaceData["pub_img_url"] = temp
                publicPlaceData["m_id"] = fAuth.currentUser!!.uid
+               p_Url.value = temp
                Log.d("................",publicPlaceData.toString())
            }.addOnFailureListener {
                Log.d("................",errorMessage.toString())
