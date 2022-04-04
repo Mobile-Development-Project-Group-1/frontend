@@ -1,5 +1,6 @@
 package com.example.mobile_development_project_group_1
 
+import android.widget.Toast
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -13,13 +14,18 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavHostController
+
+
 
 @Composable
 fun AddNewPubPlaceView(navController: NavHostController) {
+    val context = LocalContext.current
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -66,18 +72,21 @@ fun AddNewPubPlaceView(navController: NavHostController) {
                         .fillMaxWidth()
                         .height(100.dp),
                         verticalAlignment = Alignment.CenterVertically,
-                        horizontalArrangement = Arrangement.SpaceBetween
+                        horizontalArrangement = Arrangement.Center
                     ) {
                         Column(
                             modifier = Modifier
                                 .fillMaxWidth()
+                                .padding(5.dp),
+                                horizontalAlignment = Alignment.CenterHorizontally
+
 
                         ) {
                             Text(
                                 text = "Create your public place",
                                 color = Color(0xffed4956),
                                 fontWeight = FontWeight.Bold,
-                                style =  MaterialTheme.typography.subtitle1
+                                style =  MaterialTheme.typography.h6
 
                             )
                         }
@@ -100,7 +109,8 @@ fun AddNewPubPlaceView(navController: NavHostController) {
                             )
 
                         }
-                        Row(Modifier.fillMaxWidth().fillMaxHeight(1f),verticalAlignment = Alignment.Top, horizontalArrangement = Arrangement.Center) {
+                        Row(Modifier.fillMaxWidth().fillMaxHeight(0.8f),verticalAlignment = Alignment.Top,
+                            horizontalArrangement = Arrangement.Center) {
                             Surface(
                                 modifier = Modifier
                                     .size(150.dp)
@@ -110,13 +120,38 @@ fun AddNewPubPlaceView(navController: NavHostController) {
                             )
                             {
                                 Image(
-                                    painter = painterResource(id = R.drawable.p_Img),
+                                    painter = painterResource(id = R.drawable.p_img),
                                     contentDescription = "",
                                     modifier = Modifier.size(150.dp),
                                     contentScale = ContentScale.Crop
                                 )
                             }
                         }
+                        Row(Modifier.fillMaxWidth().fillMaxHeight(1f),
+                            verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.Center)
+                        {
+                            OutlinedButton(
+                                onClick = {
+                                    navController.navigate(PROFILE_ROUTE)
+                                    Toast.makeText(
+                                        context,
+                                        " Your profile",
+                                        Toast.LENGTH_SHORT
+                                    ).show()
+
+                                },
+                                colors = ButtonDefaults
+                                    .buttonColors(backgroundColor = Color(0xffed4956), contentColor = Color.White)
+                            ) {
+                                Text(
+                                    text = "Profile page",
+                                    fontSize = 14.sp,
+                                    fontWeight = FontWeight.Bold
+                                )
+                            }
+
+                        }
+
                     }
 
 
