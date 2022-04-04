@@ -23,6 +23,7 @@ class UserViewModel: ViewModel() {
     var errorMessage = mutableStateOf("")
     var userdata = mutableStateOf(mapOf<String,Any>())
     var isMapOpen = mutableStateOf(false)
+    var publicPlaceData = mutableMapOf<String,Any>()
 
     fun disableDrawer() {
         isMapOpen.value = !isMapOpen.value
@@ -192,6 +193,10 @@ class UserViewModel: ViewModel() {
                .currentUser
                ?.updatePassword(pw)
        }
+    }
+
+    fun addThePublicPlaceImage(){
+        publicPlaceData["m_id"] = fAuth.currentUser!!.uid
     }
 
 
