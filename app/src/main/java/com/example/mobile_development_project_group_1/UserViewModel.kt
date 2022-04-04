@@ -205,13 +205,13 @@ class UserViewModel: ViewModel() {
                var temp = doc.toString()
                publicPlaceData["pub_img_url"] = temp
                publicPlaceData["m_id"] = fAuth.currentUser!!.uid
-
+               Log.d("................",publicPlaceData.toString())
            }.addOnFailureListener {
                Log.d("................",errorMessage.toString())
            }
 
         }
-        Log.d("................",publicPlaceData.toString())
+
 
 
     }
