@@ -92,6 +92,9 @@ fun MainContentView(navController: NavHostController) {
         composable (route = MAP_ROUTE) {
             MyMap()
         }
+        composable (route = PUB_PLACE_INFO_ROUTE ) {
+            CreatePubPlaceInfo()
+        }
 
     }
 }

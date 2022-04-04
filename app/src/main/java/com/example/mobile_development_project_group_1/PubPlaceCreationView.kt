@@ -128,7 +128,7 @@ fun AddNewPubPlaceView(navController: NavHostController) {
                             }
                         }
                         Row(Modifier.fillMaxWidth().fillMaxHeight(1f),
-                            verticalAlignment = Alignment.CenterVertically, horizontalArrangement = Arrangement.Center)
+                            verticalAlignment = Alignment.Top, horizontalArrangement = Arrangement.Center)
                         {
                             OutlinedButton(
                                 onClick = {
