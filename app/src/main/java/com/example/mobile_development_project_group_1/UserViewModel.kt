@@ -195,8 +195,25 @@ class UserViewModel: ViewModel() {
        }
     }
 
-    fun addThePublicPlaceImage(){
-        publicPlaceData["m_id"] = fAuth.currentUser!!.uid
+    fun addThePublicPlaceImage(u: Uri){
+        var path ="P00id${ fAuth.currentUser?.uid.toString()}"
+        ref.child(path).putFile(u)
+            .addOnSuccessListener {
+           val result = it.metadata!!.reference!!.downloadUrl;
+           result.addOnSuccessListener { doc ->
+
+               var temp = doc.toString()
+               publicPlaceData["pub_img_url"] = temp
+               publicPlaceData["m_id"] = fAuth.currentUser!!.uid
+
+           }.addOnFailureListener {
+
+           }
+
+        }
+
+
+
     }
 
 

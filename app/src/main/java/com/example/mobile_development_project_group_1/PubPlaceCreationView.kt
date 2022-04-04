@@ -1,6 +1,10 @@
 package com.example.mobile_development_project_group_1
 
+import android.net.Uri
 import android.widget.Toast
+import androidx.activity.ComponentActivity
+import androidx.activity.compose.rememberLauncherForActivityResult
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -19,6 +23,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.ViewModelStoreOwner
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 
 
@@ -26,6 +32,19 @@ import androidx.navigation.NavHostController
 @Composable
 fun AddNewPubPlaceView(navController: NavHostController) {
     val context = LocalContext.current
+    val userVM = viewModel<UserViewModel>(LocalContext.current as ViewModelStoreOwner)
+    var imgUrl by remember {
+        mutableStateOf<Uri?>(null)
+    }
+    val launcher = rememberLauncherForActivityResult(contract = ActivityResultContracts.GetContent() ){
+
+        imgUrl = it
+    }
+    imgUrl?.let {
+        userVM.addThePublicPlaceImage(imgUrl!!)
+        navController.navigate(PUB_PLACE_INFO_ROUTE)
+    }
+
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -132,14 +151,13 @@ fun AddNewPubPlaceView(navController: NavHostController) {
                         {
                             OutlinedButton(
                                 onClick = {
-                                    navController.navigate(PUB_PLACE_INFO_ROUTE)
+                                    launcher.launch("image/*")
                                     Toast.makeText(
                                         context,
                                         "Image has been uploaded",
                                         Toast.LENGTH_SHORT
                                     ).show()
-
-                                },
+                                          },
                                 colors = ButtonDefaults
                                     .buttonColors(backgroundColor = Color(0xffed4956), contentColor = Color.White)
                             ) {
