@@ -15,5 +15,40 @@ import androidx.navigation.NavHostController
 
 @Composable
 fun AddNewPubPlaceView(navController: NavHostController) {
-
+    Column(
+        modifier = Modifier
+            .fillMaxWidth()
+            .fillMaxHeight(0.95f)
+            .padding(10.dp)
+    ) {
+        Column(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(10.dp),
+        ) {
+            Card(
+                modifier = Modifier
+                    .size(42.dp)
+                    .clickable {
+                        navController.navigate(HOME_ROUTE)
+                    },
+                shape = RoundedCornerShape(30.dp)
+            ) {
+                Row(
+                    modifier = Modifier.background(Color(0xffed4956)),
+                    verticalAlignment = Alignment.CenterVertically,
+                    horizontalArrangement = Arrangement.Center
+                ) {
+                    Icon(
+                        painter = painterResource(R.drawable.ic_arrow_left),
+                        contentDescription = "",
+                        tint = Color.White
+                    )
+                }
+            }
+        } // Back to HomePage button
+        Column() {
+            Text(text = "CREATION PAGE")
+        }
+    }
 }
