@@ -36,10 +36,6 @@ const val PUB_PLACE_CREATION_ROUTE = "pub_place_creation"
 const val CHAT_ROUTE = "chat"
 const val MAP_ROUTE = "map"
 
-const val ADMIN_ROOT = "ADMIN"
-const val MANAGER_ROOT = "MANAGER"
-const val USER_ROOT = "USER"
-
 @ExperimentalFoundationApi
 @Composable
 fun MainScaffoldView() {
@@ -47,7 +43,7 @@ fun MainScaffoldView() {
     val userVM = viewModel<UserViewModel>(LocalContext.current as ComponentActivity)
     val scState = rememberScaffoldState(rememberDrawerState(initialValue = DrawerValue.Closed))
     val pubPlaceVM = viewModel<PubPlaceViewModel>(LocalContext.current as ComponentActivity)
-    pubPlaceVM.getPubPlaceLocation()
+    pubPlaceVM.getPubPlaceInfo()
 
     Scaffold(
         scaffoldState = scState,
@@ -91,7 +87,6 @@ fun MainContentView(navController: NavHostController) {
         composable (route = MAP_ROUTE) {
             MyMap()
         }
-
     }
 }
 
