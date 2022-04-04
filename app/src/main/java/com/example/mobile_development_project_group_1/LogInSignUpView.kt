@@ -28,6 +28,7 @@ fun LoginView(userVM: UserViewModel, navController: NavHostController) {
     var phoneNumber by remember { mutableStateOf("") }
     var address by remember { mutableStateOf("") }
     var root by remember { mutableStateOf("") }
+    var pictureUrl by remember { mutableStateOf("https://firebasestorage.googleapis.com/v0/b/mdp-firebase-g1.appspot.com/o/img.png?alt=media&token=7a17860b-7342-4c81-b1db-b26bb15892a8") }
 
     var isLoginOpen by remember { mutableStateOf(true) }
     var isHiddenPw by remember { mutableStateOf(true) }
@@ -289,14 +290,15 @@ fun LoginView(userVM: UserViewModel, navController: NavHostController) {
                     ConfirmButton(
                         functionality = {
                             userVM.signUpUser(
-                                email,
-                                pw,
-                                firstName,
-                                lastName,
-                                address,
-                                phoneNumber,
-                                root,
-                                navController
+                                email = email,
+                                pw = pw,
+                                firstName = firstName,
+                                lastName = lastName,
+                                address = address,
+                                phoneNumber = phoneNumber,
+                                root = root,
+                                navController = navController,
+                                pictureUrl = pictureUrl
                             )
                         },
                         resId = R.drawable.ic_check
