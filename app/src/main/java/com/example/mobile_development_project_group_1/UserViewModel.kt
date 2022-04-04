@@ -26,6 +26,7 @@ class UserViewModel: ViewModel() {
     var publicPlaceData = mutableMapOf<String,Any>()
     var p_Url = mutableStateOf("")
 
+
     fun disableDrawer() {
         isMapOpen.value = !isMapOpen.value
     }
@@ -216,6 +217,9 @@ class UserViewModel: ViewModel() {
 
 
 
+    }
+    fun changeImageState(){
+       p_Url.value = ""
     }
 
 

@@ -46,11 +46,6 @@ fun AddNewPubPlaceView(navController: NavHostController) {
     imgUrl?.let {
 
         userVM.addThePublicPlaceImage(imgUrl!!)
-        Toast.makeText(
-            context,
-            "Image has been uploaded",
-            Toast.LENGTH_SHORT
-        ).show()
 
     }
 
@@ -153,7 +148,7 @@ fun AddNewPubPlaceView(navController: NavHostController) {
                                 elevation = 4.dp,
                             )
                             {
-                                if(isClicked)Image(
+                                if(userVM.p_Url.value.isEmpty())Image(
                                     painter = painterResource(id = R.drawable.p_img),
                                     contentDescription = "",
                                     modifier = Modifier.size(150.dp),
@@ -190,9 +185,14 @@ fun AddNewPubPlaceView(navController: NavHostController) {
                             }else{
                                 OutlinedButton(
                                     onClick = {
-
+                                        Toast.makeText(
+                                            context,
+                                            "Image has been uploaded",
+                                            Toast.LENGTH_SHORT
+                                        ).show()
                                         navController.navigate(PUB_PLACE_INFO_ROUTE)
-                                    },
+                                        userVM.changeImageState()
+                                              },
                                     colors = ButtonDefaults
                                         .buttonColors(backgroundColor = Color(0xffed4956), contentColor = Color.White)
                                 ) {
