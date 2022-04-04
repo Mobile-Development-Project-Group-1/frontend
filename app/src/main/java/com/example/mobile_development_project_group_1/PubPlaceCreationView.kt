@@ -33,9 +33,6 @@ import coil.compose.AsyncImage
 fun AddNewPubPlaceView(navController: NavHostController) {
     val context = LocalContext.current
     val userVM = viewModel<UserViewModel>(LocalContext.current as ViewModelStoreOwner)
-    var  isClicked by remember {
-        mutableStateOf(true)
-    }
     var imgUrl by remember {
         mutableStateOf<Uri?>(null)
     }
@@ -167,11 +164,11 @@ fun AddNewPubPlaceView(navController: NavHostController) {
                                 .fillMaxHeight(1f),
                             verticalAlignment = Alignment.Top, horizontalArrangement = Arrangement.Center)
                         {
-                            if (isClicked){
+                            if (userVM.p_Url.value.isEmpty()){
                                 OutlinedButton(
                                     onClick = {
                                         launcher.launch("image/*")
-                                        isClicked = ! isClicked
+
                                               },
                                     colors = ButtonDefaults
                                         .buttonColors(backgroundColor = Color(0xffed4956), contentColor = Color.White)
@@ -187,12 +184,11 @@ fun AddNewPubPlaceView(navController: NavHostController) {
                                     onClick = {
                                         Toast.makeText(
                                             context,
-                                            "Image has been uploaded",
+                                            "Set up information",
                                             Toast.LENGTH_SHORT
                                         ).show()
-                                        navController.navigate(PUB_PLACE_INFO_ROUTE)
                                         userVM.changeImageState()
-                                              },
+                                        navController.navigate(PUB_PLACE_INFO_ROUTE) },
                                     colors = ButtonDefaults
                                         .buttonColors(backgroundColor = Color(0xffed4956), contentColor = Color.White)
                                 ) {
