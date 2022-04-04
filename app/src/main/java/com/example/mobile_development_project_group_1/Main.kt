@@ -93,7 +93,7 @@ fun MainContentView(navController: NavHostController) {
             MyMap()
         }
         composable (route = PUB_PLACE_INFO_ROUTE ) {
-            CreatePubPlaceInfo()
+            CreatePubPlaceInfo(navController)
         }
 
     }
@@ -125,6 +125,7 @@ fun TopBarView(navController: NavHostController, scState: ScaffoldState) {
                         .clickable {
                             navController.navigate(HOME_ROUTE)
                             userVM.disableDrawer()
+
                         },
                     shape = RoundedCornerShape(30.dp)
                 ) {

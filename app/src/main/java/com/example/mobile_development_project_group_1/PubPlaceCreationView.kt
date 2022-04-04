@@ -62,6 +62,7 @@ fun AddNewPubPlaceView(navController: NavHostController) {
                     .size(42.dp)
                     .clickable {
                         navController.navigate(HOME_ROUTE)
+                        userVM.changeImageState()
                     },
                 shape = RoundedCornerShape(30.dp)
             ) {
@@ -187,7 +188,7 @@ fun AddNewPubPlaceView(navController: NavHostController) {
                                             "Set up information",
                                             Toast.LENGTH_SHORT
                                         ).show()
-                                        userVM.changeImageState()
+
                                         navController.navigate(PUB_PLACE_INFO_ROUTE) },
                                     colors = ButtonDefaults
                                         .buttonColors(backgroundColor = Color(0xffed4956), contentColor = Color.White)
