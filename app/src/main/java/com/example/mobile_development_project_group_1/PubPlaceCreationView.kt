@@ -163,10 +163,10 @@ fun AddNewPubPlaceView(navController: NavHostController) {
                             Modifier
                                 .fillMaxWidth()
                                 .fillMaxHeight(1f),
-                            verticalAlignment = Alignment.Top, horizontalArrangement = Arrangement.Center)
+                            verticalAlignment = Alignment.Top, horizontalArrangement = Arrangement.SpaceEvenly)
                         {
-                            if (userVM.p_Url.value.isEmpty()){
-                                OutlinedButton(
+
+                            OutlinedButton(
                                     onClick = {
                                         launcher.launch("image/*")
 
@@ -180,7 +180,7 @@ fun AddNewPubPlaceView(navController: NavHostController) {
                                         fontWeight = FontWeight.Bold
                                     )
                                 }
-                            }else{
+
                                 OutlinedButton(
                                     onClick = {
                                         Toast.makeText(
@@ -188,7 +188,6 @@ fun AddNewPubPlaceView(navController: NavHostController) {
                                             "Set up information",
                                             Toast.LENGTH_SHORT
                                         ).show()
-
                                         navController.navigate(PUB_PLACE_INFO_ROUTE) },
                                     colors = ButtonDefaults
                                         .buttonColors(backgroundColor = Color(0xffed4956), contentColor = Color.White)
@@ -200,7 +199,7 @@ fun AddNewPubPlaceView(navController: NavHostController) {
                                     )
                                 }
 
-                            }
+
 
                         }
 
