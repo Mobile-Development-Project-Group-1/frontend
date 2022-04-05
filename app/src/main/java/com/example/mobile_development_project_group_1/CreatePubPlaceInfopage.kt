@@ -162,7 +162,7 @@ fun CreatePubPlaceInfo(nav: NavHostController) {
                        .buttonColors(backgroundColor = Color(0xffed4956), contentColor = Color.White)
                ) {
                    Text(
-                       text = "Confirm",
+                       text = "Next",
                        fontSize = 14.sp,
                        fontWeight = FontWeight.Bold
                    )
