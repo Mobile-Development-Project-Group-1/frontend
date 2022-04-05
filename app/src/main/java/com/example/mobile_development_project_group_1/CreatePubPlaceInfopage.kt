@@ -18,6 +18,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.ViewModelStoreOwner
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
@@ -132,6 +133,23 @@ fun CreatePubPlaceInfo(nav: NavHostController) {
 
             }
         }
+      Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center, verticalAlignment =Alignment.CenterVertically )
+      {
+          OutlinedButton(
+              onClick = {
+
+
+              },
+              colors = ButtonDefaults
+                  .buttonColors(backgroundColor = Color(0xffed4956), contentColor = Color.White)
+          ) {
+              Text(
+                  text = "Confirm",
+                  fontSize = 14.sp,
+                  fontWeight = FontWeight.Bold
+              )
+          }
+      }
     }
 
 
