@@ -6,10 +6,7 @@ import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -45,6 +42,9 @@ fun CreatePubPlaceInfo(nav: NavHostController) {
         mutableStateOf("")
     }
 
+    var isClicked by remember {
+        mutableStateOf(true)
+    }
     Column(modifier = Modifier
         .fillMaxSize()
         .padding(10.dp), horizontalAlignment = Alignment.CenterHorizontally ) {
@@ -135,20 +135,41 @@ fun CreatePubPlaceInfo(nav: NavHostController) {
         }
       Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center, verticalAlignment =Alignment.CenterVertically )
       {
-          OutlinedButton(
-              onClick = {
+        if (title.value.isNotEmpty() && workDays.value.isNotEmpty() && weekend.value.isNotEmpty() && contactInfo.value.isNotEmpty()
+            && webLink.value.isNotEmpty() && description.value.isNotEmpty()){
+           if (isClicked){
+               OutlinedButton(
+                   onClick = {
+                       isClicked =! isClicked
 
+                   },
+                   colors = ButtonDefaults
+                       .buttonColors(backgroundColor = Color(0xffed4956), contentColor = Color.White)
+               ) {
+                   Text(
+                       text = "Confirm",
+                       fontSize = 14.sp,
+                       fontWeight = FontWeight.Bold
+                   )
+               }
+           }else{
+               OutlinedButton(
+                   onClick = {
+                      nav.navigate(PUB_CREATE_Address_ROUTE)
 
-              },
-              colors = ButtonDefaults
-                  .buttonColors(backgroundColor = Color(0xffed4956), contentColor = Color.White)
-          ) {
-              Text(
-                  text = "Confirm",
-                  fontSize = 14.sp,
-                  fontWeight = FontWeight.Bold
-              )
-          }
+                   },
+                   colors = ButtonDefaults
+                       .buttonColors(backgroundColor = Color(0xffed4956), contentColor = Color.White)
+               ) {
+                   Text(
+                       text = "Confirm",
+                       fontSize = 14.sp,
+                       fontWeight = FontWeight.Bold
+                   )
+               }
+
+           }
+        }
       }
     }
 

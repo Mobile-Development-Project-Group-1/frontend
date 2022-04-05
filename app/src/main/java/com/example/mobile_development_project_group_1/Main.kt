@@ -36,6 +36,7 @@ const val PUB_PLACE_CREATION_ROUTE = "pub_place_creation"
 const val CHAT_ROUTE = "chat"
 const val MAP_ROUTE = "map"
 const val PUB_PLACE_INFO_ROUTE = "pub_Info"
+const val PUB_CREATE_Address_ROUTE= "pub_address"
 
 const val ADMIN_ROOT = "ADMIN"
 const val MANAGER_ROOT = "MANAGER"
@@ -95,7 +96,9 @@ fun MainContentView(navController: NavHostController) {
         composable (route = PUB_PLACE_INFO_ROUTE ) {
             CreatePubPlaceInfo(navController)
         }
-
+        composable (route = PUB_CREATE_Address_ROUTE ) {
+            PubAddresspage(navController)
+        }
     }
 }
 
