@@ -183,12 +183,21 @@ fun AddNewPubPlaceView(navController: NavHostController) {
 
                                 OutlinedButton(
                                     onClick = {
-                                        Toast.makeText(
-                                            context,
-                                            "Set up information",
-                                            Toast.LENGTH_SHORT
-                                        ).show()
-                                        navController.navigate(PUB_PLACE_INFO_ROUTE) },
+                                       if(userVM.p_Url.value.isEmpty()){
+                                           Toast.makeText(
+                                               context,
+                                               "Image must be uploaded",
+                                               Toast.LENGTH_SHORT
+                                           ).show()
+                                       }
+                                       if(userVM.p_Url.value.isNotEmpty()){
+                                           navController.navigate(PUB_PLACE_INFO_ROUTE)
+                                           Toast.makeText(
+                                               context,
+                                               "Set up information",
+                                               Toast.LENGTH_SHORT
+                                           ).show()
+                                       } },
                                     colors = ButtonDefaults
                                         .buttonColors(backgroundColor = Color(0xffed4956), contentColor = Color.White)
                                 ) {

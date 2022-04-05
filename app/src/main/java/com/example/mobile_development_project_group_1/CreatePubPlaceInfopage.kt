@@ -6,6 +6,8 @@ import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -20,6 +22,9 @@ import androidx.navigation.NavHostController
 @Composable
 fun CreatePubPlaceInfo(nav: NavHostController) {
     val userVM = viewModel<UserViewModel>(LocalContext.current as ViewModelStoreOwner)
+    var title  = remember {
+        mutableStateOf("")
+    }
     Column(modifier = Modifier
         .fillMaxSize()
         .padding(10.dp), horizontalAlignment = Alignment.CenterHorizontally ) {
@@ -86,7 +91,8 @@ fun CreatePubPlaceInfo(nav: NavHostController) {
                     )
 
                 {
-
+                  OutlinedTextField(value = title.value, onValueChange ={title.value =it},
+                  label = { Text(text = "Public place name")}, placeholder = { Text(text = "")})
 
                 }
 
