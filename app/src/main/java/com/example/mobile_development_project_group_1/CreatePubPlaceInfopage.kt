@@ -7,6 +7,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -93,27 +94,7 @@ fun CreatePubPlaceInfo(nav: NavHostController) {
                     )
 
                 {
-                  Row(modifier = Modifier
-                      .fillMaxSize()
-                      .padding(8.dp)) {
-                      OutlinedTextField(value = title.value, onValueChange ={title.value =it},
-                          label = { Text(text = "Public place name")},
-                          colors = TextFieldDefaults
-                              .outlinedTextFieldColors(
-                                  backgroundColor = Color.White,
-                                  textColor = Color.Black,
-                                  placeholderColor = Color.Gray,
-                                  trailingIconColor = Color(0xffed4956) ,
-                                  focusedLabelColor =  Color(0xffed4956),
-                                  focusedBorderColor = Color(0xffed4956),
-                              ),
-                          keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
-                          placeholder = { Text(text = "Bar")},
-                          trailingIcon = { Icon(painter = painterResource(id =R.drawable.ic_title ) , contentDescription ="" )}
-                      )
-                      Divider(thickness = 1.dp)
-                      
-                  }
+
 
                 }
 
@@ -125,3 +106,30 @@ fun CreatePubPlaceInfo(nav: NavHostController) {
 
 
 }
+
+@Composable
+fun MakeOutlineButtonForPublicPlace(name:MutableState<String>,titleName:String,placeHolderTitle:String,iconImage:Int,keyboard: KeyboardType) {
+    Row(modifier = Modifier
+        .fillMaxSize()
+        .padding(8.dp)) {
+        OutlinedTextField(value = name.value, onValueChange ={name.value =it},
+            label = { Text(text = titleName)},
+            colors = TextFieldDefaults
+                .outlinedTextFieldColors(
+                    backgroundColor = Color.White,
+                    textColor = Color.Black,
+                    placeholderColor = Color.Gray,
+                    trailingIconColor = Color(0xffed4956) ,
+                    focusedLabelColor =  Color(0xffed4956),
+                    focusedBorderColor = Color(0xffed4956),
+                ),
+            keyboardOptions = KeyboardOptions(keyboardType = keyboard),
+            placeholder = { Text(text = placeHolderTitle)},
+            trailingIcon = { Icon(painter = painterResource(id =iconImage ) , contentDescription ="" )}
+        )
+        Divider(thickness = 1.dp)
+
+    }
+
+}
+
