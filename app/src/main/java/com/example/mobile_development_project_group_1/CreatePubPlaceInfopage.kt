@@ -110,11 +110,11 @@ fun CreatePubPlaceInfo(nav: NavHostController) {
                     )
 
                 {
-                    MakeOutlineButtonForPublicPlace(title,"Public place name","bar",R.drawable.ic_title,
+                    MakeOutlineButtonForPublicPlace(title,"Public place name","Bar",R.drawable.ic_title,
                         KeyboardType.Text)
-                    MakeOutlineButtonForPublicPlace( workDays,"Workdays","16-04",R.drawable.ic_workdays,
+                    MakeOutlineButtonForPublicPlace( workDays,"Workdays","Time: 16-04",R.drawable.ic_workdays,
                         KeyboardType.Text)
-                    MakeOutlineButtonForPublicPlace(weekend,"Weekend","16-02",R.drawable.ic_workdays,
+                    MakeOutlineButtonForPublicPlace(weekend,"Weekend","Time: 16-02",R.drawable.ic_workdays,
                         KeyboardType.Text)
                     MakeOutlineButtonForPublicPlace(contactInfo,"Contact us","Email/Phone Number",
                         R.drawable.ic_contact,
@@ -123,7 +123,7 @@ fun CreatePubPlaceInfo(nav: NavHostController) {
                         R.drawable.ic_baseline_link_24,
                         KeyboardType.Text)
                     MakeOutlineButtonForPublicPlace(description,"Description","Describe your public place",
-                        R.drawable.ic_baseline_link_24,
+                        R.drawable.ic_description,
                         KeyboardType.Text)
 
                 }
