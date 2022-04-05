@@ -40,6 +40,10 @@ fun CreatePubPlaceInfo(nav: NavHostController) {
     var webLink  = remember {
         mutableStateOf("")
     }
+    var description = remember {
+        mutableStateOf("")
+    }
+
     Column(modifier = Modifier
         .fillMaxSize()
         .padding(10.dp), horizontalAlignment = Alignment.CenterHorizontally ) {
@@ -116,6 +120,9 @@ fun CreatePubPlaceInfo(nav: NavHostController) {
                         R.drawable.ic_contact,
                         KeyboardType.Text)
                     MakeOutlineButtonForPublicPlace(webLink,"Web link","http//:www.bar.com/",
+                        R.drawable.ic_baseline_link_24,
+                        KeyboardType.Text)
+                    MakeOutlineButtonForPublicPlace(description,"Description","Describe your public place",
                         R.drawable.ic_baseline_link_24,
                         KeyboardType.Text)
 
