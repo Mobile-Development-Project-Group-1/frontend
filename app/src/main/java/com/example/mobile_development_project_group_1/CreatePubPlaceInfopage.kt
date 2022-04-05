@@ -4,6 +4,7 @@ import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.mutableStateOf
@@ -14,6 +15,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModelStoreOwner
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -92,7 +94,20 @@ fun CreatePubPlaceInfo(nav: NavHostController) {
 
                 {
                   OutlinedTextField(value = title.value, onValueChange ={title.value =it},
-                  label = { Text(text = "Public place name")}, placeholder = { Text(text = "")})
+                  label = { Text(text = "Public place name")},
+                      colors = TextFieldDefaults
+                          .outlinedTextFieldColors(
+                              backgroundColor = Color.White,
+                              textColor = Color.Black,
+                              placeholderColor = Color.Gray,
+                              trailingIconColor = Color(0xffed4956) ,
+                              focusedLabelColor =  Color(0xffed4956),
+                              focusedBorderColor = Color(0xffed4956),
+                          ),
+                      keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Text),
+                      placeholder = { Text(text = "Bar")},
+                      trailingIcon = { Icon(painter = painterResource(id =R.drawable.ic_title ) , contentDescription ="" )}
+                  )
 
                 }
 
