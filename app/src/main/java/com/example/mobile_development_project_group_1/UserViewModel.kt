@@ -8,6 +8,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavHostController
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.GeoPoint
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
@@ -229,6 +230,17 @@ class UserViewModel: ViewModel() {
         publicPlaceData["contactUs"] =contactInfo
         publicPlaceData["weblink"] = webLink
         publicPlaceData["description"]=description
+        Log.d("................",publicPlaceData.toString())
+
+
+    }
+
+    fun setAddressData(address: String,latitude:String,longitude:String){
+        var tempLatitude = latitude.toDouble()
+        var tempLongitude = longitude.toDouble()
+        var tempGeoPoint  = GeoPoint( tempLatitude, tempLongitude )
+        publicPlaceData["address"] =address
+        publicPlaceData["coor"] = tempGeoPoint
         Log.d("................",publicPlaceData.toString())
 
 
