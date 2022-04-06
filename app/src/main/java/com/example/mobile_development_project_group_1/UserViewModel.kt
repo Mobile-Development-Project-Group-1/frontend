@@ -222,6 +222,18 @@ class UserViewModel: ViewModel() {
        p_Url.value = ""
     }
 
+    fun setPublicInfo(title:String,workdays:String,weekend:String,contactInfo:String,webLink:String,description:String){
+        publicPlaceData["title"] = title
+        publicPlaceData["workdays"]=workdays
+        publicPlaceData["weekend"] = weekend
+        publicPlaceData["contactUs"] =contactInfo
+        publicPlaceData["weblink"] = webLink
+        publicPlaceData["description"]=description
+        Log.d("................",publicPlaceData.toString())
+
+
+    }
+
 
 
 }

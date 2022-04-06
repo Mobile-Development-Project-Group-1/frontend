@@ -143,6 +143,9 @@ fun CreatePubPlaceInfo(nav: NavHostController) {
                    onClick = {
                        if (title.value.isNotEmpty() && workDays.value.isNotEmpty() && weekend.value.isNotEmpty() && contactInfo.value.isNotEmpty()
                            && webLink.value.isNotEmpty() && description.value.isNotEmpty()){
+                           userVM.setPublicInfo(title.value,workDays.value,weekend.value,contactInfo.value,webLink.value,description.value)
+
+
                            isClicked =! isClicked
                        }else{
                            Toast.makeText(
