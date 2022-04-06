@@ -124,9 +124,7 @@ fun PubAddresspage(nav:NavHostController) {
                 OutlinedButton(
                     onClick = {
                         if (address.value.isNotEmpty() && latitude.value.isNotEmpty() && longitude.value.isNotEmpty()){
-
-
-
+                            userVM.setAddressData(address.value,latitude.value,longitude.value)
                             isClicked =! isClicked
                         }else{
                             Toast.makeText(
