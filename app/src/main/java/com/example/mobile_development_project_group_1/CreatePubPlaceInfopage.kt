@@ -1,5 +1,6 @@
 package com.example.mobile_development_project_group_1
 
+import android.widget.Toast
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CornerSize
@@ -23,6 +24,7 @@ import androidx.navigation.NavHostController
 @Composable
 fun CreatePubPlaceInfo(nav: NavHostController) {
     val userVM = viewModel<UserViewModel>(LocalContext.current as ViewModelStoreOwner)
+    val context = LocalContext.current
     var title  = remember {
         mutableStateOf("")
     }
@@ -135,12 +137,22 @@ fun CreatePubPlaceInfo(nav: NavHostController) {
         }
       Row(modifier = Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center, verticalAlignment =Alignment.CenterVertically )
       {
-        if (title.value.isNotEmpty() && workDays.value.isNotEmpty() && weekend.value.isNotEmpty() && contactInfo.value.isNotEmpty()
-            && webLink.value.isNotEmpty() && description.value.isNotEmpty()){
-           if (isClicked){
+
+          if (isClicked){
                OutlinedButton(
                    onClick = {
-                       isClicked =! isClicked
+                       if (title.value.isNotEmpty() && workDays.value.isNotEmpty() && weekend.value.isNotEmpty() && contactInfo.value.isNotEmpty()
+                           && webLink.value.isNotEmpty() && description.value.isNotEmpty()){
+                           isClicked =! isClicked
+                       }else{
+                           Toast.makeText(
+                               context,
+                               "Please fill in the completely required information",
+                               Toast.LENGTH_SHORT
+                           ).show()
+
+                       }
+
 
                    },
                    colors = ButtonDefaults
@@ -155,6 +167,11 @@ fun CreatePubPlaceInfo(nav: NavHostController) {
            }else{
                OutlinedButton(
                    onClick = {
+                       Toast.makeText(
+                           context,
+                           "Add address detail",
+                           Toast.LENGTH_SHORT
+                       ).show()
                       nav.navigate(PUB_CREATE_Address_ROUTE)
 
                    },
@@ -169,7 +186,7 @@ fun CreatePubPlaceInfo(nav: NavHostController) {
                }
 
            }
-        }
+
       }
     }
 
