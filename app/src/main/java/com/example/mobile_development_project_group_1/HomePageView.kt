@@ -1,5 +1,6 @@
 package com.example.mobile_development_project_group_1
 
+import androidx.activity.ComponentActivity
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
@@ -19,6 +20,9 @@ import androidx.navigation.NavHostController
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material.Text
+import androidx.compose.ui.platform.LocalContext
+import androidx.lifecycle.ViewModelStoreOwner
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -32,6 +36,8 @@ fun HomeView(navController: NavHostController) {
     var currentUserRoute by remember { mutableStateOf("") }
 
     var pubPlaceList by remember { mutableStateOf(mutableListOf<String>()) }
+
+
 
     fireStore
         .collection("users")

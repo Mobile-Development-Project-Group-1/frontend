@@ -33,6 +33,7 @@ import coil.compose.AsyncImage
 fun AddNewPubPlaceView(navController: NavHostController) {
     val context = LocalContext.current
     val userVM = viewModel<UserViewModel>(LocalContext.current as ViewModelStoreOwner)
+    userVM.changeImageState()
     var imgUrl by remember {
         mutableStateOf<Uri?>(null)
     }
@@ -61,9 +62,7 @@ fun AddNewPubPlaceView(navController: NavHostController) {
                 modifier = Modifier
                     .size(42.dp)
                     .clickable {
-                        navController.navigate(HOME_ROUTE)
-                        userVM.changeImageState()
-                    },
+                        navController.navigate(HOME_ROUTE) },
                 shape = RoundedCornerShape(30.dp)
             ) {
                 Row(
