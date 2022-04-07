@@ -6,9 +6,7 @@ import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -44,6 +42,9 @@ fun  PubEventPage(nav:NavHostController) {
     }
     val e_date = remember{
         mutableStateOf("")
+    }
+    var isClicked by remember {
+        mutableStateOf(false)
     }
     Column(modifier = Modifier
         .fillMaxSize()
@@ -165,6 +166,7 @@ fun  PubEventPage(nav:NavHostController) {
                         && e_time.value.isNotEmpty() && e_date.value.isNotEmpty()){
                         userVM.setEventData(e_title.value,e_description.value,e_price.value,e_time.value,e_date.value)
                         evenCount.value+=1
+                        isClicked = true
                         Toast.makeText(
                             context,
                             "Added ${evenCount.value} event",
@@ -190,26 +192,28 @@ fun  PubEventPage(nav:NavHostController) {
                     fontWeight = FontWeight.Bold
                 )
             }
-            OutlinedButton(
-                onClick = {
-                    Toast.makeText(
-                        context,
-                        "Your information was successfully sent",
-                        Toast.LENGTH_SHORT
-                    ).show()
+           if(isClicked){
+               OutlinedButton(
+                   onClick = {
+                       Toast.makeText(
+                           context,
+                           "Your information was successfully sent",
+                           Toast.LENGTH_SHORT
+                       ).show()
 
-                    nav.navigate(HOME_ROUTE)
+                       nav.navigate(HOME_ROUTE)
 
-                },
-                colors = ButtonDefaults
-                    .buttonColors(backgroundColor = Color(0xffed4956), contentColor = Color.White)
-            ) {
-                Text(
-                    text = "Finished",
-                    fontSize = 14.sp,
-                    fontWeight = FontWeight.Bold
-                )
-            }
+                   },
+                   colors = ButtonDefaults
+                       .buttonColors(backgroundColor = Color(0xffed4956), contentColor = Color.White)
+               ) {
+                   Text(
+                       text = "Finished",
+                       fontSize = 14.sp,
+                       fontWeight = FontWeight.Bold
+                   )
+               }
+           }
 
         }
     }
