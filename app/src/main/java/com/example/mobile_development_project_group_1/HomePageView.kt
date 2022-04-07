@@ -35,7 +35,7 @@ fun HomeView(navController: NavHostController) {
     val fireStore = Firebase.firestore
     var currentUserRoute by remember { mutableStateOf("") }
     var currentPubPlaceId by remember { mutableStateOf("") }
-    var aaa by remember { mutableStateOf(false) }
+    var isPubOpen by remember { mutableStateOf(false) }
     val pubPlaceVM = viewModel<PubPlaceViewModel>(LocalContext.current as ComponentActivity)
 
     fireStore
@@ -46,7 +46,7 @@ fun HomeView(navController: NavHostController) {
             currentUserRoute = it.get("root").toString()
         }
 
-    if (!aaa) {
+    if (!isPubOpen) {
         LazyVerticalGrid(
             cells = GridCells.Fixed(2),
             modifier = Modifier
@@ -65,7 +65,7 @@ fun HomeView(navController: NavHostController) {
                             .clickable {
                                 currentPubPlaceId = elem.key
                                 Log.d("******", currentPubPlaceId)
-                                aaa = !aaa
+                                isPubOpen = !isPubOpen
                             },
                         border = BorderStroke(2.dp, Color(0xffed4956))
                     ) {
@@ -163,9 +163,9 @@ fun HomeView(navController: NavHostController) {
             ) {
                 Card(
                     modifier = Modifier
-                        .size(42.dp)
+                        .size(36.dp)
                         .clickable {
-                            aaa = !aaa
+                            isPubOpen = !isPubOpen
                         },
                     shape = RoundedCornerShape(30.dp)
                 ) {
@@ -188,10 +188,6 @@ fun HomeView(navController: NavHostController) {
             }
         }
     }
-
-
-
-
 } // HomeView()
 
 
