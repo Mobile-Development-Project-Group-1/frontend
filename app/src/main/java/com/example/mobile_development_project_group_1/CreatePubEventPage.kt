@@ -163,7 +163,7 @@ fun  PubEventPage(nav:NavHostController) {
                 onClick = {
                     if (e_title.value.isNotEmpty()&& e_description.value.isNotEmpty()&& e_price.value.isNotEmpty()
                         && e_time.value.isNotEmpty() && e_date.value.isNotEmpty()){
-
+                        userVM.setEventData(e_title.value,e_description.value,e_price.value,e_time.value,e_date.value)
                         evenCount.value+=1
                         Toast.makeText(
                             context,
@@ -186,6 +186,26 @@ fun  PubEventPage(nav:NavHostController) {
             ) {
                 Text(
                     text = "Add",
+                    fontSize = 14.sp,
+                    fontWeight = FontWeight.Bold
+                )
+            }
+            OutlinedButton(
+                onClick = {
+                    Toast.makeText(
+                        context,
+                        "Your information was successfully sent",
+                        Toast.LENGTH_SHORT
+                    ).show()
+
+                    nav.navigate(HOME_ROUTE)
+
+                },
+                colors = ButtonDefaults
+                    .buttonColors(backgroundColor = Color(0xffed4956), contentColor = Color.White)
+            ) {
+                Text(
+                    text = "Finished",
                     fontSize = 14.sp,
                     fontWeight = FontWeight.Bold
                 )

@@ -247,8 +247,11 @@ class UserViewModel: ViewModel() {
     }
     fun setEventData(e_title:String,e_description:String,e_price:String,e_time:String,e_date:String){
         var event:Event = Event(e_title,e_description,e_price,e_time,e_date)
+        tempListEvents.add(event)
+        Log.d("................",tempListEvents.toString())
 
-
+    }
+    fun setAllPubData(){
 
     }
 
