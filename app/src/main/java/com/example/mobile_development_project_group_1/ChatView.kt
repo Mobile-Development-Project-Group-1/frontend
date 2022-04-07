@@ -2,8 +2,7 @@ package com.example.mobile_development_project_group_1
 
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
-import com.example.mobile_development_project_group_1.Message
-import com.google.firebase.Timestamp
+
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import java.util.*

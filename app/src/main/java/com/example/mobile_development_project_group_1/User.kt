@@ -5,5 +5,6 @@ data class User(
     val lastName: String,
     val address: String,
     val phoneNumber: String,
+    val pictureUrl: String ,
     val root: String
 )
