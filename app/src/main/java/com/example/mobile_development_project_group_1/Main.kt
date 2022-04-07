@@ -35,6 +35,7 @@ const val PROFILE_MODIFY ="profile_modify"
 const val PUB_PLACE_CREATION_ROUTE = "pub_place_creation"
 const val CHAT_ROUTE = "chat"
 const val MAP_ROUTE = "map"
+const val DETAIL_ROUTE = "detail"
 
 @ExperimentalFoundationApi
 @Composable
@@ -59,7 +60,7 @@ fun MainScaffoldView() {
 @Composable
 fun MainContentView(navController: NavHostController) {
     val userVM = viewModel<UserViewModel>(LocalContext.current as ComponentActivity)
-    NavHost(navController = navController, startDestination = HOME_ROUTE ) {
+    NavHost(navController = navController, startDestination = DETAIL_ROUTE ) {
         composable (route = HOME_ROUTE) {
             HomeView(navController)
         }
@@ -86,6 +87,10 @@ fun MainContentView(navController: NavHostController) {
 
         composable (route = MAP_ROUTE) {
             MyMap()
+        }
+
+        composable (route = DETAIL_ROUTE) {
+            DetailView()
         }
     }
 }
