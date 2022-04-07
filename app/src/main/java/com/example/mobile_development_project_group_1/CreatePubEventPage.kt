@@ -200,7 +200,7 @@ fun  PubEventPage(nav:NavHostController) {
                            "Your information was successfully sent",
                            Toast.LENGTH_SHORT
                        ).show()
-
+                       userVM.setAllPubData()
                        nav.navigate(HOME_ROUTE)
 
                    },

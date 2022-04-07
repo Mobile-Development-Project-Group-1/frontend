@@ -252,7 +252,14 @@ class UserViewModel: ViewModel() {
 
     }
     fun setAllPubData(){
-
+          publicPlaceData["even"] = tempListEvents
+          fireStore
+              .collection("public_places")
+              .add(publicPlaceData)
+              .addOnSuccessListener {
+                  tempListEvents.clear()
+              }
+        Log.d("................",tempListEvents.toString())
     }
 
 
