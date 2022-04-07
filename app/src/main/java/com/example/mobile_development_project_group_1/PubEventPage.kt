@@ -130,7 +130,7 @@ fun  PubEventPage(nav:NavHostController) {
                         titleName ="Price" ,
                         placeHolderTitle = "xx€",
                         iconImage =R.drawable.ic_euro ,
-                        keyboard = KeyboardType.Text
+                        keyboard = KeyboardType.Number
                     )
                     MakeOutlineButtonForPublicPlace(
                         name =e_time ,
