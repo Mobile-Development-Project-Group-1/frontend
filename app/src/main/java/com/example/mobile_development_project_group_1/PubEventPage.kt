@@ -1,5 +1,6 @@
 package com.example.mobile_development_project_group_1
 
+import android.widget.Toast
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.CornerSize
@@ -16,6 +17,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.ViewModelStoreOwner
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
@@ -23,6 +25,11 @@ import androidx.navigation.NavHostController
 @Composable
 fun  PubEventPage(nav:NavHostController) {
     val userVM = viewModel<UserViewModel>(LocalContext.current as ViewModelStoreOwner)
+    val context = LocalContext.current
+    val evenCount = remember{
+        mutableStateOf(0)
+    }
+
     val e_title = remember{
         mutableStateOf("")
     }
@@ -129,14 +136,14 @@ fun  PubEventPage(nav:NavHostController) {
                         name =e_time ,
                         titleName ="Time" ,
                         placeHolderTitle = "17-23",
-                        iconImage =R.drawable.ic_euro ,
+                        iconImage =R.drawable.ic_workdays ,
                         keyboard = KeyboardType.Text
                     )
                     MakeOutlineButtonForPublicPlace(
                         name =e_date ,
                         titleName ="date" ,
                         placeHolderTitle = "04/07/2022",
-                        iconImage =R.drawable.ic_euro ,
+                        iconImage =R.drawable.ic_baseline_calendar_month_24 ,
                         keyboard = KeyboardType.Text
                     )
                 }
@@ -144,6 +151,46 @@ fun  PubEventPage(nav:NavHostController) {
 
 
             }
+
+        }
+        Row(
+            modifier = Modifier.fillMaxWidth(),
+            verticalAlignment = Alignment.CenterVertically,
+            horizontalArrangement = Arrangement.SpaceEvenly
+        ) {
+            OutlinedButton(
+
+                onClick = {
+                    if (e_title.value.isNotEmpty()&& e_description.value.isNotEmpty()&& e_price.value.isNotEmpty()
+                        && e_time.value.isNotEmpty() && e_date.value.isNotEmpty()){
+                        evenCount.value+=1
+                        Toast.makeText(
+                            context,
+                            "Added ${evenCount.value}event",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }else{
+                        Toast.makeText(
+                            context,
+                            "Please fill in the complete event information",
+                            Toast.LENGTH_SHORT
+                        ).show()
+                    }
+
+
+
+                },
+                colors = ButtonDefaults
+                    .buttonColors(backgroundColor = Color(0xffed4956), contentColor = Color.White)
+            ) {
+                Text(
+                    text = "Add",
+                    fontSize = 14.sp,
+                    fontWeight = FontWeight.Bold
+                )
+            }
+
         }
     }
+
 }
