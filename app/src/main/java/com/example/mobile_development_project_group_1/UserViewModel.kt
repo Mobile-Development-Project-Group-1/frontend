@@ -1,10 +1,8 @@
 package com.example.mobile_development_project_group_1
 
-import android.media.Image
 import android.net.Uri
 import android.util.Log
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
+import androidx.compose.runtime.*
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavHostController
 import com.google.firebase.auth.ktx.auth
@@ -38,7 +36,7 @@ class UserViewModel: ViewModel() {
                     navController.navigate(HOME_ROUTE)
                     isAnyUser.value = true
                     errorMessage.value = ""
-                    username.value=email
+                    username.value= email
 
                 }
                 .addOnFailureListener {
