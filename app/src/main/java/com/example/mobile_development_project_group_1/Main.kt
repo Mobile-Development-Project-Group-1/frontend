@@ -1,5 +1,6 @@
 package com.example.mobile_development_project_group_1
 
+import android.Manifest
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -27,6 +28,7 @@ import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.launch
+import android.location.LocationProvider as LocationProvider1
 
 const val HOME_ROUTE = "home"
 const val LOGIN_SIGNUP_ROUTE = "logInSignUp"
@@ -36,13 +38,11 @@ const val PUB_PLACE_CREATION_ROUTE = "pub_place_creation"
 const val CHAT_ROUTE = "chat"
 const val MAP_ROUTE = "map"
 
-const val ADMIN_ROOT = "ADMIN"
-const val MANAGER_ROOT = "MANAGER"
-const val USER_ROOT = "USER"
-
 @ExperimentalFoundationApi
 @Composable
 fun MainScaffoldView() {
+    val scaffoldState = rememberScaffoldState()
+    val permissionViewModel = PermissionViewModel()
     val navController = rememberNavController()
     val userVM = viewModel<UserViewModel>(LocalContext.current as ComponentActivity)
     val scState = rememberScaffoldState(rememberDrawerState(initialValue = DrawerValue.Closed))
@@ -51,7 +51,7 @@ fun MainScaffoldView() {
 
     Scaffold(
         scaffoldState = scState,
-        topBar = { TopBarView(navController, scState) },
+        topBar = { TopBarView(navController, scState, scaffoldState, permissionViewModel) },
         bottomBar = { BottomBarView() },
         content = { MainContentView(navController) },
         drawerContent = { DrawerLayoutView(navController, scState) },
@@ -97,10 +97,39 @@ fun MainContentView(navController: NavHostController) {
 
 
 @Composable
-fun TopBarView(navController: NavHostController, scState: ScaffoldState) {
-
-    val scope = rememberCoroutineScope()
+fun TopBarView(
+    navController: NavHostController,
+    scState: ScaffoldState,
+    scaffoldState: ScaffoldState,
+    permissionViewModel: PermissionViewModel
+) {
     val userVM = viewModel<UserViewModel>(LocalContext.current as ComponentActivity)
+    val scope = rememberCoroutineScope()
+    val context = LocalContext.current
+    val performLocationAction by permissionViewModel.performLocationAction.collectAsState()
+    var isActivated by remember { mutableStateOf(false) }
+
+    if (performLocationAction) {
+        PermissionUI(
+            context = context,
+            permission = Manifest.permission.ACCESS_FINE_LOCATION,
+            permissionRationale = "In order to show map, we require the location permission to be granted.",
+            scaffoldState = scaffoldState,
+        ) { permissionAction ->
+            when (permissionAction) {
+                is PermissionAction.OnPermissionGranted -> {
+
+                    permissionViewModel.setPerformLocationAction(false)
+                    scope.launch {
+                        scaffoldState.snackbarHostState.showSnackbar("Location Permission Granted!")
+                    }
+                }
+                is PermissionAction.OnPermissionDenied -> {
+                    permissionViewModel.setPerformLocationAction(false)
+                }
+            }
+        }
+    }
 
     Column(
         modifier = Modifier.fillMaxWidth()
@@ -156,8 +185,13 @@ fun TopBarView(navController: NavHostController, scState: ScaffoldState) {
                     tint = Color(0xffed4956),
                     contentDescription = "",
                     modifier = Modifier.clickable {
-                        navController.navigate(MAP_ROUTE)
-                        userVM.disableDrawer()
+                        if (!isActivated) {
+                            permissionViewModel.setPerformLocationAction(true)
+                            isActivated = true
+                        } else {
+                            navController.navigate(MAP_ROUTE)
+                            userVM.disableDrawer()
+                        }
                     }
                 )
             }
@@ -190,6 +224,12 @@ fun TopBarView(navController: NavHostController, scState: ScaffoldState) {
                 }
             }
         }
+        DefaultSnackBar(
+            snackbarHostState = scaffoldState.snackbarHostState,
+            onAction = {
+                scaffoldState.snackbarHostState.currentSnackbarData?.performAction()
+            }
+        )
         Divider( color = Color(0xffed4956), thickness = 2.dp )
     }
 }
