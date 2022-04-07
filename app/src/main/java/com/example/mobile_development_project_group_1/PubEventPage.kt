@@ -6,12 +6,15 @@ import androidx.compose.foundation.shape.CornerSize
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.ViewModelStoreOwner
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -20,6 +23,21 @@ import androidx.navigation.NavHostController
 @Composable
 fun  PubEventPage(nav:NavHostController) {
     val userVM = viewModel<UserViewModel>(LocalContext.current as ViewModelStoreOwner)
+    val e_title = remember{
+        mutableStateOf("")
+    }
+    val e_description = remember{
+        mutableStateOf("")
+    }
+    val e_price = remember{
+        mutableStateOf("")
+    }
+    val e_time = remember{
+        mutableStateOf("")
+    }
+    val e_date = remember{
+        mutableStateOf("")
+    }
     Column(modifier = Modifier
         .fillMaxSize()
         .padding(10.dp), horizontalAlignment = Alignment.CenterHorizontally ) {
@@ -69,7 +87,7 @@ fun  PubEventPage(nav:NavHostController) {
                         //.padding(20.dp),
                     ) {
                         Text(
-                            text = " Your public place",
+                            text = " Add your event",
                             color = Color(0xffed4956),
                             fontWeight = FontWeight.Bold,
                             style =  MaterialTheme.typography.h6
@@ -86,8 +104,41 @@ fun  PubEventPage(nav:NavHostController) {
                     )
 
                 {
-
-
+                  MakeOutlineButtonForPublicPlace(
+                      name =e_title ,
+                      titleName ="Event name" ,
+                      placeHolderTitle = "xxxx",
+                      iconImage =R.drawable.ic_event ,
+                      keyboard = KeyboardType.Text
+                  )
+                    MakeOutlineButtonForPublicPlace(
+                        name =e_description ,
+                        titleName ="Description" ,
+                        placeHolderTitle = "xxxx",
+                        iconImage =R.drawable.ic_description ,
+                        keyboard = KeyboardType.Text
+                    )
+                    MakeOutlineButtonForPublicPlace(
+                        name =e_price ,
+                        titleName ="Price" ,
+                        placeHolderTitle = "xx€",
+                        iconImage =R.drawable.ic_euro ,
+                        keyboard = KeyboardType.Text
+                    )
+                    MakeOutlineButtonForPublicPlace(
+                        name =e_time ,
+                        titleName ="Time" ,
+                        placeHolderTitle = "17-23",
+                        iconImage =R.drawable.ic_euro ,
+                        keyboard = KeyboardType.Text
+                    )
+                    MakeOutlineButtonForPublicPlace(
+                        name =e_date ,
+                        titleName ="date" ,
+                        placeHolderTitle = "04/07/2022",
+                        iconImage =R.drawable.ic_euro ,
+                        keyboard = KeyboardType.Text
+                    )
                 }
 
 
