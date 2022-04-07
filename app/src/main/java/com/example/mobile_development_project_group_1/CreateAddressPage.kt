@@ -154,7 +154,7 @@ fun PubAddresspage(nav:NavHostController) {
                             "Add event detail",
                             Toast.LENGTH_SHORT
                         ).show()
-                        nav.navigate(PUB_CREATE_Address_ROUTE)
+                        nav.navigate(PUB_CREATE_EVENT_ROUTE)
 
                     },
                     colors = ButtonDefaults
