@@ -116,9 +116,9 @@ fun CreatePubPlaceInfo(nav: NavHostController) {
                     MakeOutlineButtonForPublicPlace(title,"Public place name","Bar",R.drawable.ic_title,
                         KeyboardType.Text)
                     MakeOutlineButtonForPublicPlace( workDays,"Workdays","Time: 16-04",R.drawable.ic_workdays,
-                        KeyboardType.Text)
+                        KeyboardType.Number)
                     MakeOutlineButtonForPublicPlace(weekend,"Weekend","Time: 16-02",R.drawable.ic_workdays,
-                        KeyboardType.Text)
+                        KeyboardType.Number)
                     MakeOutlineButtonForPublicPlace(contactInfo,"Contact us","Email/Phone Number",
                         R.drawable.ic_contact,
                         KeyboardType.Text)

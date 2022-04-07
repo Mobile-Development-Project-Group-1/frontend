@@ -26,7 +26,7 @@ class UserViewModel: ViewModel() {
     var isMapOpen = mutableStateOf(false)
     var publicPlaceData = mutableMapOf<String,Any>()
     var p_Url = mutableStateOf("")
-
+    var tempListEvents = mutableListOf<Event>()
 
     fun disableDrawer() {
         isMapOpen.value = !isMapOpen.value
@@ -242,6 +242,12 @@ class UserViewModel: ViewModel() {
         publicPlaceData["address"] =address
         publicPlaceData["coor"] = tempGeoPoint
         Log.d("................",publicPlaceData.toString())
+
+
+    }
+    fun setEventData(e_title:String,e_description:String,e_price:String,e_time:String,e_date:String){
+        var event:Event = Event(e_title,e_description,e_price,e_time,e_date)
+
 
 
     }

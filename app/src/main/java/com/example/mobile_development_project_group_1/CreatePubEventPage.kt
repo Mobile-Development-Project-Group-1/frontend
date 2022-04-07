@@ -137,7 +137,7 @@ fun  PubEventPage(nav:NavHostController) {
                         titleName ="Time" ,
                         placeHolderTitle = "17-23",
                         iconImage =R.drawable.ic_workdays ,
-                        keyboard = KeyboardType.Text
+                        keyboard = KeyboardType.Number
                     )
                     MakeOutlineButtonForPublicPlace(
                         name =e_date ,
@@ -163,10 +163,11 @@ fun  PubEventPage(nav:NavHostController) {
                 onClick = {
                     if (e_title.value.isNotEmpty()&& e_description.value.isNotEmpty()&& e_price.value.isNotEmpty()
                         && e_time.value.isNotEmpty() && e_date.value.isNotEmpty()){
+
                         evenCount.value+=1
                         Toast.makeText(
                             context,
-                            "Added ${evenCount.value}event",
+                            "Added ${evenCount.value} event",
                             Toast.LENGTH_SHORT
                         ).show()
                     }else{
