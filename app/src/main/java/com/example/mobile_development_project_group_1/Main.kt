@@ -37,6 +37,9 @@ const val PROFILE_MODIFY ="profile_modify"
 const val PUB_PLACE_CREATION_ROUTE = "pub_place_creation"
 const val CHAT_ROUTE = "chat"
 const val MAP_ROUTE = "map"
+const val PUB_PLACE_INFO_ROUTE = "pub_Info"
+const val PUB_CREATE_Address_ROUTE= "pub_address"
+const val PUB_CREATE_EVENT_ROUTE= "pub_EVENT"
 
 @ExperimentalFoundationApi
 @Composable
@@ -91,6 +94,18 @@ fun MainContentView(navController: NavHostController) {
 
         composable (route = MAP_ROUTE) {
             MyMap()
+        }
+
+        composable (route = PUB_PLACE_INFO_ROUTE ) {
+            CreatePubPlaceInfo(navController)
+        }
+        
+        composable (route = PUB_CREATE_Address_ROUTE ) {
+            PubAddresspage(navController)
+        }
+        
+        composable (route = PUB_CREATE_EVENT_ROUTE ) {
+            PubEventPage(navController)
         }
     }
 }
@@ -150,6 +165,7 @@ fun TopBarView(
                         .clickable {
                             navController.navigate(HOME_ROUTE)
                             userVM.disableDrawer()
+
                         },
                     shape = RoundedCornerShape(30.dp)
                 ) {

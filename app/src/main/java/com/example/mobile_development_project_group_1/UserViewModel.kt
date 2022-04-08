@@ -6,6 +6,7 @@ import androidx.compose.runtime.*
 import androidx.lifecycle.ViewModel
 import androidx.navigation.NavHostController
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.GeoPoint
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
 import com.google.firebase.storage.ktx.storage
@@ -21,6 +22,9 @@ class UserViewModel: ViewModel() {
     var errorMessage = mutableStateOf("")
     var userdata = mutableStateOf(mapOf<String,Any>())
     var isMapOpen = mutableStateOf(false)
+    var publicPlaceData = mutableMapOf<String,Any>()
+    var p_Url = mutableStateOf("")
+    var tempListEvents = mutableListOf<Event>()
 
     fun disableDrawer() {
         isMapOpen.value = !isMapOpen.value
@@ -190,6 +194,72 @@ class UserViewModel: ViewModel() {
                .currentUser
                ?.updatePassword(pw)
        }
+    }
+
+    fun addThePublicPlaceImage(u: Uri){
+          var tempRandonChar =('A'..'Z').random()
+          var tempRandonNumber =(0..100).random()
+        var path ="$tempRandonChar${ fAuth.currentUser?.uid.toString()}${tempRandonNumber}"
+        ref.child(path).putFile(u)
+            .addOnSuccessListener {
+           val result = it.metadata!!.reference!!.downloadUrl;
+           result.addOnSuccessListener { doc ->
+               Log.d("................",doc.toString())
+               var temp = doc.toString()
+               publicPlaceData["pub_img_url"] = temp
+               publicPlaceData["m_id"] = fAuth.currentUser!!.uid
+               p_Url.value = temp
+               Log.d("................",publicPlaceData.toString())
+           }.addOnFailureListener {
+               Log.d("................",errorMessage.toString())
+           }
+
+        }
+
+
+
+    }
+    fun changeImageState(){
+       p_Url.value = ""
+    }
+
+    fun setPublicInfo(title:String,workdays:String,weekend:String,contactInfo:String,webLink:String,description:String){
+        publicPlaceData["title"] = title
+        publicPlaceData["workdays"]=workdays
+        publicPlaceData["weekend"] = weekend
+        publicPlaceData["contactUs"] =contactInfo
+        publicPlaceData["weblink"] = webLink
+        publicPlaceData["description"]=description
+        Log.d("................",publicPlaceData.toString())
+
+
+    }
+
+    fun setAddressData(address: String,latitude:String,longitude:String){
+        var tempLatitude = latitude.toDouble()
+        var tempLongitude = longitude.toDouble()
+        var tempGeoPoint  = GeoPoint( tempLatitude, tempLongitude )
+        publicPlaceData["address"] =address
+        publicPlaceData["coor"] = tempGeoPoint
+        Log.d("................",publicPlaceData.toString())
+
+
+    }
+    fun setEventData(e_title:String,e_description:String,e_price:String,e_time:String,e_date:String){
+        var event:Event = Event(e_title,e_description,e_price,e_time,e_date)
+        tempListEvents.add(event)
+        Log.d("................",tempListEvents.toString())
+
+    }
+    fun setAllPubData(){
+          publicPlaceData["even"] = tempListEvents
+          fireStore
+              .collection("public_places")
+              .add(publicPlaceData)
+              .addOnSuccessListener {
+                  tempListEvents.clear()
+              }
+        Log.d("................",tempListEvents.toString())
     }
 
 

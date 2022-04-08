@@ -215,13 +215,13 @@ fun ProfileMOView(nav: NavHostController) {
 
 }
 @Composable
-fun MakeOutlineButton(sValue:MutableState<String>,title:String,userData:String, keyboard: KeyboardType,img:Int) {
+fun MakeOutlineButton(sValue: MutableState<String>, title:String, userData:String, keyboard: KeyboardType, img:Int) {
     Row(modifier = Modifier
         .fillMaxWidth()
         .padding(8.dp)) {
         OutlinedTextField(value = sValue.value, onValueChange ={sValue.value =it} ,
             label = { Text(text = title) },
-            placeholder = { Text(text = userData )},
+            placeholder = { Text(text = userData ) },
             colors = TextFieldDefaults
                 .outlinedTextFieldColors(
                     backgroundColor = Color.White,
@@ -240,5 +240,6 @@ fun MakeOutlineButton(sValue:MutableState<String>,title:String,userData:String, 
     }
     Divider(thickness = 1.dp)
 }
+
 
 
