@@ -199,7 +199,9 @@ class UserViewModel: ViewModel() {
     }
 
     fun addThePublicPlaceImage(u: Uri){
-        var path ="P00id${ fAuth.currentUser?.uid.toString()}"
+          var tempRandonChar =('A'..'Z').random()
+          var tempRandonNumber =(0..100).random()
+        var path ="$tempRandonChar${ fAuth.currentUser?.uid.toString()}${tempRandonNumber}"
         ref.child(path).putFile(u)
             .addOnSuccessListener {
            val result = it.metadata!!.reference!!.downloadUrl;
