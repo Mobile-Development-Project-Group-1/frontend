@@ -48,6 +48,7 @@ fun MainScaffoldView() {
     val scState = rememberScaffoldState(rememberDrawerState(initialValue = DrawerValue.Closed))
     val pubPlaceVM = viewModel<PubPlaceViewModel>(LocalContext.current as ComponentActivity)
     pubPlaceVM.getPubPlaceInfo()
+    userVM.getUserData()
 
     Scaffold(
         scaffoldState = scState,
