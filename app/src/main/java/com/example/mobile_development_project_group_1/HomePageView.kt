@@ -36,7 +36,7 @@ fun HomeView(navController: NavHostController) {
     var currentPubPlaceId by remember { mutableStateOf("") }
     var isPubOpen by remember { mutableStateOf(false) }
     val pubPlaceVM = viewModel<PubPlaceViewModel>(LocalContext.current as ComponentActivity)
-
+     pubPlaceVM.getPubPlaceInfo()
 
 
     fireStore

@@ -40,8 +40,6 @@ fun MyMap (){
     val lifecycle = LocalLifecycleOwner.current.lifecycle
     lifecycle.addObserver(rememberMapLifecycleObserver(mapView))
 
-    pubPlaceVM.getCurrentUserLocation()
-
     fireStore
         .collection("users")
         .document(fAuth.currentUser?.uid.toString())
