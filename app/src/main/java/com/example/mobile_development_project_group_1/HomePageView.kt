@@ -21,7 +21,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material.Text
 import androidx.compose.ui.platform.LocalContext
-import androidx.lifecycle.ViewModelStoreOwner
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
@@ -66,7 +65,6 @@ fun HomeView(navController: NavHostController) {
                             .height(150.dp)
                             .clickable {
                                 currentPubPlaceId = elem.key
-                                Log.d("******", currentPubPlaceId)
                                 isPubOpen = !isPubOpen
                             },
                         border = BorderStroke(2.dp, Color(0xffed4956))
