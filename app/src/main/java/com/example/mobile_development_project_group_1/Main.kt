@@ -47,7 +47,8 @@ fun MainScaffoldView() {
     val userVM = viewModel<UserViewModel>(LocalContext.current as ComponentActivity)
     val scState = rememberScaffoldState(rememberDrawerState(initialValue = DrawerValue.Closed))
     val pubPlaceVM = viewModel<PubPlaceViewModel>(LocalContext.current as ComponentActivity)
-    pubPlaceVM.getPubPlaceLocation()
+    pubPlaceVM.getPubPlaceInfo()
+    userVM.getUserData()
 
     Scaffold(
         scaffoldState = scState,
@@ -91,7 +92,6 @@ fun MainContentView(navController: NavHostController) {
         composable (route = MAP_ROUTE) {
             MyMap()
         }
-
     }
 }
 

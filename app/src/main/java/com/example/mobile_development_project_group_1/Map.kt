@@ -1,26 +1,24 @@
 package com.example.mobile_development_project_group_1
 
-import android.location.LocationRequest
 import android.os.Bundle
-import android.os.IBinder
 import androidx.activity.ComponentActivity
 import androidx.compose.foundation.layout.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.viewinterop.AndroidView
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.graphics.drawable.toBitmap
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleEventObserver
 import androidx.lifecycle.viewmodel.compose.viewModel
-import com.google.android.gms.dynamic.IObjectWrapper
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.MapView
 import com.google.android.gms.maps.model.*
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.ktx.firestore
+import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -28,6 +26,9 @@ import kotlinx.coroutines.launch
 
 @Composable
 fun MyMap (){
+    val fAuth = Firebase.auth
+    val fireStore = Firebase.firestore
+    var currentUserRoute by remember { mutableStateOf("") }
     val pubPlaceVM = viewModel<PubPlaceViewModel>(LocalContext.current as ComponentActivity)
     val userVM = viewModel<UserViewModel>(LocalContext.current as ComponentActivity)
     val context = LocalContext.current
@@ -41,6 +42,14 @@ fun MyMap (){
 
     pubPlaceVM.getCurrentUserLocation()
 
+    fireStore
+        .collection("users")
+        .document(fAuth.currentUser?.uid.toString())
+        .get()
+        .addOnSuccessListener {
+            currentUserRoute = it.get("root").toString()
+        }
+
         AndroidView(
             factory = {
                 mapView.apply {
@@ -51,7 +60,17 @@ fun MyMap (){
 
                             val current = LatLng(pubPlaceVM.currentg.latitude, pubPlaceVM.currentg.longitude) // Oulu
                             val currentLocation =  MarkerOptions()
-                                .title("You")
+                                .title(
+                                    if (
+                                        currentUserRoute == "USER"
+                                        || currentUserRoute == "MANAGER"
+                                        || currentUserRoute == "ADMIN"
+                                    ) {
+                                        userVM.userdata.value["firstName"].toString()
+                                    } else {
+                                        "Your location"
+                                    }
+                                )
                                 .position(current)
                                 .icon(BitmapDescriptorFactory.fromBitmap(ResourcesCompat.getDrawable(resources, R.drawable.ic_current_location, null)!!.toBitmap()))
                             it.addMarker( currentLocation )

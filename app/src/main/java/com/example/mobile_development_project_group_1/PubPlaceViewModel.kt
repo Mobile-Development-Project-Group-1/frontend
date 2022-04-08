@@ -12,7 +12,7 @@ class PubPlaceViewModel: ViewModel() {
     var pubPlaceLocations = mutableMapOf<String, PubPlace>()
     lateinit var currentg :GeoPoint
 
-    fun getPubPlaceLocation() {
+    fun getPubPlaceInfo() {
         fireStore
             .collection("public_places")
             .get()
@@ -24,12 +24,9 @@ class PubPlaceViewModel: ViewModel() {
                             document.get("coor") as GeoPoint,
                             document.get("description").toString()
                         )
-
+                    Log.d("*************", pubPlaceLocations[document.id]?.title.toString())
                 }
-
-
             }
-
     }
 
     fun getCurrentUserLocation() {
