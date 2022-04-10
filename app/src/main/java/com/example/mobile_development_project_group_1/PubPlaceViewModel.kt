@@ -22,11 +22,22 @@ class PubPlaceViewModel: ViewModel() {
                         PubPlace(
                             document.get("title").toString(),
                             document.get("coor") as GeoPoint,
-                            document.get("description").toString()
+                            document.get("description").toString(),
+                            document.get("pub_img_url").toString(),
+                            document.get("m_id").toString(),
+                            document.get("workdays").toString(),
+                            document.get("weekend").toString(),
+                            document.get("contactUs").toString(),
+                            document.get("weblink").toString(),
+                            document.get("address").toString(),
+                            document.get("event") as MutableList<Event>
+
                         )
                     Log.d("*************", pubPlaceLocations[document.id]?.title.toString())
                 }
+                Log.d("result", pubPlaceLocations.toString())
             }
+
     }
 
     fun getCurrentUserLocation() {
