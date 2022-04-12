@@ -1,5 +1,6 @@
 package com.example.mobile_development_project_group_1
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.*
@@ -11,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 
@@ -49,7 +51,35 @@ fun DetailView() {
             }
         } // Back to HomePage button
         Column() {
+            Column() {
+                Row() {
 
+                    Image(painter = painterResource(R.drawable.ic_bar) ,
+                        contentDescription = "image",
+                        modifier = Modifier
+                            .height(100.dp)
+                            .width( 170.dp)
+
+                        )
+
+               Column (
+                   modifier = Modifier
+                       .padding(3.dp)
+                       .background(
+                           color = Color(0xffed4956),
+                           shape = RoundedCornerShape(50.dp)
+                       )
+                       .padding(3.dp)
+                       .fillMaxWidth(1f),
+                   horizontalAlignment = Alignment.CenterHorizontally
+
+                       ){
+                  
+                   Text(text = "Opening hours")
+                   Text(text = "Address")
+               }
+                }
+            }
         }
     }
 }
