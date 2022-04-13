@@ -1,8 +1,6 @@
 package com.example.mobile_development_project_group_1
 
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
@@ -11,6 +9,8 @@ import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Shape
 import androidx.compose.ui.res.painterResource
@@ -53,31 +53,52 @@ fun DetailView() {
         Column() {
             Column() {
                 Row() {
+                  Column(
+                      modifier = Modifier
+                          .width(200.dp)
+                          .height(100.dp)
+                          .border(1.dp, Color(0xffed4956), RoundedCornerShape(50.dp))
+                  ){
+                      Image(
+                          modifier = Modifier
+                              .fillMaxSize()
+                              .clip(RoundedCornerShape(10)),
 
-                    Image(painter = painterResource(R.drawable.ic_bar) ,
-                        contentDescription = "image",
-                        modifier = Modifier
-                            .height(100.dp)
-                            .width( 170.dp)
-
-                        )
-
+                                  painter = painterResource(R.drawable.ic_bar),
+                          contentDescription = "image",
+                      )
+                  }
                Column (
                    modifier = Modifier
                        .padding(3.dp)
+                       .width(200.dp)
+                       .height(100.dp)
                        .background(
                            color = Color(0xffed4956),
-                           shape = RoundedCornerShape(50.dp)
-                       )
-                       .padding(3.dp)
-                       .fillMaxWidth(1f),
+                           shape = RoundedCornerShape(50.dp)),
                    horizontalAlignment = Alignment.CenterHorizontally
 
                        ){
-                  
+
                    Text(text = "Opening hours")
                    Text(text = "Address")
+                   Text(text = "Contact us")
+                   Text(text = "Web link")
                }
+
+                }
+                Column (
+                    modifier = Modifier
+                        .padding(3.dp)
+                        .fillMaxWidth()
+                        .background(
+                            color = Color(0xffed4956),
+                            shape = RoundedCornerShape(50.dp)),
+                    horizontalAlignment = Alignment.CenterHorizontally
+
+                ){
+
+                    Text(text = "Description")
                 }
             }
         }
