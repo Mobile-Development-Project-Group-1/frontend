@@ -405,6 +405,12 @@ fun DrawerLayoutView(navController: NavHostController, scState: ScaffoldState) {
                         scope.launch {
                             scState.drawerState.close()
                         }
+                        Toast.makeText(
+                            context,
+                            "Modify Advertisement",
+                            Toast.LENGTH_SHORT
+                        ).show()
+
                     },
                     colors = ButtonDefaults
                         .buttonColors(backgroundColor = Color(0xffed4956), contentColor = Color.White)
