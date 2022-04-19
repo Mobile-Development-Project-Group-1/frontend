@@ -103,7 +103,7 @@ fun HomeView(navController: NavHostController) {
                                     text = elem.value.title,
                                     color = Color.White,
                                     fontWeight = FontWeight.Bold,
-                                    fontSize = 18.sp
+                                    fontSize = 10.sp
                                 )
                             }
                         }
