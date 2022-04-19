@@ -301,7 +301,7 @@ class UserViewModel: ViewModel() {
     fun getAdImage(){
         fireStore
             .collection("advertisement")
-            .document(fAuth.currentUser?.uid.toString())
+            .document("3yRvACkOgifzOos27lwGjJ83v2t2")
             .get()
             .addOnSuccessListener {
                 val result = it.data
