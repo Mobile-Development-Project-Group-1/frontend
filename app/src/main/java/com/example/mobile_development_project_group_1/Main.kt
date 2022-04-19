@@ -19,6 +19,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.ViewModelStoreOwner
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -258,6 +259,8 @@ fun TopBarView(
 
 @Composable
 fun BottomBarView() {
+    val userVM = viewModel<UserViewModel>(LocalContext.current as ViewModelStoreOwner)
+     userVM.getAdImage()
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -267,14 +270,20 @@ fun BottomBarView() {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .height(60.dp)
-                .padding(10.dp, 0.dp),
+                .height(60.dp),
+
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceEvenly
         ) {
-            Box {
-                Text(text = "ADVERTISEMENT")
+            Surface(
+            modifier = Modifier.fillMaxSize(),
+                ) {
+                AsyncImage(model = userVM.ad_Data.value["ad_image_url"].toString() , contentDescription ="",
+                    contentScale = ContentScale.Crop, modifier = Modifier.fillMaxSize())
             }
+
+
+
         }
     }
 }

@@ -24,7 +24,9 @@ class UserViewModel: ViewModel() {
     var isMapOpen = mutableStateOf(false)
     var publicPlaceData = mutableMapOf<String,Any>()
     var p_Url = mutableStateOf("")
+    var ad_Url = mutableStateOf("")
     var tempListEvents = mutableListOf<Event>()
+    var ad_Data =  mutableStateOf(mapOf<String,Any>())
 
     fun disableDrawer() {
         isMapOpen.value = !isMapOpen.value
@@ -262,6 +264,57 @@ class UserViewModel: ViewModel() {
         Log.d("................",tempListEvents.toString())
     }
 
+    fun changeAdState(){
+        ad_Url.value = ""
+    }
+    fun setAdImage(u:Uri){
+        var path = fAuth.currentUser?.uid.toString()
+        ref.child(path).putFile(u)
+            .addOnSuccessListener {
+                val result = it.metadata!!.reference!!.downloadUrl;
+                result.addOnSuccessListener { doc ->
+                    var temp = doc.toString()
+                    ad_Url.value = temp
+
+                    val tempMap = hashMapOf(
+                        "ad_image_url" to temp
+                    )
+
+                    fireStore
+                        .collection("advertisement")
+                        .document(fAuth.currentUser!!.uid)
+                        .set(tempMap)
+                        .addOnSuccessListener {
+                            Log.d("********", "Ad are being updated")
+
+
+                        }
+                        .addOnFailureListener { error ->
+                            Log.d("********", error.message.toString())
+                        }
+
+
+                }
+            }
+
+    }
+    fun getAdImage(){
+        fireStore
+            .collection("advertisement")
+            .document(fAuth.currentUser?.uid.toString())
+            .get()
+            .addOnSuccessListener {
+                val result = it.data
+                var  temp  = mutableMapOf<String,Any>()
+                if (result != null){
+                    temp = result
+                }
+                ad_Data.value = temp
+
+
+            }
+
+    }
 
 
 }
