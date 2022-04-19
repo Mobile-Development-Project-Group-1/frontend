@@ -14,7 +14,7 @@ import androidx.compose.foundation.text.ClickableText
 import androidx.compose.material.Card
 import androidx.compose.material.Icon
 import androidx.compose.material.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -34,6 +34,7 @@ import androidx.compose.ui.unit.sp
 
 @Composable
 fun DetailView() {
+    var isDescriptionOpen by remember { mutableStateOf(false) }
     val scrollState = rememberScrollState()
     Column(
         modifier = Modifier
@@ -160,14 +161,19 @@ fun DetailView() {
                                     Color(0xffed4956),
                                     shape = RoundedCornerShape(50.dp)
                                 )
+                                .clickable {
+                                    isDescriptionOpen = !isDescriptionOpen
+                                }
                                 .fillMaxWidth(),
                             text = "Description",
                             color = Color(0xffed4956),
                             textAlign = TextAlign.Center
                         )
-                        Text(
-                            text = "This is an amazing bar. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum",
-                        )
+                        if (isDescriptionOpen) {
+                            Text(
+                                text = "This is an amazing bar. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum",
+                            )
+                        }
                     }
                     repeat(10) {
                         Column(
