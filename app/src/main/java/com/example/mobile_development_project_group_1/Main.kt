@@ -410,7 +410,7 @@ fun DrawerLayoutView(navController: NavHostController, scState: ScaffoldState) {
                         .buttonColors(backgroundColor = Color(0xffed4956), contentColor = Color.White)
                 ) {
                     Text(
-                        text = "ADMIN",
+                        text = "Add advertisement",
                         fontSize = 14.sp,
                         fontWeight = FontWeight.Bold
                     )
