@@ -20,8 +20,13 @@ import androidx.navigation.NavHostController
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.material.Text
+import androidx.compose.ui.Alignment.Companion.CenterVertically
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
+import coil.compose.AsyncImage
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -71,11 +76,36 @@ fun HomeView(navController: NavHostController) {
                     ) {
                         Column(
                             modifier = Modifier
-                                .fillMaxSize(),
+                                .fillMaxSize()
+                                .background(Color(0xffed4956)),
                             horizontalAlignment = Alignment.CenterHorizontally,
                             verticalArrangement = Arrangement.Center
                         ) {
-                            Text(text = elem.value.title)
+                            Row(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .fillMaxHeight(0.8f)
+                            ) {
+                                AsyncImage(
+                                    modifier = Modifier.fillMaxSize(),
+                                    contentScale = ContentScale.Crop,
+                                    model = elem.value.pub_img_url, contentDescription = ""
+                                )
+                            }
+                            Row(
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .fillMaxHeight(1f),
+                                horizontalArrangement = Arrangement.Center,
+                                verticalAlignment = CenterVertically
+                            ) {
+                                Text(
+                                    text = elem.value.title,
+                                    color = Color.White,
+                                    fontWeight = FontWeight.Bold,
+                                    fontSize = 18.sp
+                                )
+                            }
                         }
                     } // Card
                 } // item
