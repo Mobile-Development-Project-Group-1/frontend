@@ -1,6 +1,7 @@
 package com.example.mobile_development_project_group_1
 
 import android.Manifest
+import android.graphics.drawable.shapes.Shape
 import android.widget.Toast
 import androidx.activity.ComponentActivity
 import androidx.compose.foundation.ExperimentalFoundationApi
@@ -39,6 +40,7 @@ const val MAP_ROUTE = "map"
 const val PUB_PLACE_INFO_ROUTE = "pub_Info"
 const val PUB_CREATE_Address_ROUTE= "pub_address"
 const val PUB_CREATE_EVENT_ROUTE= "pub_EVENT"
+const val ADMIN_PAGE_ROUTE = "admin_page"
 
 @ExperimentalFoundationApi
 @Composable
@@ -106,6 +108,10 @@ fun MainContentView(navController: NavHostController) {
         
         composable (route = PUB_CREATE_EVENT_ROUTE ) {
             PubEventPage(navController)
+        }
+
+        composable (route = ADMIN_PAGE_ROUTE ) {
+            AdminPageView(navController)
         }
     }
 }
@@ -282,6 +288,7 @@ fun DrawerLayoutView(navController: NavHostController, scState: ScaffoldState) {
     val context = LocalContext.current
     val fireStore = Firebase.firestore
     val fAuth = Firebase.auth
+    var currentUserRoute by remember { mutableStateOf("") }
     var currentUserName by remember { mutableStateOf("") }
 
     fireStore
@@ -290,6 +297,14 @@ fun DrawerLayoutView(navController: NavHostController, scState: ScaffoldState) {
         .get()
         .addOnSuccessListener {
             currentUserName = it.get("firstName").toString()
+        }
+
+    fireStore
+        .collection("users")
+        .document(fAuth.currentUser?.uid.toString())
+        .get()
+        .addOnSuccessListener {
+            currentUserRoute = it.get("root").toString()
         }
         
     Column(
@@ -332,7 +347,7 @@ fun DrawerLayoutView(navController: NavHostController, scState: ScaffoldState) {
                 )
             }
         }
-        Row(
+        Column(
             modifier = Modifier
                 .fillMaxWidth()
                 .fillMaxHeight(0.8f)
@@ -357,6 +372,25 @@ fun DrawerLayoutView(navController: NavHostController, scState: ScaffoldState) {
                 ) {
                     Text(
                         text = "Profile page",
+                        fontSize = 14.sp,
+                        fontWeight = FontWeight.Bold
+                    )
+                }
+            }
+            if (currentUserRoute == "ADMIN") {
+                OutlinedButton(
+                    modifier = Modifier.padding(0.dp, 10.dp, 0.dp, 0.dp),
+                    onClick = {
+                        navController.navigate(ADMIN_PAGE_ROUTE)
+                        scope.launch {
+                            scState.drawerState.close()
+                        }
+                    },
+                    colors = ButtonDefaults
+                        .buttonColors(backgroundColor = Color(0xffed4956), contentColor = Color.White)
+                ) {
+                    Text(
+                        text = "ADMIN",
                         fontSize = 14.sp,
                         fontWeight = FontWeight.Bold
                     )
