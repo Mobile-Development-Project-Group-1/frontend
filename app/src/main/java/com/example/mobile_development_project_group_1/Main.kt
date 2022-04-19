@@ -4,17 +4,16 @@ import android.Manifest
 import android.graphics.drawable.shapes.Shape
 import android.widget.Toast
 import androidx.activity.ComponentActivity
-import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.Image
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -25,6 +24,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import coil.compose.AsyncImage
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.ktx.Firebase
@@ -289,15 +289,6 @@ fun DrawerLayoutView(navController: NavHostController, scState: ScaffoldState) {
     val fireStore = Firebase.firestore
     val fAuth = Firebase.auth
     var currentUserRoute by remember { mutableStateOf("") }
-    var currentUserName by remember { mutableStateOf("") }
-
-    fireStore
-        .collection("users")
-        .document(fAuth.currentUser?.uid.toString())
-        .get()
-        .addOnSuccessListener {
-            currentUserName = it.get("firstName").toString()
-        }
 
     fireStore
         .collection("users")
@@ -306,6 +297,8 @@ fun DrawerLayoutView(navController: NavHostController, scState: ScaffoldState) {
         .addOnSuccessListener {
             currentUserRoute = it.get("root").toString()
         }
+
+    userVM.getUserData()
         
     Column(
         modifier = Modifier.fillMaxSize()
@@ -330,7 +323,7 @@ fun DrawerLayoutView(navController: NavHostController, scState: ScaffoldState) {
         Column(
             modifier = Modifier
                 .fillMaxWidth()
-                .fillMaxHeight(0.25f)
+                .fillMaxHeight(0.3f)
                 .padding(20.dp),
         ) {
             if (userVM.isAnyUser.value) {
@@ -340,11 +333,29 @@ fun DrawerLayoutView(navController: NavHostController, scState: ScaffoldState) {
                     fontSize = 24.sp,
                     fontWeight = FontWeight.Bold
                 )
-                Text(
-                    text = currentUserName,
-                    color = Color(0xffed4956),
-                    fontSize = 18.sp
-                )
+                Row(
+                    modifier = Modifier.fillMaxWidth(),
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Surface(
+                        modifier = Modifier.size(45.dp), shape = CircleShape,
+                        border = BorderStroke(width = 0.5.dp, Color(0xffED4956)),
+                        elevation = 4.dp,
+                    ) {
+                        AsyncImage(
+                            model = userVM.userdata.value["pictureUrl"].toString(),
+                            contentDescription = "",
+                            modifier = Modifier.size(45.dp),
+                            contentScale = ContentScale.Crop
+                        )
+                    }
+                    Text(
+                        modifier = Modifier.padding(10.dp, 0.dp),
+                        text = userVM.userdata.value["firstName"].toString(),
+                        color = Color(0xffed4956),
+                        fontSize = 18.sp
+                    )
+                }
             }
         }
         Column(
