@@ -42,7 +42,7 @@ fun AdminPageView(navController: NavHostController) {
     imgUrl?.let {
 
         userVM.setAdImage(imgUrl!!)
-
+        imgUrl = null
     }
 
     Column(
