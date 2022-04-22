@@ -13,5 +13,5 @@ data class PubPlace(
     val contactUs:String,
     val weblink:String,
     val address:String,
-    val event : MutableList<Event>
+    val event : ArrayList<Map<String,Any>>
     )

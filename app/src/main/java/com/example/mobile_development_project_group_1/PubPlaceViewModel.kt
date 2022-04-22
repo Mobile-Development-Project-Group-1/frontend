@@ -30,10 +30,10 @@ class PubPlaceViewModel: ViewModel() {
                             document.get("contactUs").toString(),
                             document.get("weblink").toString(),
                             document.get("address").toString(),
-                            document.get("event") as MutableList<Event>
+                            document.get("event") as ArrayList<Map<String,Any>>
 
                         )
-                    Log.d("*************", pubPlaceLocations[document.id]?.title.toString())
+                    Log.d("*************", pubPlaceLocations[document.id]?.event.toString())
                 }
                 Log.d("result", pubPlaceLocations.toString())
             }

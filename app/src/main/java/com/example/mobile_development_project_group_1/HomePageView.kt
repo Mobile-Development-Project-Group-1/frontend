@@ -1,10 +1,8 @@
 package com.example.mobile_development_project_group_1
 
+import android.util.Log
 import androidx.activity.ComponentActivity
-import androidx.compose.foundation.BorderStroke
-import androidx.compose.foundation.ExperimentalFoundationApi
-import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
+import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.lazy.GridCells
 import androidx.compose.foundation.lazy.LazyVerticalGrid
@@ -19,11 +17,18 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavHostController
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.Text
 import androidx.compose.ui.Alignment.Companion.CenterVertically
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.semantics.Role.Companion.Image
+import androidx.compose.ui.text.font.FontFamily.Companion.SansSerif
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
@@ -39,6 +44,8 @@ fun HomeView(navController: NavHostController) {
     val fireStore = Firebase.firestore
     var currentUserRoute by remember { mutableStateOf("") }
     var currentPubPlaceId by remember { mutableStateOf("") }
+    var isDescriptionOpen by remember { mutableStateOf(false) }
+    val scrollState = rememberScrollState()
     var isPubOpen by remember { mutableStateOf(false) }
     val pubPlaceVM = viewModel<PubPlaceViewModel>(LocalContext.current as ComponentActivity)
      pubPlaceVM.getPubPlaceInfo()
@@ -103,7 +110,11 @@ fun HomeView(navController: NavHostController) {
                                     text = elem.value.title,
                                     color = Color.White,
                                     fontWeight = FontWeight.Bold,
-                                    fontSize = 10.sp
+                                    fontSize = 10.sp,
+                                    maxLines = 1,
+                                    overflow = TextOverflow.Visible
+                                    
+
                                 )
                             }
                         }
@@ -186,16 +197,18 @@ fun HomeView(navController: NavHostController) {
                 .fillMaxHeight(0.95f)
                 .padding(10.dp)
         ) {
-            Column(
+            Row(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(10.dp),
+                verticalAlignment = Alignment.CenterVertically
             ) {
                 Card(
                     modifier = Modifier
                         .size(36.dp)
                         .clickable {
                             isPubOpen = !isPubOpen
+                            isDescriptionOpen = false
                         },
                     shape = RoundedCornerShape(30.dp)
                 ) {
@@ -211,10 +224,209 @@ fun HomeView(navController: NavHostController) {
                         )
                     }
                 }
+                Text(
+                    modifier = Modifier
+                        .padding(10.dp, 0.dp, 0.dp, 0.dp)
+                        .paddingFromBaseline(0.dp, 10.dp),
+                    text = pubPlaceVM.pubPlaceLocations[currentPubPlaceId]!!.title,
+                    fontWeight = FontWeight.ExtraBold,
+                    textAlign = TextAlign.Center,
+                    fontSize = 30.sp
+                )
             } // Back to HomePage button
-            Column() {
-                Text(text = currentPubPlaceId)
-                Text(text = pubPlaceVM.pubPlaceLocations[currentPubPlaceId]!!.description)
+            Column(
+                modifier = Modifier
+
+                    .fillMaxWidth()
+                    .fillMaxHeight(0.95f)
+                    .padding(10.dp)
+            ) {
+                Column() {
+//                    Column(
+//                        modifier = Modifier
+//                            .fillMaxWidth(),
+//
+//                        horizontalAlignment = Alignment.CenterHorizontally,
+//                        verticalArrangement = Arrangement.SpaceAround,
+//
+//
+//                        ) {
+//
+//                    }
+                    Row() {
+                        Row(
+                            modifier = Modifier
+                                .clip(CircleShape)
+                                .width(200.dp)
+                                .height(150.dp),
+                        ) {
+                            AsyncImage(
+                                modifier = Modifier.fillMaxSize(),
+                                contentScale = ContentScale.Crop,
+                                model = pubPlaceVM.pubPlaceLocations[currentPubPlaceId]!!.pub_img_url,
+                                contentDescription = "image",
+                            )
+                        }
+                        Column(
+                            modifier = Modifier
+                                .padding(3.dp)
+                                .width(200.dp)
+                                .height(150.dp)
+                                .background(
+                                    color = Color(0xffed4956),
+                                    shape = RoundedCornerShape(50.dp)
+                                ),
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            verticalArrangement = Arrangement.SpaceEvenly,
+
+                        ) {
+
+                            Text(
+                                fontSize = 8.sp,
+                                text = "Opening hours \n ${pubPlaceVM.pubPlaceLocations[currentPubPlaceId]!!.workdays}",
+                                color = Color.White,
+                                textAlign = TextAlign.Center
+                            )
+                            Text(
+                                fontSize = 8.sp,
+                                text = pubPlaceVM.pubPlaceLocations[currentPubPlaceId]!!.address,
+                                color = Color.White,
+                                textAlign = TextAlign.Center
+                            )
+                            Text(
+                                fontSize = 8.sp,
+                                text = pubPlaceVM.pubPlaceLocations[currentPubPlaceId]!!.contactUs,
+                                color = Color.White,
+                                textAlign = TextAlign.Center
+                            )
+                            Text(
+                                fontSize = 8.sp,
+                                text =  pubPlaceVM.pubPlaceLocations[currentPubPlaceId]!!.weblink,
+                                color = Color.White,
+                                textAlign = TextAlign.Center
+                            )
+                        }
+
+                    }
+                    Column(
+                        modifier = Modifier
+                            .verticalScroll(rememberScrollState()),
+                    ) {
+
+                        Column(
+                            modifier = Modifier
+                                .padding(0.dp, 10.dp)
+                                .fillMaxWidth()
+                                .background(
+                                    color = Color.Transparent,
+                                    shape = RoundedCornerShape(50.dp)
+                                ),
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            verticalArrangement = Arrangement.Center
+                        ) {
+
+                            Text(
+                                modifier = Modifier
+                                    .border(
+                                        1.dp,
+                                        Color(0xffed4956),
+                                        shape = RoundedCornerShape(50.dp)
+                                    )
+                                    .clickable {
+                                        isDescriptionOpen = !isDescriptionOpen
+                                    }
+                                    .fillMaxWidth(),
+                                text = "Description",
+                                color = Color(0xffed4956),
+                                textAlign = TextAlign.Center
+                            )
+                            if (isDescriptionOpen) {
+                                Text(
+                                    modifier = Modifier.padding(0.dp, 10.dp),
+                                    text = pubPlaceVM.pubPlaceLocations[currentPubPlaceId]!!.description
+                                )
+                            }
+                        }
+                        pubPlaceVM.pubPlaceLocations[currentPubPlaceId]!!.event.forEach { event ->
+
+                            Column(
+                                modifier = Modifier
+                                    .border(1.dp, Color(0xffed4956))
+                                    .padding(0.dp, 5.dp)
+                                    .fillMaxWidth()
+                                    .background(
+                                        color = Color.White,
+                                        shape = RoundedCornerShape(50.dp),
+                                    )
+                                ,
+                                verticalArrangement = Arrangement.SpaceBetween
+
+                            ) {
+                                Row(
+                                    verticalAlignment = CenterVertically,
+                                    horizontalArrangement = Arrangement.SpaceAround,
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .padding(5.dp)
+
+
+
+                                ) {
+
+                                    Column(modifier = Modifier.width(70.dp)) {
+
+                                        Text(
+                                            text = event["e_date"].toString(),
+                                            textAlign = TextAlign.Center,
+                                            maxLines = 1,
+                                            fontSize = 13.sp,
+                                            fontFamily = SansSerif
+                                        )
+                                    }
+                                    Column(
+                                        horizontalAlignment = Alignment.CenterHorizontally
+                                    ) {
+                                        Text(
+                                            text = event["e_title"].toString(),
+                                            textDecoration = TextDecoration.Underline,
+                                            fontWeight = FontWeight.Bold
+                                        )
+
+                                        Column(modifier = Modifier.width(150.dp),
+                                                horizontalAlignment = Alignment.CenterHorizontally) {
+
+                                            Text(
+                                                fontSize = 14.sp,
+                                                text = event["e_description"].toString(),
+                                                textAlign = TextAlign.Center,
+                                                maxLines = 20,
+
+                                            )
+                                        }
+                                    }
+                                    Column(
+                                        horizontalAlignment = Alignment.CenterHorizontally,
+                                        verticalArrangement = Arrangement.SpaceAround,
+                                        modifier = Modifier.width(60.dp)
+                                    ) {
+                                        Text(
+                                            text = event["e_time"].toString(),
+                                            textAlign = TextAlign.Center
+                                        )
+                                        Text(
+                                            text = "${event["e_price"].toString()} €",
+                                                fontWeight = FontWeight.Bold,
+                                                textAlign = TextAlign.Center
+                                        )
+
+                                    }
+                                }
+                            }
+                            Divider(thickness = 10.dp , color = Color.White)
+                        } // forEach
+                    }
+
+                }
             }
         }
     }
