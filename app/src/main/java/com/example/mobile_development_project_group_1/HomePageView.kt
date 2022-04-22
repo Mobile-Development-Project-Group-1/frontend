@@ -308,7 +308,7 @@ fun HomeView(navController: NavHostController) {
                     }
                     Column(
                         modifier = Modifier
-                            .verticalScroll(state = scrollState)
+                            .verticalScroll(rememberScrollState()),
                     ) {
 
                         Column(
