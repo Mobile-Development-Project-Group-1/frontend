@@ -1,6 +1,6 @@
 package com.example.mobile_development_project_group_1
 
-import android.util.Log
+
 import androidx.activity.ComponentActivity
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
@@ -23,7 +23,6 @@ import androidx.compose.ui.Alignment.Companion.CenterVertically
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.semantics.Role.Companion.Image
 import androidx.compose.ui.text.font.FontFamily.Companion.SansSerif
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
@@ -45,7 +44,7 @@ fun HomeView(navController: NavHostController) {
     var currentUserRoute by remember { mutableStateOf("") }
     var currentPubPlaceId by remember { mutableStateOf("") }
     var isDescriptionOpen by remember { mutableStateOf(false) }
-    val scrollState = rememberScrollState()
+
     var isPubOpen by remember { mutableStateOf(false) }
     val pubPlaceVM = viewModel<PubPlaceViewModel>(LocalContext.current as ComponentActivity)
      pubPlaceVM.getPubPlaceInfo()
@@ -201,7 +200,7 @@ fun HomeView(navController: NavHostController) {
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(10.dp),
-                verticalAlignment = Alignment.CenterVertically
+
             ) {
                 Card(
                     modifier = Modifier
@@ -214,7 +213,7 @@ fun HomeView(navController: NavHostController) {
                 ) {
                     Row(
                         modifier = Modifier.background(Color(0xffed4956)),
-                        verticalAlignment = Alignment.CenterVertically,
+
                         horizontalArrangement = Arrangement.Center
                     ) {
                         Icon(
@@ -241,19 +240,8 @@ fun HomeView(navController: NavHostController) {
                     .fillMaxHeight(0.95f)
                     .padding(10.dp)
             ) {
-                Column() {
-//                    Column(
-//                        modifier = Modifier
-//                            .fillMaxWidth(),
-//
-//                        horizontalAlignment = Alignment.CenterHorizontally,
-//                        verticalArrangement = Arrangement.SpaceAround,
-//
-//
-//                        ) {
-//
-//                    }
-                    Row() {
+                Column {
+                    Row {
                         Row(
                             modifier = Modifier
                                 .clip(CircleShape)
@@ -282,25 +270,25 @@ fun HomeView(navController: NavHostController) {
                         ) {
 
                             Text(
-                                fontSize = 8.sp,
+                                fontSize = 12.sp,
                                 text = "Opening hours \n ${pubPlaceVM.pubPlaceLocations[currentPubPlaceId]!!.workdays}",
                                 color = Color.White,
                                 textAlign = TextAlign.Center
                             )
                             Text(
-                                fontSize = 8.sp,
+                                fontSize = 12.sp,
                                 text = pubPlaceVM.pubPlaceLocations[currentPubPlaceId]!!.address,
                                 color = Color.White,
                                 textAlign = TextAlign.Center
                             )
                             Text(
-                                fontSize = 8.sp,
+                                fontSize = 12.sp,
                                 text = pubPlaceVM.pubPlaceLocations[currentPubPlaceId]!!.contactUs,
                                 color = Color.White,
                                 textAlign = TextAlign.Center
                             )
                             Text(
-                                fontSize = 8.sp,
+                                fontSize = 12.sp,
                                 text =  pubPlaceVM.pubPlaceLocations[currentPubPlaceId]!!.weblink,
                                 color = Color.White,
                                 textAlign = TextAlign.Center
