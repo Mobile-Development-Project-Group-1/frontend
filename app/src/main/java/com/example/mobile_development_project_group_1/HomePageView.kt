@@ -319,8 +319,8 @@ fun HomeView(navController: NavHostController) {
                                     color = Color.Transparent,
                                     shape = RoundedCornerShape(50.dp)
                                 ),
-                            horizontalAlignment = Alignment.CenterHorizontally
-
+                            horizontalAlignment = Alignment.CenterHorizontally,
+                            verticalArrangement = Arrangement.Center
                         ) {
 
                             Text(
@@ -363,7 +363,7 @@ fun HomeView(navController: NavHostController) {
                                 Row(
                                     verticalAlignment = Alignment.CenterVertically,
                                     horizontalArrangement = Arrangement.SpaceEvenly,
-                                    modifier =  Modifier.fillMaxWidth().horizontalScroll(rememberScrollState()).padding(5.dp)
+                                    modifier =  Modifier.fillMaxWidth().padding(5.dp)
 
 
 
@@ -388,13 +388,15 @@ fun HomeView(navController: NavHostController) {
                                             fontWeight = FontWeight.Bold
                                         )
 
-                                        Column(modifier = Modifier.width(250.dp),
+                                        Column(modifier = Modifier.width(150.dp),
                                                 horizontalAlignment = Alignment.CenterHorizontally) {
 
                                             Text(
+                                                fontSize = 14.sp,
                                                 text = event["e_description"].toString(),
                                                 textAlign = TextAlign.Center,
-                                                maxLines = 2
+                                                maxLines = 20,
+
                                             )
                                         }
                                     }
