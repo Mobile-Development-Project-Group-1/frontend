@@ -275,7 +275,7 @@ fun HomeView(navController: NavHostController) {
                                     shape = RoundedCornerShape(50.dp)
                                 ),
                             horizontalAlignment = Alignment.CenterHorizontally,
-                            verticalArrangement = Arrangement.SpaceAround
+                            verticalArrangement = Arrangement.SpaceEvenly,
 
                         ) {
 
