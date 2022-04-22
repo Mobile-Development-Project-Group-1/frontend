@@ -110,7 +110,7 @@ fun HomeView(navController: NavHostController) {
                                     text = elem.value.title,
                                     color = Color.White,
                                     fontWeight = FontWeight.Bold,
-                                    fontSize = 18.sp,
+                                    fontSize = 10.sp,
                                     maxLines = 1,
                                     overflow = TextOverflow.Visible
                                 )
@@ -280,21 +280,25 @@ fun HomeView(navController: NavHostController) {
                         ) {
 
                             Text(
+                                fontSize = 8.sp,
                                 text = "Opening hours \n ${pubPlaceVM.pubPlaceLocations[currentPubPlaceId]!!.workdays}",
                                 color = Color.White,
                                 textAlign = TextAlign.Center
                             )
                             Text(
+                                fontSize = 8.sp,
                                 text = pubPlaceVM.pubPlaceLocations[currentPubPlaceId]!!.address,
                                 color = Color.White,
                                 textAlign = TextAlign.Center
                             )
                             Text(
+                                fontSize = 8.sp,
                                 text = pubPlaceVM.pubPlaceLocations[currentPubPlaceId]!!.contactUs,
                                 color = Color.White,
                                 textAlign = TextAlign.Center
                             )
                             Text(
+                                fontSize = 8.sp,
                                 text =  pubPlaceVM.pubPlaceLocations[currentPubPlaceId]!!.weblink,
                                 color = Color.White,
                                 textAlign = TextAlign.Center
@@ -358,14 +362,17 @@ fun HomeView(navController: NavHostController) {
                             ) {
                                 Row(
                                     verticalAlignment = Alignment.CenterVertically,
-                                    horizontalArrangement = Arrangement.SpaceBetween
+                                    horizontalArrangement = Arrangement.SpaceBetween,
+                                    modifier =  Modifier.fillMaxWidth().horizontalScroll(rememberScrollState())
+
+
 
                                 ) {
 
                                     Column(modifier = Modifier.width(70.dp)) {
 
                                         Text(
-                                            text = event.e_date,
+                                            text = event["e_date"].toString(),
                                             textAlign = TextAlign.Center,
                                             maxLines = 1,
                                             fontSize = 13.sp,
@@ -376,7 +383,7 @@ fun HomeView(navController: NavHostController) {
                                         horizontalAlignment = Alignment.CenterHorizontally
                                     ) {
                                         Text(
-                                            text = event.e_title,
+                                            text = event["e_title"].toString(),
                                             textDecoration = TextDecoration.Underline,
                                             fontWeight = FontWeight.Bold
                                         )
@@ -384,7 +391,7 @@ fun HomeView(navController: NavHostController) {
                                         Column(modifier = Modifier.width(250.dp)) {
 
                                             Text(
-                                                text = event.e_description,
+                                                text = event["e_description"].toString(),
                                                 textAlign = TextAlign.Center,
                                                 maxLines = 2
                                             )
@@ -396,16 +403,15 @@ fun HomeView(navController: NavHostController) {
                                         modifier = Modifier.width(60.dp)
                                     ) {
                                         Text(
-                                            text = event.e_time,
+                                            text = event["e_time"].toString(),
                                             textAlign = TextAlign.Center
                                         )
-                                        Column() {
-                                            Text(
-                                                text = "${event.e_price} €",
+                                        Text(
+                                            text = "${event["e_price"].toString()} €",
                                                 fontWeight = FontWeight.Bold,
                                                 textAlign = TextAlign.Center
-                                            )
-                                        }
+                                        )
+
                                     }
                                 }
                             }
