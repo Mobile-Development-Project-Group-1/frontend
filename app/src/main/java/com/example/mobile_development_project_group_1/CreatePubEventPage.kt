@@ -172,6 +172,11 @@ fun  PubEventPage(nav:NavHostController) {
                             "Added ${evenCount.value} event",
                             Toast.LENGTH_SHORT
                         ).show()
+                        e_title.value = ""
+                        e_description.value = ""
+                        e_price.value =""
+                        e_time.value =""
+                        e_date.value =""
                     }else{
                         Toast.makeText(
                             context,

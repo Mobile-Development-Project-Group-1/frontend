@@ -113,6 +113,8 @@ fun HomeView(navController: NavHostController) {
                                     fontSize = 10.sp,
                                     maxLines = 1,
                                     overflow = TextOverflow.Visible
+                                    
+
                                 )
                             }
                         }
