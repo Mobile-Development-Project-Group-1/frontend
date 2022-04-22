@@ -33,7 +33,7 @@ class PubPlaceViewModel: ViewModel() {
                             document.get("event") as MutableList<Event>
 
                         )
-                    Log.d("*************", pubPlaceLocations[document.id]?.title.toString())
+                    Log.d("*************", pubPlaceLocations[document.id]?.event.toString())
                 }
                 Log.d("result", pubPlaceLocations.toString())
             }

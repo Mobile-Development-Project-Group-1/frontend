@@ -1,5 +1,6 @@
 package com.example.mobile_development_project_group_1
 
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.compose.foundation.*
 import androidx.compose.foundation.layout.*
@@ -27,6 +28,7 @@ import androidx.compose.ui.text.font.FontFamily.Companion.SansSerif
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import coil.compose.AsyncImage
@@ -108,7 +110,9 @@ fun HomeView(navController: NavHostController) {
                                     text = elem.value.title,
                                     color = Color.White,
                                     fontWeight = FontWeight.Bold,
-                                    fontSize = 18.sp
+                                    fontSize = 18.sp,
+                                    maxLines = 1,
+                                    overflow = TextOverflow.Visible
                                 )
                             }
                         }
@@ -191,16 +195,18 @@ fun HomeView(navController: NavHostController) {
                 .fillMaxHeight(0.95f)
                 .padding(10.dp)
         ) {
-            Column(
+            Row(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(10.dp),
+                verticalAlignment = Alignment.CenterVertically
             ) {
                 Card(
                     modifier = Modifier
                         .size(36.dp)
                         .clickable {
                             isPubOpen = !isPubOpen
+                            isDescriptionOpen = false
                         },
                     shape = RoundedCornerShape(30.dp)
                 ) {
@@ -216,6 +222,15 @@ fun HomeView(navController: NavHostController) {
                         )
                     }
                 }
+                Text(
+                    modifier = Modifier
+                        .padding(10.dp, 0.dp, 0.dp, 0.dp)
+                        .paddingFromBaseline(0.dp, 10.dp),
+                    text = pubPlaceVM.pubPlaceLocations[currentPubPlaceId]!!.title,
+                    fontWeight = FontWeight.ExtraBold,
+                    textAlign = TextAlign.Center,
+                    fontSize = 30.sp
+                )
             } // Back to HomePage button
             Column(
                 modifier = Modifier
@@ -225,34 +240,31 @@ fun HomeView(navController: NavHostController) {
                     .padding(10.dp)
             ) {
                 Column() {
-                    Column(
-                        modifier = Modifier
-                            .fillMaxWidth(),
-
-                        horizontalAlignment = Alignment.CenterHorizontally,
-                        verticalArrangement = Arrangement.SpaceAround,
-
-
-                        ) {
-                        Text(
-                            modifier = Modifier.paddingFromBaseline(0.dp,10.dp),
-                            text = pubPlaceVM.pubPlaceLocations[currentPubPlaceId]!!.title,
-                            fontWeight = FontWeight.ExtraBold,
-                            textAlign = TextAlign.Center,
-                            fontSize = 30.sp
-                        )
-                    }
+//                    Column(
+//                        modifier = Modifier
+//                            .fillMaxWidth(),
+//
+//                        horizontalAlignment = Alignment.CenterHorizontally,
+//                        verticalArrangement = Arrangement.SpaceAround,
+//
+//
+//                        ) {
+//
+//                    }
                     Row() {
-                        Image(
+                        Row(
                             modifier = Modifier
                                 .clip(CircleShape)
                                 .width(200.dp)
-                                .height(150.dp)
-                                .border(1.dp, Color(0xffed4956)),
-
-                            painter = painterResource(R.drawable.ic_bar),
-                            contentDescription = "image",
-                        )
+                                .height(150.dp),
+                        ) {
+                            AsyncImage(
+                                modifier = Modifier.fillMaxSize(),
+                                contentScale = ContentScale.Crop,
+                                model = pubPlaceVM.pubPlaceLocations[currentPubPlaceId]!!.pub_img_url,
+                                contentDescription = "image",
+                            )
+                        }
                         Column(
                             modifier = Modifier
                                 .padding(3.dp)
@@ -268,20 +280,24 @@ fun HomeView(navController: NavHostController) {
                         ) {
 
                             Text(
-                                text = "Opening hours",
-                                color = Color.White
+                                text = "Opening hours \n ${pubPlaceVM.pubPlaceLocations[currentPubPlaceId]!!.workdays}",
+                                color = Color.White,
+                                textAlign = TextAlign.Center
                             )
                             Text(
-                                text = "Address",
-                                color = Color.White
+                                text = pubPlaceVM.pubPlaceLocations[currentPubPlaceId]!!.address,
+                                color = Color.White,
+                                textAlign = TextAlign.Center
                             )
                             Text(
-                                text = "Contact us",
-                                color = Color.White
+                                text = pubPlaceVM.pubPlaceLocations[currentPubPlaceId]!!.contactUs,
+                                color = Color.White,
+                                textAlign = TextAlign.Center
                             )
                             Text(
-                                text = "Web link",
-                                color = Color.White
+                                text =  pubPlaceVM.pubPlaceLocations[currentPubPlaceId]!!.weblink,
+                                color = Color.White,
+                                textAlign = TextAlign.Center
                             )
                         }
 
@@ -293,17 +309,12 @@ fun HomeView(navController: NavHostController) {
 
                         Column(
                             modifier = Modifier
-                                .padding(3.dp)
+                                .padding(0.dp, 20.dp)
                                 .fillMaxWidth()
-
                                 .background(
                                     color = Color.Transparent,
                                     shape = RoundedCornerShape(50.dp)
-                                )
-//                            .border(1.dp,
-//                                Color(0xffed4956),
-//                                shape = RoundedCornerShape(50.dp)),
-                            ,
+                                ),
                             horizontalAlignment = Alignment.CenterHorizontally
 
                         ) {
@@ -325,20 +336,23 @@ fun HomeView(navController: NavHostController) {
                             )
                             if (isDescriptionOpen) {
                                 Text(
-                                    text = "This is an amazing bar. Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum",
+                                    modifier = Modifier.padding(0.dp, 10.dp),
+                                    text = pubPlaceVM.pubPlaceLocations[currentPubPlaceId]!!.description
                                 )
                             }
                         }
-                        repeat(10) {
+                        pubPlaceVM.pubPlaceLocations[currentPubPlaceId]!!.event.forEach { event ->
+
                             Column(
                                 modifier = Modifier
                                     .border(1.dp, Color(0xffed4956))
+                                    .padding(0.dp, 5.dp)
                                     .fillMaxWidth()
                                     .background(
                                         color = Color.White,
                                         shape = RoundedCornerShape(50.dp),
                                     )
-                                    .padding(5.dp),
+                                ,
                                 verticalArrangement = Arrangement.SpaceBetween
 
                             ) {
@@ -351,7 +365,7 @@ fun HomeView(navController: NavHostController) {
                                     Column(modifier = Modifier.width(70.dp)) {
 
                                         Text(
-                                            "22/10/2022",
+                                            text = event.e_date,
                                             textAlign = TextAlign.Center,
                                             maxLines = 1,
                                             fontSize = 13.sp,
@@ -362,7 +376,7 @@ fun HomeView(navController: NavHostController) {
                                         horizontalAlignment = Alignment.CenterHorizontally
                                     ) {
                                         Text(
-                                            text = "Event 1",
+                                            text = event.e_title,
                                             textDecoration = TextDecoration.Underline,
                                             fontWeight = FontWeight.Bold
                                         )
@@ -370,10 +384,9 @@ fun HomeView(navController: NavHostController) {
                                         Column(modifier = Modifier.width(250.dp)) {
 
                                             Text(
-                                                "This is an amazing bar. Lorem Ipsum is simply dummy text of the printing and typesett",
+                                                text = event.e_description,
                                                 textAlign = TextAlign.Center,
-                                                maxLines = 2,
-//                                    overflow = TextOverflow.Visible
+                                                maxLines = 2
                                             )
                                         }
                                     }
@@ -383,13 +396,12 @@ fun HomeView(navController: NavHostController) {
                                         modifier = Modifier.width(60.dp)
                                     ) {
                                         Text(
-                                            text = "17-20",
+                                            text = event.e_time,
                                             textAlign = TextAlign.Center
                                         )
                                         Column() {
-
                                             Text(
-                                                "10$",
+                                                text = "${event.e_price} €",
                                                 fontWeight = FontWeight.Bold,
                                                 textAlign = TextAlign.Center
                                             )
@@ -397,7 +409,7 @@ fun HomeView(navController: NavHostController) {
                                     }
                                 }
                             }
-                        }
+                        } // forEach
                     }
 
                 }
