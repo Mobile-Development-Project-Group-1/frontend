@@ -313,7 +313,7 @@ fun HomeView(navController: NavHostController) {
 
                         Column(
                             modifier = Modifier
-                                .padding(0.dp, 20.dp)
+                                .padding(0.dp, 10.dp)
                                 .fillMaxWidth()
                                 .background(
                                     color = Color.Transparent,
@@ -361,9 +361,11 @@ fun HomeView(navController: NavHostController) {
 
                             ) {
                                 Row(
-                                    verticalAlignment = Alignment.CenterVertically,
-                                    horizontalArrangement = Arrangement.SpaceEvenly,
-                                    modifier =  Modifier.fillMaxWidth().padding(5.dp)
+                                    verticalAlignment = CenterVertically,
+                                    horizontalArrangement = Arrangement.SpaceAround,
+                                    modifier = Modifier
+                                        .fillMaxWidth()
+                                        .padding(5.dp)
 
 
 
@@ -418,6 +420,7 @@ fun HomeView(navController: NavHostController) {
                                     }
                                 }
                             }
+                            Divider(thickness = 10.dp , color = Color.White)
                         } // forEach
                     }
 
