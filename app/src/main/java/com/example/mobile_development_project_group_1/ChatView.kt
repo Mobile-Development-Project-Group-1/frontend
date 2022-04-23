@@ -36,7 +36,7 @@ class MessageViewModel :ViewModel() {
         val name= username.split("@")
 
         val msgs= Message(msg,name[0], Calendar.getInstance().time)
-        //print(Calendar.getInstance().time)
+
         firestore.collection("messages").add(msgs)
 
     }

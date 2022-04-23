@@ -33,9 +33,9 @@ class PubPlaceViewModel: ViewModel() {
                             document.get("event") as ArrayList<Map<String,Any>>
 
                         )
-                    Log.d("*************", pubPlaceLocations[document.id]?.event.toString())
+
                 }
-                Log.d("result", pubPlaceLocations.toString())
+
             }
 
     }
