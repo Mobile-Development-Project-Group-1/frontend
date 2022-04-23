@@ -194,12 +194,15 @@ fun HomeView(navController: NavHostController) {
             modifier = Modifier
                 .fillMaxWidth()
                 .fillMaxHeight(0.95f)
-                .padding(10.dp)
+                .padding(10.dp),
+
         ) {
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(10.dp),
+                   verticalAlignment = Alignment.CenterVertically,
+
 
             ) {
                 Card(
@@ -213,7 +216,7 @@ fun HomeView(navController: NavHostController) {
                 ) {
                     Row(
                         modifier = Modifier.background(Color(0xffed4956)),
-
+                        verticalAlignment = Alignment.CenterVertically,
                         horizontalArrangement = Arrangement.Center
                     ) {
                         Icon(
@@ -270,25 +273,25 @@ fun HomeView(navController: NavHostController) {
                         ) {
 
                             Text(
-                                fontSize = 12.sp,
+                                fontSize = 10.sp,
                                 text = "Opening hours \n ${pubPlaceVM.pubPlaceLocations[currentPubPlaceId]!!.workdays}",
                                 color = Color.White,
                                 textAlign = TextAlign.Center
                             )
                             Text(
-                                fontSize = 12.sp,
+                                fontSize = 10.sp,
                                 text = pubPlaceVM.pubPlaceLocations[currentPubPlaceId]!!.address,
                                 color = Color.White,
                                 textAlign = TextAlign.Center
                             )
                             Text(
-                                fontSize = 12.sp,
+                                fontSize = 10.sp,
                                 text = pubPlaceVM.pubPlaceLocations[currentPubPlaceId]!!.contactUs,
                                 color = Color.White,
                                 textAlign = TextAlign.Center
                             )
                             Text(
-                                fontSize = 12.sp,
+                                fontSize = 10.sp,
                                 text =  pubPlaceVM.pubPlaceLocations[currentPubPlaceId]!!.weblink,
                                 color = Color.White,
                                 textAlign = TextAlign.Center
