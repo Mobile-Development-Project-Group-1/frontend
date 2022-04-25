@@ -1,6 +1,6 @@
 # KechUp Mobile Application
 
-Group members: * Diana Syvorotka, * Phuong Pham, * Andreas Avetisian, *Yingyu Mattila 
+Group members: * Diana Syvorotka, * Phuong Pham, * Andreas Avetisian, * Yingyu Mattila 
 
 ### Introduction
 The aim of the project is to design and develop a comprehensive mobile application.
