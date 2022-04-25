@@ -1,6 +1,6 @@
 # KechUp Mobile Application
 
-Group members: 
+### Group members: 
 * Diana Syvorotka
 * Phuong Pham  
 * Andreas Avetisian 
