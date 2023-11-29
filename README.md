@@ -19,4 +19,4 @@ While working on the application Kotlin (Jetpack compose) was used The front-end
 The database is built with Firebase. All functions using the database have been tested, as well as the user interface, to be ensure that it is built correctly and the routing is appropriate.
 
 ### Poster
-![Local Image](./posterImg/Poster_Group_1.jpg)
+![Local Image](./posterImg/Poster1.jpg)
